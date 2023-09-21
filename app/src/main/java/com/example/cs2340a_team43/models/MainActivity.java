@@ -12,6 +12,12 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button startBtn = findViewById(R.id.startButton);
+        Button quitBtn = findViewById(R.id.quitButton);
+        quitBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+        });
         startBtn.setOnClickListener(v -> {
             Intent game = new Intent(MainActivity.this, ConfigurationPage.class);
             startActivity(game);
