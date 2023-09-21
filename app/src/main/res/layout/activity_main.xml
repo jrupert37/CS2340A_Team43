@@ -9,8 +9,8 @@
         android:layout_width="139dp"
         android:layout_height="wrap_content"
         android:text="@string/start_button_text"
-        android:translationX="130dp"
-        android:translationY="450dp" />
+        android:translationX="300dp"
+        android:translationY="250dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -20,13 +20,13 @@
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:translationX="35dp" />
+        android:translationX="190dp" />
 
     <Button
         android:id="@+id/quitButton"
         android:layout_width="139dp"
         android:layout_height="wrap_content"
         android:text="@string/quit_button_text"
-        android:translationX="130dp"
-        android:translationY="402dp" />
+        android:translationX="300dp"
+        android:translationY="210dp" />
 </LinearLayout>
