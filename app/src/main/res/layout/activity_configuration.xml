@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/name_prompt"
+        android:id="@+id/namePrompt"
         android:layout_width="164dp"
         android:layout_height="37dp"
         android:layout_marginTop="16dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/name_input_box"
+        android:id="@+id/nameInputBox"
         android:layout_width="283dp"
         android:layout_height="52dp"
         android:ems="10"
@@ -28,11 +28,11 @@
         android:autofillHints="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_prompt"
+        app:layout_constraintTop_toBottomOf="@+id/namePrompt"
         tools:text="Name" />
 
     <TextView
-        android:id="@+id/select_difficulty_text"
+        android:id="@+id/selectDifficultyPrompt"
         android:layout_width="154dp"
         android:layout_height="33dp"
         android:layout_marginTop="36dp"
@@ -42,32 +42,32 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_input_box" />
+        app:layout_constraintTop_toBottomOf="@+id/nameInputBox" />
 
     <RadioGroup
-        android:id="@+id/difficulty_button_group"
+        android:id="@+id/difficultyRadioGroup"
         android:layout_width="397dp"
         android:layout_height="67dp"
-        android:checkedButton="@+id/easy_button"
+        android:checkedButton="@+id/easyButton"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_difficulty_text">
+        app:layout_constraintTop_toBottomOf="@+id/selectDifficultyPrompt">
 
         <RadioButton
-            android:id="@+id/easy_button"
+            android:id="@+id/easyButton"
             android:layout_width="128dp"
             android:layout_height="55dp"
             android:text="@string/easy_difficulty" />
 
         <RadioButton
-            android:id="@+id/medium_button"
+            android:id="@+id/mediumButton"
             android:layout_width="153dp"
             android:layout_height="54dp"
             android:text="@string/medium_difficulty" />
 
         <RadioButton
-            android:id="@+id/hard_button"
+            android:id="@+id/hardButton"
             android:layout_width="wrap_content"
             android:layout_height="51dp"
             android:text="@string/hard_difficulty" />
@@ -75,7 +75,7 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/select_sprite_prompt"
+        android:id="@+id/selectSpritePrompt"
         android:layout_width="144dp"
         android:layout_height="43dp"
         android:layout_marginTop="16dp"
@@ -86,10 +86,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/difficulty_button_group" />
+        app:layout_constraintTop_toBottomOf="@+id/difficultyRadioGroup" />
 
     <RadioGroup
-        android:id="@+id/sprite_select_group"
+        android:id="@+id/spriteRadioGroup"
         android:layout_width="386dp"
         android:layout_height="86dp"
         android:checkedButton="@+id/sprite1"
@@ -98,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_sprite_prompt"
+        app:layout_constraintTop_toBottomOf="@+id/selectSpritePrompt"
         app:layout_constraintVertical_bias="0.0">
 
         <Button
