@@ -8,7 +8,7 @@
         android:id="@+id/startButton"
         android:layout_width="139dp"
         android:layout_height="wrap_content"
-        android:text="@string/start_button_text"
+        android:text="Start"
         android:translationX="300dp"
         android:translationY="250dp" />
 
