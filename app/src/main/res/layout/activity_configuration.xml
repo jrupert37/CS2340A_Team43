@@ -7,86 +7,121 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="283dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="305dp"
-        android:layout_marginEnd="304dp"
+        android:id="@+id/name_prompt"
+        android:layout_width="164dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="16dp"
         android:text="@string/enter_name"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="281dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="304dp"
-        android:layout_marginEnd="304dp"
-        android:layout_marginBottom="25dp"
+        android:id="@+id/name_input_box"
+        android:layout_width="283dp"
+        android:layout_height="52dp"
         android:ems="10"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        android:autofillHints="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.166"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/name_prompt"
         tools:text="Name" />
 
     <TextView
-        android:id="@+id/textView7"
-        android:layout_width="275dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="305dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="311dp"
-        android:layout_marginBottom="140dp"
+        android:id="@+id/select_difficulty_text"
+        android:layout_width="154dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="36dp"
         android:text="@string/choose_difficulty"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/name_input_box" />
 
     <RadioGroup
-        android:layout_width="418dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="236dp"
-        android:layout_marginEnd="236dp"
-        android:layout_marginBottom="86dp"
+        android:id="@+id/difficulty_button_group"
+        android:layout_width="397dp"
+        android:layout_height="67dp"
+        android:checkedButton="@+id/easy_button"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/select_difficulty_text">
 
         <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="129dp"
+            android:id="@+id/easy_button"
+            android:layout_width="128dp"
             android:layout_height="55dp"
             android:text="@string/easy_difficulty" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="156dp"
+            android:id="@+id/medium_button"
+            android:layout_width="153dp"
             android:layout_height="54dp"
             android:text="@string/medium_difficulty" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="131dp"
-            android:layout_height="54dp"
+            android:id="@+id/hard_button"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
             android:text="@string/hard_difficulty" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/select_sprite_prompt"
+        android:layout_width="144dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/select_sprite"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/difficulty_button_group" />
+
+    <RadioGroup
+        android:id="@+id/sprite_select_group"
+        android:layout_width="386dp"
+        android:layout_height="86dp"
+        android:checkedButton="@+id/sprite1"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_sprite_prompt"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageButton
+            android:id="@+id/sprite1"
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:contentDescription="Sprite 1 choice"
+            android:src="@android:drawable/btn_star" />
+
+        <ImageButton
+            android:id="@+id/sprite2"
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="Sprite 2 choice"
+            android:src="@android:drawable/btn_star" />
+
+        <ImageButton
+            android:id="@+id/sprite3"
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="Sprite 3 choice"
+            android:src="@android:drawable/btn_star" />
 
     </RadioGroup>
 
