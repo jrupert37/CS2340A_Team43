@@ -96,32 +96,33 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/select_sprite_prompt"
         app:layout_constraintVertical_bias="0.0">
 
-        <ImageButton
+        <Button
             android:id="@+id/sprite1"
-            android:layout_width="128dp"
+            android:layout_width="136dp"
             android:layout_height="match_parent"
-            android:contentDescription="Sprite 1 choice"
-            android:src="@android:drawable/btn_star" />
+            android:background="@drawable/frowny"
+            android:contentDescription="@string/sprite1_description" />
 
-        <ImageButton
+        <Button
             android:id="@+id/sprite2"
-            android:layout_width="128dp"
+            android:layout_width="111dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="Sprite 2 choice"
-            android:src="@android:drawable/btn_star" />
+            android:background="@drawable/medium_face"
+            android:contentDescription="@string/sprite2_description" />
 
-        <ImageButton
+        <Button
             android:id="@+id/sprite3"
-            android:layout_width="128dp"
+            android:layout_width="102dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:contentDescription="Sprite 3 choice"
-            android:src="@android:drawable/btn_star" />
+            android:background="@drawable/smiley"
+            android:contentDescription="@string/sprite3_description" />
 
     </RadioGroup>
 
