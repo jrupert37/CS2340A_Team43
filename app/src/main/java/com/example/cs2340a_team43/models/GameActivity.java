@@ -1,6 +1,9 @@
 package com.example.cs2340a_team43.models;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +21,7 @@ public class GameActivity extends AppCompatActivity {
     int screenHeight;
     private float playerX, playerY;
     private TextView hpTextView;
-
+    private Button endButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,13 @@ public class GameActivity extends AppCompatActivity {
         choice = getIntent().getIntExtra("choice", 0);
         //playerView = new PlayerView(this, playerX, playerY, hp, choice);
         //gameLayout.addView(playerView);
-
-
+        endButton = findViewById(R.id.endScreenButton);
+        endButton.setOnClickListener(v -> {
+            Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+        });
     }
+
+
 }
