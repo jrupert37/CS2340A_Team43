@@ -38,9 +38,9 @@ public class ConfigurationPage extends AppCompatActivity{
 
             if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.radioButton2) {
                 choice = 0;
-            } else if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.radioButton2) {
+            } else if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.radioButton3) {
                 choice = 1;
-            } else if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.radioButton2) {
+            } else if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.radioButton4) {
                 choice = 2;
             } else {
                 choice = 0;

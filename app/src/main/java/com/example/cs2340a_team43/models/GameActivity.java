@@ -5,6 +5,11 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.cs2340a_team43.R;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
+
 
 
 
@@ -13,11 +18,13 @@ public class GameActivity extends AppCompatActivity {
     int hp;
     int choice;
     ConstraintLayout gameLayout;
-    PlayerView playerView;
+    //private PlayerView playerView;
     int screenWidth;
     int screenHeight;
     private float playerX, playerY;
     private TextView hpTextView;
+    private ImageView playerImageView;
+
 
 
     @Override
@@ -33,10 +40,31 @@ public class GameActivity extends AppCompatActivity {
         hp = getIntent().getIntExtra("hp", 50);
         hpTextView = findViewById(R.id.healthTextView);
         hpTextView.setText("Health: " + hp);
-        choice = getIntent().getIntExtra("choice", 0);
+        choice = getIntent().getIntExtra("sprite", 0);
         //playerView = new PlayerView(this, playerX, playerY, hp, choice);
+
+        playerImageView = findViewById(R.id.playerImageView);
+        if (choice == 0) {
+            playerImageView.setImageResource(R.drawable.frowny);
+        } else if (choice == 1) {
+            playerImageView.setImageResource(R.drawable.medium_face);
+        } else if (choice == 2) {
+            playerImageView.setImageResource(R.drawable.smiley);
+        }
+
+
+
+        //playerView = new PlayerView(this, R.drawable.frowny, playerX, playerY, hp);
         //gameLayout.addView(playerView);
 
 
     }
+
+
+
+
+
+
+
+
 }
