@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/culc">
 
     <Button
         android:id="@+id/startButton"
@@ -10,13 +11,14 @@
         android:layout_height="wrap_content"
         android:text="Start"
         android:translationX="300dp"
-        android:translationY="250dp" />
+        android:translationY="250dp"
+        android:background = "@drawable/round_button"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_text"
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -28,5 +30,7 @@
         android:layout_height="wrap_content"
         android:text="@string/quit_button_text"
         android:translationX="300dp"
-        android:translationY="210dp" />
+        android:translationY="215dp"
+        android:background = "@drawable/round_button"
+        android:textColor="@android:color/white"/>
 </LinearLayout>
