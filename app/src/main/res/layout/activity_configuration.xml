@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/football_locker">
 
     <Button
         android:id="@+id/nextButton"
@@ -142,39 +143,38 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="55dp"
-        android:layout_height="60dp"
-        android:src="@drawable/medium_face"
+        android:layout_width="75dp"
+        android:layout_height="87dp"
+        android:src="@drawable/footballplayersprite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.622"
+        app:layout_constraintHorizontal_bias="0.646"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.216" />
+        app:layout_constraintVertical_bias="0.311" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="55dp"
-        android:layout_height="56dp"
-        android:src="@drawable/medium_face"
+        android:layout_width="117dp"
+        android:layout_height="123dp"
+        android:src="@drawable/nerdplayersprite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintHorizontal_bias="0.659"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.574" />
+        app:layout_constraintVertical_bias="0.628" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="37dp"
-        android:layout_height="37dp"
-        android:layout_marginBottom="28dp"
-        android:src="@drawable/smiley"
+        android:layout_width="76dp"
+        android:layout_height="100dp"
+        android:src="@drawable/gymbroplayersprite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.63"
+        app:layout_constraintHorizontal_bias="0.645"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.985" />
+        app:layout_constraintVertical_bias="0.948" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
