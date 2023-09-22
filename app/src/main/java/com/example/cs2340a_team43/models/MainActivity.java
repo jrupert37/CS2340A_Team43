@@ -2,7 +2,6 @@ package com.example.cs2340a_team43.models;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.cs2340a_team43.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
