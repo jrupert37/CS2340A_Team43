@@ -12,13 +12,15 @@ import com.example.cs2340a_team43.R;
 
 public class PlayerView extends View {
     private float x, y;
+    private int hp;
     ImageView playerImageView = findViewById(R.id.playerImageView);
-    public PlayerView(Context context, float x, float y, int radius) {
+    public PlayerView(Context context, float x, float y, int hp, int choice) {
         super(context);
         this.x = x;
         this.y = y;
+        this.hp = hp;
         //playerImageView.setImageResource(R.drawable.frowny);
-        pickSprite(0);
+        pickSprite(choice);
     }
 
     public void pickSprite(int choice) {

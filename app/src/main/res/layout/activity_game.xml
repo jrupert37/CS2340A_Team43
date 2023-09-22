@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/gameLayout">
 
     <TextView
         android:id="@+id/difficultyTextView"
@@ -61,7 +62,7 @@
         android:layout_marginBottom="3dp"
         android:text="Player_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintBottom_toTopOf="@+id/spriteImageView"
+        app:layout_constraintBottom_toTopOf="@+id/playerImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
