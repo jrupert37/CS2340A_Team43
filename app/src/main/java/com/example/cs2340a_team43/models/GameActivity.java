@@ -6,11 +6,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.cs2340a_team43.R;
 
+import org.w3c.dom.Text;
 
 
 public class GameActivity extends AppCompatActivity {
 
     int hp;
+    String difficulty;
     int choice;
     ConstraintLayout gameLayout;
     PlayerView playerView;
@@ -18,6 +20,7 @@ public class GameActivity extends AppCompatActivity {
     int screenHeight;
     private float playerX, playerY;
     private TextView hpTextView;
+    private TextView difficultyTextView;
 
 
     @Override
@@ -33,6 +36,9 @@ public class GameActivity extends AppCompatActivity {
         hp = getIntent().getIntExtra("hp", 50);
         hpTextView = findViewById(R.id.healthTextView);
         hpTextView.setText("Health: " + hp);
+        difficulty = getIntent().getStringExtra("difficulty");
+        difficultyTextView = findViewById(R.id.difficultyTextView);
+        difficultyTextView.setText("Difficulty: " + difficulty);
         choice = getIntent().getIntExtra("choice", 0);
         //playerView = new PlayerView(this, playerX, playerY, hp, choice);
         //gameLayout.addView(playerView);
