@@ -32,13 +32,17 @@ public class ConfigurationPage extends AppCompatActivity{
 
             RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
             int hp = 1;
+            String difficulty = "Easy";
 
             if (difficultyRadioGroup.getCheckedRadioButtonId() == R.id.easyButton) {
                 hp = 50;
+                difficulty = "Easy";
             } else if (difficultyRadioGroup.getCheckedRadioButtonId() == R.id.mediumButton) {
                 hp = 30;
+                difficulty = "Medium";
             } else if (difficultyRadioGroup.getCheckedRadioButtonId() == R.id.hardButton) {
                 hp = 15;
+                difficulty = "Hard";
             } else {
                 hp = 50; // Default value
             }
@@ -65,6 +69,7 @@ public class ConfigurationPage extends AppCompatActivity{
                 game.putExtra("hp", hp);
                 game.putExtra("sprite", choice);
                 game.putExtra("inputText", inputText);
+                game.putExtra("difficulty", difficulty);
                 startActivity(game);
                 finish();
             }
