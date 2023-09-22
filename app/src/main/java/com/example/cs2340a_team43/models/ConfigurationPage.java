@@ -14,7 +14,7 @@ import com.example.cs2340a_team43.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 //import com.example.cs2340a_team43.R;
-public class ConfigurationPage extends AppCompatActivity{
+public class ConfigurationPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +62,7 @@ public class ConfigurationPage extends AppCompatActivity{
 
             String inputText = editText.getText().toString().trim();
             if (inputText.isEmpty() || inputText == null) {
-                //Toast.makeText(ConfigurationPage.this, "Input: " + inputText, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ConfigurationPage.t,"Input: "+inputText,Toast.LENGTH_SHORT).show();
                 editText.setError("Please enter text.");
             } else {
                 Intent game = new Intent(ConfigurationPage.this, GameActivity.class);

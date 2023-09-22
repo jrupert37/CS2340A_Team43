@@ -2,14 +2,14 @@ package com.example.cs2340a_team43.models;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+//import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.cs2340a_team43.R;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
+//import android.graphics.Canvas;
+//import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 
@@ -18,15 +18,16 @@ import android.widget.ImageView;
 
 public class GameActivity extends AppCompatActivity {
 
-    int hp;
-    String difficulty;
-    String playerName;
-    int choice;
-    ConstraintLayout gameLayout;
+    private int hp;
+    private String difficulty;
+    private String playerName;
+    private int choice;
+    private ConstraintLayout gameLayout;
     //private PlayerView playerView;
-    int screenWidth;
-    int screenHeight;
-    private float playerX, playerY;
+    private int screenWidth;
+    private int screenHeight;
+    private float playerX;
+    private float playerY;
     private TextView hpTextView;
     private ImageView playerImageView;
 

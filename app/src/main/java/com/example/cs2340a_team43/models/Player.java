@@ -1,7 +1,8 @@
 package com.example.cs2340a_team43.models;
 
 public class Player {
-    private float x, y;
+    private float x;
+    private float y;
     private int hp;
 
     public Player(float x, float y, int hp) {
