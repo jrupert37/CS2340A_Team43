@@ -10,40 +10,42 @@
         android:id="@+id/nextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="104dp"
+        android:layout_marginEnd="80dp"
         android:text="@string/start_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.801" />
+        app:layout_constraintVertical_bias="0.837" />
 
     <TextView
         android:id="@+id/namePrompt"
         android:layout_width="164dp"
         android:layout_height="37dp"
-        android:layout_marginTop="8dp"
         android:text="@string/enter_name"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/nameInputBox"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/selectSpritePrompt"
-        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintHorizontal_bias="0.411"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintVertical_bias="0.085" />
 
     <EditText
         android:id="@+id/nameInputBox"
         android:layout_width="189dp"
         android:layout_height="56dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="148dp"
+        android:layout_marginEnd="156dp"
         android:autofillHints="Name"
         android:ems="10"
         android:inputType="text"
-        app:layout_constraintEnd_toStartOf="@+id/spriteRadioGroup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.214"
         tools:text="Name" />
 
     <TextView
@@ -56,33 +58,32 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/difficultyRadioGroup"
         app:layout_constraintEnd_toStartOf="@+id/spriteRadioGroup"
-        app:layout_constraintHorizontal_bias="0.43"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameInputBox"
-        app:layout_constraintVertical_bias="0.777" />
+        app:layout_constraintHorizontal_bias="0.399"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <RadioGroup
         android:id="@+id/difficultyRadioGroup"
-        android:layout_width="154dp"
-        android:layout_height="174dp"
-        android:layout_marginStart="140dp"
+        android:layout_width="163dp"
+        android:layout_height="157dp"
         android:checkedButton="@+id/easyButton"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.174"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.763">
+        app:layout_constraintVertical_bias="0.87">
 
         <RadioButton
             android:id="@+id/easyButton"
             android:layout_width="128dp"
-            android:layout_height="55dp"
+            android:layout_height="49dp"
             android:text="@string/easy_difficulty" />
 
         <RadioButton
             android:id="@+id/mediumButton"
             android:layout_width="153dp"
-            android:layout_height="54dp"
+            android:layout_height="49dp"
             android:text="@string/medium_difficulty" />
 
         <RadioButton
@@ -97,78 +98,82 @@
         android:id="@+id/selectSpritePrompt"
         android:layout_width="142dp"
         android:layout_height="34dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="272dp"
         android:text="@string/select_sprite"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/spriteRadioGroup"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.084" />
 
     <RadioGroup
         android:id="@+id/spriteRadioGroup"
-        android:layout_width="44dp"
-        android:layout_height="311dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="48dp"
+        android:layout_height="299dp"
         android:checkedButton="@+id/sprite1"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.33"
-        app:layout_constraintStart_toEndOf="@+id/difficultyRadioGroup"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.803">
 
         <RadioButton
             android:id="@+id/radioButton2"
-            android:layout_width="142dp"
-            android:layout_height="91dp" />
+            android:layout_width="match_parent"
+            android:layout_height="97dp" />
 
         <RadioButton
             android:id="@+id/radioButton3"
-            android:layout_width="148dp"
-            android:layout_height="98dp" />
+            android:layout_width="match_parent"
+            android:layout_height="112dp" />
 
         <RadioButton
             android:id="@+id/radioButton4"
-            android:layout_width="147dp"
-            android:layout_height="101dp" />
+            android:layout_width="match_parent"
+            android:layout_height="91dp" />
 
     </RadioGroup>
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="89dp"
-        android:layout_height="76dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.014"
-        app:layout_constraintStart_toEndOf="@+id/spriteRadioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/selectSpritePrompt"
-        app:layout_constraintVertical_bias="0.379"
-        tools:srcCompat="@drawable/frowny" />
-
-    <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="84dp"
-        android:layout_height="81dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginBottom="84dp"
+        android:layout_width="55dp"
+        android:layout_height="60dp"
         android:src="@drawable/medium_face"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/spriteRadioGroup" />
+        app:layout_constraintHorizontal_bias="0.622"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="55dp"
+        android:layout_height="56dp"
+        android:src="@drawable/medium_face"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.574" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="87dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginBottom="28dp"
         android:src="@drawable/smiley"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toEndOf="@+id/spriteRadioGroup" />
+        app:layout_constraintHorizontal_bias="0.63"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.985" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
