@@ -15,6 +15,7 @@ public class GameActivity extends AppCompatActivity {
 
     int hp;
     String difficulty;
+    String playerName;
     int choice;
     ConstraintLayout gameLayout;
     PlayerView playerView;
@@ -24,6 +25,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView hpTextView;
     private Button endButton;
     private TextView difficultyTextView;
+    private TextView nameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,9 @@ public class GameActivity extends AppCompatActivity {
         difficulty = getIntent().getStringExtra("difficulty");
         difficultyTextView = findViewById(R.id.difficultyTextView);
         difficultyTextView.setText("Difficulty: " + difficulty);
+        playerName = getIntent().getStringExtra("inputText");
+        nameTextView = findViewById(R.id.playerNameTextView);
+        nameTextView.setText(playerName);
         //playerView = new PlayerView(this, playerX, playerY, hp, choice);
         //gameLayout.addView(playerView);
         endButton = findViewById(R.id.endScreenButton);
