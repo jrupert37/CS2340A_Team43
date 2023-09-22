@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/football_locker">
 
     <Button
         android:id="@+id/nextButton"
@@ -156,7 +157,7 @@
         android:id="@+id/imageView4"
         android:layout_width="117dp"
         android:layout_height="123dp"
-        android:src="@drawable/nerdPlayerSprite"
+        android:src="@drawable/nerdplayersprite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.659"
