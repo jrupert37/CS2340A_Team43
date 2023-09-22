@@ -26,6 +26,9 @@
         <activity
             android:name=".models.ConfigurationPage"
             android:exported="false" />
+        <activity
+            android:name=".models.GameActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
