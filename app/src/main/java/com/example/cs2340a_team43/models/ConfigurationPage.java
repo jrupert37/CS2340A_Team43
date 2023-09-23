@@ -20,11 +20,8 @@ public class ConfigurationPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
 
-        EditText editText = findViewById(R.id.nameInputBox);
+        EditText nameEditText = findViewById(R.id.nameInputBox);
         Button nextBtn = findViewById(R.id.nextButton);
-
-
-
 
 
         nextBtn.setOnClickListener(v -> {
@@ -50,25 +47,25 @@ public class ConfigurationPage extends AppCompatActivity {
             RadioGroup spriteRadioGroup = findViewById(R.id.spriteRadioGroup);
             int choice = 0;
 
-            if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.radioButton2) {
+            if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.sprite0) {
                 choice = 0;
-            } else if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.radioButton3) {
+            } else if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.sprite1) {
                 choice = 1;
-            } else if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.radioButton4) {
+            } else if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.sprite2) {
                 choice = 2;
             } else {
                 choice = 0;
             }
 
-            String inputText = editText.getText().toString().trim();
-            if (inputText.isEmpty() || inputText == null) {
+            String nameText = nameEditText.getText().toString().trim();
+            if (nameText.isEmpty() || nameText == null) {
                 //Toast.makeText(ConfigurationPage.t,"Input: "+inputText,Toast.LENGTH_SHORT).show();
-                editText.setError("Please enter text.");
+                nameEditText.setError("Please enter text.");
             } else {
                 Intent game = new Intent(ConfigurationPage.this, GameActivity.class);
                 game.putExtra("hp", hp);
                 game.putExtra("sprite", choice);
-                game.putExtra("inputText", inputText);
+                game.putExtra("nameText", nameText);
                 game.putExtra("difficulty", difficulty);
                 startActivity(game);
                 finish();
