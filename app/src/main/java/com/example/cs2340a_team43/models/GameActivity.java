@@ -21,7 +21,7 @@ public class GameActivity extends AppCompatActivity {
     private int hp;
     private String difficulty;
     private String playerName;
-    private int choice;
+    private int spriteChoice;
     private ConstraintLayout gameLayout;
     //private PlayerView playerView;
     private int screenWidth;
@@ -46,26 +46,28 @@ public class GameActivity extends AppCompatActivity {
         // Spawn player in middle of screen
         playerX = screenWidth / 2;
         playerY = screenHeight / 2;
+
         hp = getIntent().getIntExtra("hp", 50);
         hpTextView = findViewById(R.id.healthTextView);
         hpTextView.setText("Health: " + hp);
 
-        choice = getIntent().getIntExtra("sprite", 0);
         difficulty = getIntent().getStringExtra("difficulty");
         difficultyTextView = findViewById(R.id.difficultyTextView);
         difficultyTextView.setText("Difficulty: " + difficulty);
-        playerName = getIntent().getStringExtra("inputText");
+
+        playerName = getIntent().getStringExtra("nameText");
         nameTextView = findViewById(R.id.playerNameTextView);
         nameTextView.setText(playerName);
 
         //playerView = new PlayerView(this, playerX, playerY, hp, choice);
+        spriteChoice = getIntent().getIntExtra("sprite", 0);
 
         playerImageView = findViewById(R.id.playerImageView);
-        if (choice == 0) {
+        if (spriteChoice == 0) {
             playerImageView.setImageResource(R.drawable.footballplayersprite);
-        } else if (choice == 1) {
+        } else if (spriteChoice == 1) {
             playerImageView.setImageResource(R.drawable.nerdplayersprite);
-        } else if (choice == 2) {
+        } else if (spriteChoice == 2) {
             playerImageView.setImageResource(R.drawable.gymbroplayersprite);
         }
 
