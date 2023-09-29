@@ -27,10 +27,10 @@
             android:name=".Views.ConfigurationPageActivity"
             android:exported="false" />
         <activity
-            android:name=".Models.GameActivity"
+            android:name=".Views.GameActivity"
             android:exported="false" />
         <activity
-            android:name=".Models.EndScreenActivity"
+            android:name=".Views.EndScreenActivity"
             android:exported="false" />
     </application>
 
