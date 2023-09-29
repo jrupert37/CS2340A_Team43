@@ -1,4 +1,4 @@
-package com.example.cs2340a_team43.models;
+package com.example.cs2340a_team43.Models;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +35,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView difficultyTextView;
     private TextView nameTextView;
 
+    private Player thePlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
