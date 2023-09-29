@@ -1,4 +1,4 @@
-package com.example.cs2340a_team43.models;
+package com.example.cs2340a_team43.Models;
 
 public class Player {
     private float x;
