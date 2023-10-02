@@ -11,11 +11,12 @@ import android.graphics.drawable.Drawable;
 
 
 public class PlayerView extends View {
-    private float x;
-    private float y;
-    private int hp;
+    private int x;
+    private int y;
+    //private int hp;
     private Context context;
     private int imageId;
+    private int choice;
 
 
     /*
@@ -29,13 +30,28 @@ public class PlayerView extends View {
         pickSprite(choice);
     }*/
 
-    public PlayerView(Context context, int imageId, float x, float y, int hp) {
+    public PlayerView(Context context, int imageId, int choice) {
         super(context);
-        this.x = x;
-        this.y = y;
-        this.hp = hp;
+        this.x = 900;
+        this.y = 300;
+        //this.hp = hp;
         this.context = context;
         this.imageId = imageId;
+        this.choice = choice;
+    }
+
+    public void updatePosition(int newX, int newY) {
+        x = newX;
+        y = newY;
+        invalidate();
+    }
+
+    public int getXPosition() {
+        return this.x;
+    }
+
+    public int getYPosition() {
+        return this.y;
     }
 
 
@@ -57,9 +73,25 @@ public class PlayerView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Drawable drawable = context.getDrawable(imageId);
-        int right = (int) x + drawable.getIntrinsicWidth();
-        int left = (int) y + drawable.getIntrinsicHeight();
-        drawable.setBounds((int) x, (int) y, right, left);
+        //x = 900;
+        //y = 300;
+        int right;
+        int left;
+        if (choice == 0) {
+            right = x + drawable.getIntrinsicWidth() - 1000;
+            //int right = 1675;
+            //int right = 1200;
+            left = y + drawable.getIntrinsicHeight() - 1000;
+        } else {
+            x = 1000;
+            right = x + drawable.getIntrinsicWidth() - 1000;
+            left = y + drawable.getIntrinsicHeight() - 1200;
+        }
+        //int left = 1655;
+        //int left = 600;
+        System.out.println("Left: " + left + " Right: " + right + " X: " + x + " Y " + y);
+        //drawable.setBounds((int) x, (int) y, right, left);
+        drawable.setBounds(x, y, right, left);
         drawable.draw(canvas);
     }
 
