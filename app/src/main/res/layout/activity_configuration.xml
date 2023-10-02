@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.837" />
+        app:layout_constraintVertical_bias="0.909" />
 
     <TextView
         android:id="@+id/namePrompt"
@@ -28,10 +28,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/selectSpritePrompt"
-        app:layout_constraintHorizontal_bias="0.411"
+        app:layout_constraintHorizontal_bias="0.451"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.085" />
+        app:layout_constraintVertical_bias="0.163" />
 
     <EditText
         android:id="@+id/nameInputBox"
@@ -43,10 +43,10 @@
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintHorizontal_bias="0.233"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.214"
+        app:layout_constraintVertical_bias="0.253"
         tools:text="Name" />
 
     <TextView
@@ -59,7 +59,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/difficultyRadioGroup"
         app:layout_constraintEnd_toStartOf="@+id/spriteRadioGroup"
-        app:layout_constraintHorizontal_bias="0.399"
+        app:layout_constraintHorizontal_bias="0.436"
         app:layout_constraintStart_toStartOf="parent" />
 
     <RadioGroup
@@ -105,16 +105,16 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintHorizontal_bias="0.646"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.084" />
+        app:layout_constraintVertical_bias="0.148" />
 
     <RadioGroup
         android:id="@+id/spriteRadioGroup"
         android:layout_width="48dp"
         android:layout_height="299dp"
-        android:checkedButton="@+id/sprite1"
+        android:checkedButton="@+id/sprite0"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,25 +124,25 @@
         app:layout_constraintVertical_bias="0.803">
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/sprite0"
             android:layout_width="match_parent"
             android:layout_height="97dp"
             android:checked="true"/>
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/sprite1"
             android:layout_width="match_parent"
             android:layout_height="112dp" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/sprite2"
             android:layout_width="match_parent"
             android:layout_height="91dp" />
 
     </RadioGroup>
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/spriteImage0"
         android:layout_width="75dp"
         android:layout_height="87dp"
         android:src="@drawable/footballplayersprite"
@@ -154,7 +154,7 @@
         app:layout_constraintVertical_bias="0.311" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/spriteImage1"
         android:layout_width="117dp"
         android:layout_height="123dp"
         android:src="@drawable/nerdplayersprite"
@@ -166,7 +166,7 @@
         app:layout_constraintVertical_bias="0.628" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/spriteImage2"
         android:layout_width="76dp"
         android:layout_height="100dp"
         android:src="@drawable/gymbroplayersprite"
