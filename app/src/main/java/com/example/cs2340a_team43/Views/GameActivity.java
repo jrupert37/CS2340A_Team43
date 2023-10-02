@@ -78,6 +78,8 @@ public class GameActivity extends AppCompatActivity {
 
         //playerView = new PlayerView(this, R.drawable.frowny, playerX, playerY, hp);
         //gameLayout.addView(playerView);
+
+
         endButton = findViewById(R.id.endScreenButton);
         endButton.setOnClickListener(v -> {
             Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
