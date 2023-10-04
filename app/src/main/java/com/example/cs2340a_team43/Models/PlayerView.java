@@ -70,6 +70,7 @@ public class PlayerView extends View {
             }
         }
     }*/
+    @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Drawable drawable = context.getDrawable(imageId);
