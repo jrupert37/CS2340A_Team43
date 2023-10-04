@@ -13,4 +13,5 @@
     <string name="title_text">Welcome To Video Game!</string>
     <string name="quit_button_text">Exit</string>
     <string name="end_game_screen_text">Hooray! You won!</string>
+    <string name="restart_button_text">Restart</string>
 </resources>
