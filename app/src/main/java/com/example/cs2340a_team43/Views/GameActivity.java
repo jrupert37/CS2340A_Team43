@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cs2340a_team43.Models.Player;
-import com.example.cs2340a_team43.Models.PlayerView;
+import com.example.cs2340a_team43.ViewModels.PlayerView;
 import com.example.cs2340a_team43.R;
 //import android.graphics.Canvas;
 //import android.graphics.drawable.Drawable;
@@ -60,31 +60,36 @@ public class GameActivity extends AppCompatActivity {
         difficultyTextView = findViewById(R.id.difficultyTextView);
         difficultyTextView.setText("Difficulty: " + difficulty);
 
+        thePlayer = Player.getInstance();
+        thePlayer.setHP(hp);
+
         playerName = getIntent().getStringExtra("nameText");
         nameTextView = findViewById(R.id.playerNameTextView);
-        nameTextView.setText(playerName);
+        nameTextView.setText("");
 
         //playerView = new PlayerView(this, playerX, playerY, hp, choice);
         spriteChoice = getIntent().getIntExtra("sprite", 0);
 
         playerImageView = findViewById(R.id.playerImageView);
         if (spriteChoice == 0) {
-            playerView = new PlayerView(this, R.drawable.footballplayersprite, 0);
+            playerView = new PlayerView(this, R.drawable.footballplayersprite, 0, playerName);
             playerX = playerView.getXPosition();
             playerY = playerView.getYPosition();
             gameLayout.addView(playerView);
-            //playerImageView.setImageResource(R.drawable.footballplayersprite);
+            playerImageView.setImageResource(android.R.color.transparent);
         } else if (spriteChoice == 1) {
-            playerView = new PlayerView(this, R.drawable.nerdplayersprite, 1);
+            playerView = new PlayerView(this, R.drawable.nerdplayersprite, 1, playerName);
             playerX = playerView.getXPosition();
             playerY = playerView.getYPosition();
             gameLayout.addView(playerView);
+            playerImageView.setImageResource(android.R.color.transparent);
             //playerImageView.setImageResource(R.drawable.nerdplayersprite);
         } else if (spriteChoice == 2) {
-            playerView = new PlayerView(this, R.drawable.gymbroplayersprite, 2);
+            playerView = new PlayerView(this, R.drawable.gymbroplayersprite, 2, playerName);
             playerX = playerView.getXPosition();
             playerY = playerView.getYPosition();
             gameLayout.addView(playerView);
+            playerImageView.setImageResource(android.R.color.transparent);
             //playerImageView.setImageResource(R.drawable.gymbroplayersprite);
         }
 
