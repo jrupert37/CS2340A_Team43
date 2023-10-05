@@ -61,7 +61,7 @@ public class GameActivity extends AppCompatActivity {
         difficultyTextView.setText("Difficulty: " + difficulty);
 
         thePlayer = Player.getInstance();
-        thePlayer.setHP(hp);
+        thePlayer.setHP(getIntent().getStringExtra("difficulty"));
 
         playerName = getIntent().getStringExtra("nameText");
         nameTextView = findViewById(R.id.playerNameTextView);
