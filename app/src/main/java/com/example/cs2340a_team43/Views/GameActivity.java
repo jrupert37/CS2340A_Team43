@@ -3,12 +3,14 @@ package com.example.cs2340a_team43.Views;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.view.View;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cs2340a_team43.Models.Player;
+import com.example.cs2340a_team43.ViewModels.PlayerView;
 import com.example.cs2340a_team43.R;
 //import android.graphics.Canvas;
 //import android.graphics.drawable.Drawable;
@@ -25,11 +27,10 @@ public class GameActivity extends AppCompatActivity {
     private String playerName;
     private int spriteChoice;
     private ConstraintLayout gameLayout;
-    //private PlayerView playerView;
     private int screenWidth;
     private int screenHeight;
-    private float playerX;
-    private float playerY;
+    private int playerX;
+    private int playerY;
     private TextView hpTextView;
     private ImageView playerImageView;
 
@@ -38,6 +39,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView nameTextView;
 
     private Player thePlayer;
+    private PlayerView playerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,8 @@ public class GameActivity extends AppCompatActivity {
         screenWidth = getResources().getDisplayMetrics().widthPixels;
         screenHeight = getResources().getDisplayMetrics().heightPixels;
         // Spawn player in middle of screen
-        playerX = screenWidth / 2;
-        playerY = screenHeight / 2;
+        //playerX = screenWidth / 2;
+        //playerY = screenHeight / 2;
 
         hp = getIntent().getIntExtra("hp", 50);
         hpTextView = findViewById(R.id.healthTextView);
@@ -58,20 +60,37 @@ public class GameActivity extends AppCompatActivity {
         difficultyTextView = findViewById(R.id.difficultyTextView);
         difficultyTextView.setText("Difficulty: " + difficulty);
 
+        thePlayer = Player.getInstance();
+        thePlayer.setHP(getIntent().getStringExtra("difficulty"));
+
         playerName = getIntent().getStringExtra("nameText");
         nameTextView = findViewById(R.id.playerNameTextView);
-        nameTextView.setText(playerName);
+        nameTextView.setText("");
 
         //playerView = new PlayerView(this, playerX, playerY, hp, choice);
         spriteChoice = getIntent().getIntExtra("sprite", 0);
 
         playerImageView = findViewById(R.id.playerImageView);
         if (spriteChoice == 0) {
-            playerImageView.setImageResource(R.drawable.footballplayersprite);
+            playerView = new PlayerView(this, R.drawable.footballplayersprite, 0, playerName);
+            playerX = playerView.getXPosition();
+            playerY = playerView.getYPosition();
+            gameLayout.addView(playerView);
+            playerImageView.setImageResource(android.R.color.transparent);
         } else if (spriteChoice == 1) {
-            playerImageView.setImageResource(R.drawable.nerdplayersprite);
+            playerView = new PlayerView(this, R.drawable.nerdplayersprite, 1, playerName);
+            playerX = playerView.getXPosition();
+            playerY = playerView.getYPosition();
+            gameLayout.addView(playerView);
+            playerImageView.setImageResource(android.R.color.transparent);
+            //playerImageView.setImageResource(R.drawable.nerdplayersprite);
         } else if (spriteChoice == 2) {
-            playerImageView.setImageResource(R.drawable.gymbroplayersprite);
+            playerView = new PlayerView(this, R.drawable.gymbroplayersprite, 2, playerName);
+            playerX = playerView.getXPosition();
+            playerY = playerView.getYPosition();
+            gameLayout.addView(playerView);
+            playerImageView.setImageResource(android.R.color.transparent);
+            //playerImageView.setImageResource(R.drawable.gymbroplayersprite);
         }
 
 
@@ -87,6 +106,26 @@ public class GameActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                playerX -= 50;
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                playerX += 50;
+                break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                playerY -= 50;
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                playerY += 50;
+                break;
+        }
+        playerView.updatePosition(playerX, playerY);
+        return true;
     }
 
 

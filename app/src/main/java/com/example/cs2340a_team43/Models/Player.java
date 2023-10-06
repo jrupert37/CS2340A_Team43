@@ -1,23 +1,48 @@
 package com.example.cs2340a_team43.Models;
 
 public class Player {
-    private float x;
-    private float y;
+    //private float x;
+    //private float y;
+    private double damage;
     private int hp;
 
-    public Player(float x, float y, int hp) {
-        this.x = x;
-        this.y = y;
-        this.hp = hp;
+    private static Player player;
+
+    private Player() {
+        this.damage = 0.0;
+        //this.y = y;
+        this.hp = 0;
         //playerImageView = findViewById(R.id.playerImageView);
         //playerImageView.setImageResource(R.drawable.frowny);
     }
-    public float getX() {
-        return x;
+
+    public static Player getInstance() {
+        if (player == null) {
+            player = new Player();
+        }
+        return player;
+    }
+    public int getHP() {
+        return hp;
     }
 
-    public float getY() {
-        return y;
+    /*public void setHP(int hp) {
+        this.hp = hp;
+    }*/
+    public void setHP(String difficulty) {
+        if (difficulty.equals("Easy")) {
+            hp = 50;
+        } else if (difficulty.equals("Medium")) {
+            hp = 30;
+        } else {
+            hp = 15;
+        }
+    }
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
+    public double getDamage() {
+        return damage;
     }
 
 
