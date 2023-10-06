@@ -1,4 +1,4 @@
-package com.example.cs2340a_team43.Models;
+package com.example.cs2340a_team43.ViewModels;
 
 import android.content.Context;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.view.View;
 //import com.example.cs2340a_team43.R;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.Color;
 
 
 
@@ -17,6 +20,7 @@ public class PlayerView extends View {
     private Context context;
     private int imageId;
     private int choice;
+    private String playerName;
 
 
     /*
@@ -30,7 +34,7 @@ public class PlayerView extends View {
         pickSprite(choice);
     }*/
 
-    public PlayerView(Context context, int imageId, int choice) {
+    public PlayerView(Context context, int imageId, int choice, String name) {
         super(context);
         this.x = 900;
         this.y = 300;
@@ -38,6 +42,7 @@ public class PlayerView extends View {
         this.context = context;
         this.imageId = imageId;
         this.choice = choice;
+        this.playerName = name;
     }
 
     public void updatePosition(int newX, int newY) {
@@ -83,10 +88,19 @@ public class PlayerView extends View {
             //int right = 1675;
             //int right = 1200;
             left = y + drawable.getIntrinsicHeight() - 1000;
+            //Left: 675 Right: 1275 X: 900 Y 300
+        } else if (choice == 1) {
+            //x = 1000;
+            x += 100;
+            y -= 100;
+            right = x + drawable.getIntrinsicWidth() - 1000 + 200;
+            left = y + drawable.getIntrinsicHeight() - 1200 + 100;
+            //Left: 687 Right: 1191 X: 1000 Y 300
         } else {
-            x = 1000;
-            right = x + drawable.getIntrinsicWidth() - 1000;
-            left = y + drawable.getIntrinsicHeight() - 1200;
+            x += 100;
+            right = x + drawable.getIntrinsicWidth() - 1000 - 4100 + 200;
+            left = y + drawable.getIntrinsicHeight() - 1200 - 3700;
+            //Left: 580 Right: 780 X: 1000 Y 300
         }
         //int left = 1655;
         //int left = 600;
@@ -94,6 +108,15 @@ public class PlayerView extends View {
         //drawable.setBounds((int) x, (int) y, right, left);
         drawable.setBounds(x, y, right, left);
         drawable.draw(canvas);
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Style.FILL);
+        paint.setTextSize(50);
+        if (choice == 1) {
+            canvas.drawText(playerName, x, y + 100, paint);
+        } else {
+            canvas.drawText(playerName, x, y, paint);
+        }
     }
 
 
