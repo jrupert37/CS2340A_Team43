@@ -27,21 +27,24 @@ public class EndScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_end);
 
         leaderboard = Leaderboard.getInstance();
-        Node[] leaders = leaderboard.getArray();
+        //Node[] leaders = leaderboard.getArray();
         leaderTable = findViewById(R.id.leaderTableLayout);
-        for (int i = 0; i < 5 && i < leaders.length; i++) {
+        /* Loop over each row of the xml leaderboard table
+         *  For each row, display the player's name, score, start time, and end time
+         *  Player for each row comes from a sorted list of players (sorted by score)
+         *  Top player at index 0, bottom player at index size - 1 of leaderboard
+         */
+        for (int i = 0; i < 5 && i < leaderboard.getSize(); i++) {
             TableRow row = (TableRow) leaderTable.getChildAt(i + 1);
             TextView playerName = (TextView) row.getChildAt(0);
-            playerName.setText(leaders[i].getName());
-
             TextView playerScore = (TextView) row.getChildAt(1);
-            playerScore.setText(Integer.toString(leaders[i].getScore()));
-
             TextView startTime = (TextView) row.getChildAt(2);
-            startTime.setText(leaders[i].startTimeToString());
-
             TextView endTime = (TextView) row.getChildAt(3);
-            endTime.setText(leaders[i].endTimeToString());
+
+            playerName.setText(leaderboard.get(i).getName());
+            playerScore.setText(Integer.toString(leaderboard.get(i).getScore()));
+            startTime.setText(leaderboard.get(i).startTimeToString());
+            endTime.setText(leaderboard.get(i).endTimeToString());
         }
         TextView mostRecentName = findViewById(R.id.mostRecentName);
         TextView mostRecentScore = findViewById(R.id.mostRecentScore);
