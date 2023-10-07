@@ -64,18 +64,18 @@ public class Node {
 
         String startMin = startMinute < 10 ? "0" + startMinute : Integer.toString(startMinute);
         String startSec = startSecond < 10 ? "0" + startSecond : Integer.toString(startSecond);
-        String startTime = startHour + ":" + startMin + ":" + startSec;
+        String hourMinSec = startHour + ":" + startMin + ":" + startSec;
 
-        return dayOfWeek + monthDayYear + startTime;
+        return dayOfWeek + monthDayYear + hourMinSec;
     }
 
     public String endTimeToString() {
         String[] days = {"Sun ", "Mon ", "Tues ", "Wed ", "Thu ", "Fri ", "Sat "};
-        String dayOfWeek = days[getStartTime().get(Calendar.DAY_OF_WEEK) - 1];
+        String dayOfWeek = days[getEndTime().get(Calendar.DAY_OF_WEEK) - 1];
 
-        int month = getStartTime().get(Calendar.MONTH) + 1;
-        int day = getStartTime().get(Calendar.DAY_OF_MONTH);
-        int year = getStartTime().get(Calendar.YEAR);
+        int month = getEndTime().get(Calendar.MONTH) + 1;
+        int day = getEndTime().get(Calendar.DAY_OF_MONTH);
+        int year = getEndTime().get(Calendar.YEAR);
 
         int endHour = getEndTime().get(Calendar.HOUR) + 1;
         int endMinute = getEndTime().get(Calendar.MINUTE);
@@ -85,9 +85,9 @@ public class Node {
 
         String endMin = endMinute < 10 ? "0" + endMinute : Integer.toString(endMinute);
         String endSec = endSecond < 10 ? "0" + endSecond : Integer.toString(endSecond);
-        String endTime = endHour + ":" + endMin + ":" + endSec;
+        String hourMinSec = endHour + ":" + endMin + ":" + endSec;
 
-        return dayOfWeek + monthDayYear + endTime;
+        return dayOfWeek + monthDayYear + hourMinSec;
     }
 
     public static NodeComparator getNodeComparator() {
@@ -97,7 +97,7 @@ public class Node {
         return nodeComparator;
     }
 
-    // custom comparator class for sorting the Leaderboard list
+    // custom comparator class for sorting a list of nodes (the leaderboard)
     private static class NodeComparator implements Comparator<Node> {
         @Override
         public int compare(Node player1, Node player2) {
