@@ -10,18 +10,21 @@ public class Leaderboard {
     private static Leaderboard leaderboard; // The unique instance of the leaderboard.
     //AKA, the one and only leaderboard.
     private ArrayList<Node> leaderList;
+    private int size;
     private Node mostRecentAttempt;
     private Leaderboard() {
         leaderList = new ArrayList<Node>(5);
+        this.size = 0;
     } // Private constructor to prevent other classes from instantiating
-    //our precious leaderboard.
+    // our precious leaderboard.
 
-    public void addGame(String name, int score, Calendar startTime, Calendar endTime) {
+    public void addAttempt(String name, int score, Calendar startTime, Calendar endTime) {
         Node attempt = new Node(name, score, startTime, endTime);
-        leaderList.add(attempt);
-        Node[] leaders = getArray();
+        this.leaderList.add(attempt);
+        this.leaderList.sort(Node.getNodeComparator());
+        this.size++;
         setMostRecentAttempt(attempt);  // most recent attempt should be updated each time
-                                        // a new game attempt is added to leaderboard list
+        // a new game attempt is added to leaderboard list
     }
 
     //Public static getter method, so every class can look at the one leaderboard.
@@ -32,6 +35,14 @@ public class Leaderboard {
         return leaderboard;
     }
 
+    public Node get(int index) {
+        return this.leaderList.get(index);
+    }
+
+    public int getSize() {
+        return this.size;
+    }
+
     private void setMostRecentAttempt(Node attempt) {
         this.mostRecentAttempt = attempt;
     }
@@ -40,10 +51,10 @@ public class Leaderboard {
         return this.mostRecentAttempt;
     }
 
-    public Node[] getArray() {
-        Node[] array = this.leaderList.toArray(new Node[0]);
-        Arrays.sort(array, Node.getNodeComparator()); // sort leaderboard list according to NodeComparator
-        return array;
-    }
+//    public Node[] getArray() {
+//        Node[] array = this.leaderList.toArray(new Node[0]);
+//        Arrays.sort(array, Node.getNodeComparator()); // sort list according to NodeComparator
+//        return array;
+//    }
 
 } // class Leaderboard
