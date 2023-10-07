@@ -1,34 +1,29 @@
 package com.example.cs2340a_team43.Models;
 
+import java.util.Arrays;
 import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.Calendar;
+import java.util.ArrayList;
 
 public class Leaderboard {
     //Following the Singleton Design Pattern for classes
     private static Leaderboard leaderboard; // The unique instance of the leaderboard.
     //AKA, the one and only leaderboard.
+    private ArrayList<Node> leaderList;
+    private Node mostRecentAttempt;
     private Leaderboard() {
-        Comparator<Node> comparator = new NodeComparator();
-        PriorityQueue<Node> queue = new PriorityQueue<Node>(5, comparator);
-
-    }// Private constructor to prevent other classes from instantiating
+        leaderList = new ArrayList<Node>(5);
+    } // Private constructor to prevent other classes from instantiating
     //our precious leaderboard.
 
-    private class NodeComparator implements Comparator<Node> {
-        @Override
-        public int compare(Node player1, Node player2) {
-            //try {
-                if (player1.getScore() < player2.getScore()) {
-                    return 1;
-                } else if (player1.getScore() > player2.getScore()) {
-                    return -1;
-                }
-                return (player1.getTime().compareTo(player2.getTime()));
-            //}
-            //catch (NullPointerException playerNull) {
-                //throw playerNull;
-            //}
+    public void addGame(String name, int score, Calendar startTime, Calendar endTime) {
+        Node attempt = new Node(name, score, startTime, endTime);
+        leaderList.add(attempt);
+        Node[] leaders = getArray();
+        for (int i = 0; i < leaders.length; i++) {
+            System.out.println(leaders[i].getScore());
         }
+        setMostRecentAttempt(attempt);
     }
 
     //Public static getter method, so every class can look at the one leaderboard.
@@ -38,4 +33,21 @@ public class Leaderboard {
         }
         return leaderboard;
     }
-}
+
+    private void setMostRecentAttempt(Node attempt) {
+        this.mostRecentAttempt = attempt;
+    }
+
+    public Node getMostRecentAttempt() {
+        return this.mostRecentAttempt;
+    }
+
+    public Node[] getArray() {
+        Node[] array = this.leaderList.toArray(new Node[0]);
+        Arrays.sort(array, Node.getNodeComparator());
+        return array;
+    }
+
+    // custom comparator class for comparing player scores
+
+} // class Leaderboard
