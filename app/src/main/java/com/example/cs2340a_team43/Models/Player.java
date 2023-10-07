@@ -8,17 +8,17 @@ public class Player {
 
     private static Player player;
 
-    private Player(double damage, int hp) {
-        this.damage = damage;
+    private Player() {
+        this.damage = 0.0;
         //this.y = y;
-        this.hp = hp;
+        this.hp = 0;
         //playerImageView = findViewById(R.id.playerImageView);
         //playerImageView.setImageResource(R.drawable.frowny);
     }
 
-    public static Player getInstance(double damage, int hp) {
+    public static Player getInstance() {
         if (player == null) {
-            player = new Player(damage, hp);
+            player = new Player();
         }
         return player;
     }
@@ -26,6 +26,21 @@ public class Player {
         return hp;
     }
 
+    /*public void setHP(int hp) {
+        this.hp = hp;
+    }*/
+    public void setHP(String difficulty) {
+        if (difficulty.equals("Easy")) {
+            hp = 50;
+        } else if (difficulty.equals("Medium")) {
+            hp = 30;
+        } else {
+            hp = 15;
+        }
+    }
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
     public double getDamage() {
         return damage;
     }

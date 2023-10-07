@@ -15,7 +15,6 @@ public class Leaderboard {
         leaderList = new ArrayList<Node>(5);
     } // Private constructor to prevent other classes from instantiating
     //our precious leaderboard.
-    //TODO: Implement parameters and instance data into this constructor.
 
     public void addGame(String name, int score, Calendar startTime, Calendar endTime) {
         Node attempt = new Node(name, score, startTime, endTime);
