@@ -15,16 +15,13 @@ public class Leaderboard {
         leaderList = new ArrayList<Node>(5);
     } // Private constructor to prevent other classes from instantiating
     //our precious leaderboard.
-    //TODO: Implement parameters and instance data into this constructor.
 
     public void addGame(String name, int score, Calendar startTime, Calendar endTime) {
         Node attempt = new Node(name, score, startTime, endTime);
         leaderList.add(attempt);
         Node[] leaders = getArray();
-        for (int i = 0; i < leaders.length; i++) {
-            System.out.println(leaders[i].getScore());
-        }
-        setMostRecentAttempt(attempt);
+        setMostRecentAttempt(attempt);  // most recent attempt should be updated each time
+                                        // a new game attempt is added to leaderboard list
     }
 
     //Public static getter method, so every class can look at the one leaderboard.
@@ -45,10 +42,8 @@ public class Leaderboard {
 
     public Node[] getArray() {
         Node[] array = this.leaderList.toArray(new Node[0]);
-        Arrays.sort(array, Node.getNodeComparator());
+        Arrays.sort(array, Node.getNodeComparator()); // sort leaderboard list according to NodeComparator
         return array;
     }
-
-    // custom comparator class for comparing player scores
 
 } // class Leaderboard
