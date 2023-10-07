@@ -160,32 +160,28 @@
                 android:layout_width="117dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r2textView2"
                 android:layout_width="69dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r2textView3"
                 android:layout_width="187dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r2textView4"
                 android:layout_width="187dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
         </TableRow>
 
@@ -199,32 +195,28 @@
                 android:layout_width="117dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r3textView2"
                 android:layout_width="69dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r3textView3"
                 android:layout_width="187dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r3textView4"
                 android:layout_width="187dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
         </TableRow>
 
@@ -238,32 +230,28 @@
                 android:layout_width="117dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r4textView2"
                 android:layout_width="69dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r4textView3"
                 android:layout_width="187dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r4textView4"
                 android:layout_width="190dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
         </TableRow>
 
@@ -277,32 +265,28 @@
                 android:layout_width="117dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r5textView2"
                 android:layout_width="69dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r5textView3"
                 android:layout_width="187dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r5textView4"
                 android:layout_width="187dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
         </TableRow>
 
@@ -316,32 +300,28 @@
                 android:layout_width="117dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r6textView2"
                 android:layout_width="69dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r6textView3"
                 android:layout_width="187dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
             <TextView
                 android:id="@+id/r6textView4"
                 android:layout_width="187dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/cell_shape"
-                android:padding="1dp"
-                android:text="TextView" />
+                android:padding="1dp" />
 
         </TableRow>
     </TableLayout>
