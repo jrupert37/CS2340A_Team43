@@ -96,6 +96,8 @@ public class Node {
         }
         return nodeComparator;
     }
+
+    // custom comparator class for sorting the Leaderboard list
     private static class NodeComparator implements Comparator<Node> {
         @Override
         public int compare(Node player1, Node player2) {
