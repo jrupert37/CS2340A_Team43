@@ -140,7 +140,7 @@ public class GameActivity extends AppCompatActivity {
             intent.addCategory(Intent.CATEGORY_HOME);
             scoreTimer.cancel();
             endTime = Calendar.getInstance(TimeZone.getTimeZone("EST"));
-            leaderboard.addGame(playerName, score, startTime, endTime );
+            leaderboard.addAttempt(playerName, score, startTime, endTime );
             //intent.putExtra("final score", score);
             startActivity(intent);
             finish();
