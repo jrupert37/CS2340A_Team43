@@ -85,7 +85,7 @@ public class GameActivity extends AppCompatActivity {
         //playerView = new PlayerView(this, playerX, playerY, hp, choice);
         spriteChoice = getIntent().getIntExtra("sprite", 0);
 
-        //playerImageView = findViewById(R.id.playerImageView);
+        playerImageView = findViewById(R.id.playerImageView);
         if (spriteChoice == 0) {
             playerView = new PlayerView(this, R.drawable.footballplayersprite, 0, playerName);
             playerX = playerView.getXPosition();
@@ -127,7 +127,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 1000, 2000); // delay 1sec, then execute run() every 2sec til score is 0
+        }, 2000, 2000); // delay 1sec, then execute run() every 2sec til score is 0
 
 
         //playerView = new PlayerView(this, R.drawable.frowny, playerX, playerY, hp);
@@ -140,7 +140,7 @@ public class GameActivity extends AppCompatActivity {
             intent.addCategory(Intent.CATEGORY_HOME);
             scoreTimer.cancel();
             endTime = Calendar.getInstance(TimeZone.getTimeZone("EST"));
-            leaderboard.addGame(playerName, score, startTime, endTime );
+            leaderboard.addAttempt(playerName, score, startTime, endTime );
             //intent.putExtra("final score", score);
             startActivity(intent);
             finish();
