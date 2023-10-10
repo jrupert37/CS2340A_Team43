@@ -14,7 +14,6 @@ public class Leaderboard {
     }// Private constructor to prevent other classes from instantiating
     //our precious leaderboard.
     //TODO: Implement parameters and instance data into this constructor.
-
     private class NodeComparator implements Comparator<Node> {
         @Override
         public int compare(Node player1, Node player2) {

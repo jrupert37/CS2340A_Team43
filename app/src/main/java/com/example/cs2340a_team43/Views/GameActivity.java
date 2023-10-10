@@ -3,12 +3,15 @@ package com.example.cs2340a_team43.Views;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.view.View;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Models.PlayerView;
 import com.example.cs2340a_team43.R;
@@ -16,11 +19,12 @@ import com.example.cs2340a_team43.R;
 //import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-
-
+import java.util.Date;
 
 
 public class GameActivity extends AppCompatActivity {
+
+    Leaderboard leaderboard = Leaderboard.getInstance();
 
     private int hp;
     private String difficulty;
@@ -40,6 +44,9 @@ public class GameActivity extends AppCompatActivity {
 
     private Player thePlayer;
     private PlayerView playerView;
+
+    private TextView scoreTextView;
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,11 @@ public class GameActivity extends AppCompatActivity {
         playerName = getIntent().getStringExtra("nameText");
         nameTextView = findViewById(R.id.playerNameTextView);
         nameTextView.setText(playerName);
+
+        score = getIntent().getIntExtra("score", 50);
+        scoreTextView = findViewById(R.id.scoreTextView);
+        scoreTextView.setText("Score: " + score);
+
 
         //playerView = new PlayerView(this, playerX, playerY, hp, choice);
         spriteChoice = getIntent().getIntExtra("sprite", 0);
@@ -99,6 +111,7 @@ public class GameActivity extends AppCompatActivity {
             Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
             intent.addCategory(Intent.CATEGORY_HOME);
             startActivity(intent);
+            leaderboard.add(new Node(playerName, score , new Date());
             finish();
         });
     }
