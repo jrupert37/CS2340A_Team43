@@ -3,12 +3,14 @@ package com.example.cs2340a_team43.Views;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.view.View;
+//import android.os.Handler;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.ViewModels.PlayerView;
 import com.example.cs2340a_team43.R;
@@ -16,9 +18,12 @@ import com.example.cs2340a_team43.R;
 //import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-
-
-
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Calendar;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -40,6 +45,14 @@ public class GameActivity extends AppCompatActivity {
 
     private Player thePlayer;
     private PlayerView playerView;
+    private TextView scoreTextView;
+    private int score;
+    private final int initialScore = 60;
+    private Timer scoreTimer;
+    private Leaderboard leaderboard;
+    private Calendar startTime;
+    private Calendar endTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +64,8 @@ public class GameActivity extends AppCompatActivity {
         // Spawn player in middle of screen
         //playerX = screenWidth / 2;
         //playerY = screenHeight / 2;
+        leaderboard = Leaderboard.getInstance();
+        startTime = Calendar.getInstance(TimeZone.getTimeZone("EST"));
 
         hp = getIntent().getIntExtra("hp", 50);
         hpTextView = findViewById(R.id.healthTextView);
@@ -93,6 +108,26 @@ public class GameActivity extends AppCompatActivity {
             //playerImageView.setImageResource(R.drawable.gymbroplayersprite);
         }
 
+        score = initialScore; // set score to initial value
+        scoreTextView = findViewById(R.id.scoreTextView);
+        scoreTextView.setText("Score: " + initialScore); // Display initial score
+        scoreTimer = new Timer();
+        scoreTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (score > 0) {
+                            score--;
+                        } else {
+                            scoreTimer.cancel();
+                        }
+                        scoreTextView.setText("Score: " + score);
+                    }
+                });
+            }
+        }, 2000, 2000); // delay 1sec, then execute run() every 2sec til score is 0
 
 
         //playerView = new PlayerView(this, R.drawable.frowny, playerX, playerY, hp);
@@ -103,6 +138,10 @@ public class GameActivity extends AppCompatActivity {
         endButton.setOnClickListener(v -> {
             Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
             intent.addCategory(Intent.CATEGORY_HOME);
+            scoreTimer.cancel();
+            endTime = Calendar.getInstance(TimeZone.getTimeZone("EST"));
+            leaderboard.addAttempt(playerName, score, startTime, endTime );
+            //intent.putExtra("final score", score);
             startActivity(intent);
             finish();
         });
