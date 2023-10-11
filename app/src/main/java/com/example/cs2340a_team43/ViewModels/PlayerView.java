@@ -46,11 +46,13 @@ public class PlayerView extends View {
     }
 
     public void updatePosition(int newX, int newY) {
-        x = newX;
-        y = newY;
+        setPositions(newX, newY);
         invalidate();
     }
-
+    public void setPositions(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
     public int getXPosition() {
         return this.x;
     }
