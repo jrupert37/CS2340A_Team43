@@ -130,7 +130,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 2000, 2000); // delay 1sec, then execute run() every 2sec til score is 0
+        }, 500, 500); // delay 1sec, then execute run() every 2sec til score is 0
 
 
         //playerView = new PlayerView(this, R.drawable.frowny, playerX, playerY, hp);

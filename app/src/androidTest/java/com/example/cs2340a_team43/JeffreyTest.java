@@ -41,9 +41,9 @@ public class JeffreyTest {
         onView(withId(R.id.nameInputBox)).perform(typeText("Name"));
         onView(withId(R.id.nextButton)).perform(click());
         onView(withId(R.id.nextButton)).perform(click());
-        //wait 2 minutes to fully make score decrease to 0
+        //wait 32 seconds to fully make score decrease to 0
         try {
-            Thread.sleep(120000);
+            Thread.sleep(32000);
         } catch (InterruptedException e) {
 
         }
@@ -102,11 +102,6 @@ public class JeffreyTest {
         onView(withId(R.id.nameInputBox)).perform(typeText("Name"));
         onView(withId(R.id.nextButton)).perform(click());
         onView(withId(R.id.nextButton)).perform(click());
-        try {
-            Thread.sleep(5000); //wait 5 seconds
-        } catch (InterruptedException e) {
-
-        }
         for(int pressButton = 0; pressButton < 3; pressButton++){
             onView(withId(R.id.nextButton)).perform(click());
             try {
@@ -123,11 +118,6 @@ public class JeffreyTest {
         onView(withId(R.id.nameInputBox)).perform(typeText("Name"));
         onView(withId(R.id.nextButton)).perform(click());
         onView(withId(R.id.nextButton)).perform(click());
-        try {
-            Thread.sleep(10000); //wait 10 seconds
-        } catch (InterruptedException e) {
-
-        }
         for(int pressButton = 0; pressButton < 3; pressButton++){
             onView(withId(R.id.nextButton)).perform(click());
             try {
