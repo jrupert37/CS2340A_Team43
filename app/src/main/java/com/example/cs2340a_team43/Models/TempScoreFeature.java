@@ -1,4 +1,4 @@
-package com.example.cs2340a_team43.Views;
+package com.example.cs2340a_team43.Models;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,7 +32,13 @@ public class TempScoreFeature extends AppCompatActivity {
         };
         // Start the health decrease process
         handler.post(decreaseHealthRunnable);
-    }        private void updateHealthScore() {
+
+    }
+    public int getHealthScore() {
+        return healthScore;
+    }
+
+    private void updateHealthScore() {
             healthView.setText("Health Score: " + healthScore);
         }
 
