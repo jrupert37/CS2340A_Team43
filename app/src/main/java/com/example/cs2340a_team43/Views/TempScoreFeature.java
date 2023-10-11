@@ -1,4 +1,4 @@
-package com.example.cs2340a_team43.Models;
+package com.example.cs2340a_team43.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;

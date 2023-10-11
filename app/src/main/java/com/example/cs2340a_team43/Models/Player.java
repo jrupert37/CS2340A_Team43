@@ -50,7 +50,7 @@ public class Player {
     }
     public void setName(String name) {
         this.name = name;
-        if (name == null) {
+        if (name == null || name == "") {
             throw new IllegalStateException();
         }
     }
