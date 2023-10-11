@@ -5,6 +5,7 @@ import android.os.Bundle;
 //import android.view.View;
 //import android.os.Handler;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -39,7 +40,9 @@ public class GameActivity extends AppCompatActivity {
     private TextView hpTextView;
     private ImageView playerImageView;
 
-    private Button endButton;
+    private Button nextButton;
+    private int currentBackgroundIndex = 0;
+    private ImageView backgroundImage;
     private TextView difficultyTextView;
     private TextView nameTextView;
 
@@ -133,8 +136,34 @@ public class GameActivity extends AppCompatActivity {
         //playerView = new PlayerView(this, R.drawable.frowny, playerX, playerY, hp);
         //gameLayout.addView(playerView);
 
+        nextButton = findViewById(R.id.nextButton);
+        backgroundImage = findViewById(R.id.backgroundImageView);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentBackgroundIndex++;
+                switch(currentBackgroundIndex){
+                    case 1:
+                        backgroundImage.setImageResource(R.drawable.secondfloor);
+                        break;
+                    case 2:
+                        backgroundImage.setImageResource(R.drawable.firstfloor);
+                        break;
+                    case 3:
+                        Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        scoreTimer.cancel();
+                        endTime = Calendar.getInstance(TimeZone.getTimeZone("EST"));
+                        leaderboard.addAttempt(playerName, score, startTime, endTime );
+                        //intent.putExtra("final score", score);
+                        startActivity(intent);
+                        finish();
+                        break;
+                }
+            }
+        });
 
-        endButton = findViewById(R.id.endScreenButton);
+        /*endButton = findViewById(R.id.endScreenButton);
         endButton.setOnClickListener(v -> {
             Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
             intent.addCategory(Intent.CATEGORY_HOME);
@@ -144,7 +173,7 @@ public class GameActivity extends AppCompatActivity {
             //intent.putExtra("final score", score);
             startActivity(intent);
             finish();
-        });
+        });*/
     }
 
     @Override
