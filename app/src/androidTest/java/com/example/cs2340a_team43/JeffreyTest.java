@@ -31,7 +31,7 @@ public class JeffreyTest {
     @Rule
     public ActivityScenarioRule<StartScreenActivity> activityRule = new ActivityScenarioRule<>(StartScreenActivity.class);
     @Test
-    public void testTest() throws RemoteException {
+    public void testLeaderboardNeverBelowZero() throws RemoteException {
         UiDevice device = UiDevice.getInstance(getInstrumentation());
 
         device.setOrientationLeft();
@@ -58,5 +58,35 @@ public class JeffreyTest {
         Leaderboard testLeaderboard = Leaderboard.getInstance();
         Node temp = testLeaderboard.getMostRecentAttempt();
         assertTrue(temp.getScore() > -1);
+    }
+
+    @Test
+    public void testScoreDecreases() throws RemoteException {
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+
+        device.setOrientationLeft();
+        //device.setOrientationNatural();
+        //device.setOrientationRight();
+        onView(withId(R.id.startButton)).perform(click());
+        onView(withId(R.id.nameInputBox)).perform(typeText("Name"));
+        onView(withId(R.id.nextButton)).perform(click());
+        onView(withId(R.id.nextButton)).perform(click());
+        try {
+            Thread.sleep(5000); //wait 5 seconds
+        } catch (InterruptedException e) {
+
+        }
+        for(int pressButton = 0; pressButton < 3; pressButton++){
+            onView(withId(R.id.nextButton)).perform(click());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e){
+
+            }
+        }
+        Leaderboard testLeaderboard = Leaderboard.getInstance();
+        Node temp = testLeaderboard.getMostRecentAttempt();
+        assertTrue(temp.getScore() < 60);
+
     }
 }
