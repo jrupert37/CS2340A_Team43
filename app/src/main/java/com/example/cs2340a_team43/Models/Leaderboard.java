@@ -1,7 +1,6 @@
 package com.example.cs2340a_team43.Models;
 
-import java.util.Arrays;
-import java.util.Comparator;
+
 import java.util.Calendar;
 import java.util.ArrayList;
 
@@ -15,6 +14,7 @@ public class Leaderboard {
     private Leaderboard() {
         leaderList = new ArrayList<Node>(5);
         this.size = 0;
+        this.mostRecentAttempt = null;
     } // Private constructor to prevent other classes from instantiating
     // our precious leaderboard.
 
@@ -51,10 +51,11 @@ public class Leaderboard {
         return this.mostRecentAttempt;
     }
 
-//    public Node[] getArray() {
-//        Node[] array = this.leaderList.toArray(new Node[0]);
-//        Arrays.sort(array, Node.getNodeComparator()); // sort list according to NodeComparator
-//        return array;
-//    }
+    // clear method to empty leaderboard instance for testing purposes
+    public void clear() {
+        this.leaderList = new ArrayList<>(5);
+        this.size = 0;
+        this.mostRecentAttempt = null;
+    }
 
 } // class Leaderboard
