@@ -124,7 +124,7 @@ public class JeffreyTest {
         onView(withId(R.id.nextButton)).perform(click());
         onView(withId(R.id.nextButton)).perform(click());
         try {
-            Thread.sleep(5000); //wait 5 seconds
+            Thread.sleep(10000); //wait 10 seconds
         } catch (InterruptedException e) {
 
         }
