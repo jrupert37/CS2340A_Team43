@@ -19,12 +19,10 @@ import com.example.cs2340a_team43.R;
 //import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Calendar;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -142,7 +140,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentBackgroundIndex++;
-                switch(currentBackgroundIndex){
+                switch (currentBackgroundIndex) {
                     case 1:
                         backgroundImage.setImageResource(R.drawable.secondfloor);
                         break;
@@ -154,10 +152,12 @@ public class GameActivity extends AppCompatActivity {
                         intent.addCategory(Intent.CATEGORY_HOME);
                         scoreTimer.cancel();
                         endTime = Calendar.getInstance(TimeZone.getTimeZone("EST"));
-                        leaderboard.addAttempt(playerName, score, startTime, endTime );
+                        leaderboard.addAttempt(playerName, score, startTime, endTime);
                         //intent.putExtra("final score", score);
                         startActivity(intent);
                         finish();
+                        break;
+                    default:
                         break;
                 }
             }
@@ -179,18 +179,20 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
-            case KeyEvent.KEYCODE_DPAD_LEFT:
-                playerX -= 50;
-                break;
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
-                playerX += 50;
-                break;
-            case KeyEvent.KEYCODE_DPAD_UP:
-                playerY -= 50;
-                break;
-            case KeyEvent.KEYCODE_DPAD_DOWN:
-                playerY += 50;
-                break;
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+            playerX -= 50;
+            break;
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+            playerX += 50;
+            break;
+        case KeyEvent.KEYCODE_DPAD_UP:
+            playerY -= 50;
+            break;
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+            playerY += 50;
+            break;
+        default:
+            break;
         }
         playerView.updatePosition(playerX, playerY);
         return true;
