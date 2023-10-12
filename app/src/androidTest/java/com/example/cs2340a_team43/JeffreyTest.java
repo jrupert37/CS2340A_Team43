@@ -136,7 +136,7 @@ public class JeffreyTest {
 
             }
         }
-        Node temp2 = testLeaderboard.getMostRecentAttempt();
+        Node temp2 = testLeaderboard.get(testLeaderboard.getSize() - 2);
         assertNotEquals(temp, temp2);
     }
 }
