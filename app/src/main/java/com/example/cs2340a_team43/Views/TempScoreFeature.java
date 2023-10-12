@@ -39,8 +39,8 @@ public class TempScoreFeature extends AppCompatActivity {
     }
 
     private void updateHealthScore() {
-            healthView.setText("Health Score: " + healthScore);
-        }
-
+        healthView.setText("Health Score: " + healthScore);
     }
+
+}
 
