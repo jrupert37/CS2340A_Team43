@@ -89,4 +89,54 @@ public class JeffreyTest {
         assertTrue(temp.getScore() < 60);
 
     }
+
+    //Joseph Test #2
+    @Test
+    public void testRestartButton() throws RemoteException {
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+
+        device.setOrientationLeft();
+        //device.setOrientationNatural();
+        //device.setOrientationRight();
+        onView(withId(R.id.startButton)).perform(click());
+        onView(withId(R.id.nameInputBox)).perform(typeText("Name"));
+        onView(withId(R.id.nextButton)).perform(click());
+        onView(withId(R.id.nextButton)).perform(click());
+        try {
+            Thread.sleep(5000); //wait 5 seconds
+        } catch (InterruptedException e) {
+
+        }
+        for(int pressButton = 0; pressButton < 3; pressButton++){
+            onView(withId(R.id.nextButton)).perform(click());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e){
+
+            }
+        }
+        Leaderboard testLeaderboard = Leaderboard.getInstance();
+        Node temp = testLeaderboard.getMostRecentAttempt();
+
+        onView(withId(R.id.restartButton)).perform(click());
+        onView(withId(R.id.startButton)).perform(click());
+        onView(withId(R.id.nameInputBox)).perform(typeText("Name"));
+        onView(withId(R.id.nextButton)).perform(click());
+        onView(withId(R.id.nextButton)).perform(click());
+        try {
+            Thread.sleep(10000); //wait 10 seconds
+        } catch (InterruptedException e) {
+
+        }
+        for(int pressButton = 0; pressButton < 3; pressButton++){
+            onView(withId(R.id.nextButton)).perform(click());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e){
+
+            }
+        }
+        Node temp2 = testLeaderboard.get(testLeaderboard.getSize() - 2);
+        assertNotEquals(temp, temp2);
+    }
 }
