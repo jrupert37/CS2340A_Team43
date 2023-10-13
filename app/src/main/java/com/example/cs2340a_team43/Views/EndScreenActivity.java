@@ -10,10 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cs2340a_team43.Models.Leaderboard;
-import com.example.cs2340a_team43.Models.Node;
 import com.example.cs2340a_team43.R;
 
-import org.w3c.dom.Text;
 
 public class EndScreenActivity extends AppCompatActivity {
 

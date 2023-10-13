@@ -9,13 +9,11 @@ import android.widget.EditText;
 //import android.view.View;
 
 
-import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.R;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Date;
 
 //import com.example.cs2340a_team43.R;
 public class ConfigurationPageActivity extends AppCompatActivity {
@@ -37,11 +35,6 @@ public class ConfigurationPageActivity extends AppCompatActivity {
             int hp = 50;
             String difficulty = "Easy";
 
-//            if (difficultyRadioGroup.getCheckedRadioButtonId() == R.id.easyButton) {
-//                hp = 50;
-//                difficulty = "Easy";
-//            }
-            //change difficulty and HP based on selection
             if (difficultyRadioGroup.getCheckedRadioButtonId() == R.id.mediumButton) {
                 hp = 30;
                 difficulty = "Medium";
@@ -49,25 +42,16 @@ public class ConfigurationPageActivity extends AppCompatActivity {
                 hp = 15;
                 difficulty = "Hard";
             }
-//            else {
-//                hp = 50; // Default value
-//            }
             //Find radio buttons for sprites
             RadioGroup spriteRadioGroup = findViewById(R.id.spriteRadioGroup);
             //default value
             int choice = 0;
 
-//            if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.sprite0) {
-//                choice = 0;
-//            }
             if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.sprite1) {
                 choice = 1;
             } else if (spriteRadioGroup.getCheckedRadioButtonId() == R.id.sprite2) {
                 choice = 2;
             }
-//            else {
-//                choice = 0;
-//            }
 
             //get text box for name
             String nameText = nameEditText.getText().toString().trim();
