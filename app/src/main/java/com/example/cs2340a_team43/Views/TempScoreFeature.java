@@ -32,7 +32,13 @@ public class TempScoreFeature extends AppCompatActivity {
         };
         // Start the health decrease process
         handler.post(decreaseHealthRunnable);
-    }        private void updateHealthScore() {
+
+    }
+    public int getHealthScore() {
+        return healthScore;
+    }
+
+    private void updateHealthScore() {
             healthView.setText("Health Score: " + healthScore);
         }
 

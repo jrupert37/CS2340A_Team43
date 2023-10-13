@@ -7,6 +7,7 @@ public class Player {
     private int hp;
 
     private static Player player;
+    private String name;
 
     private Player() {
         this.damage = 0.0;
@@ -43,6 +44,15 @@ public class Player {
     }
     public double getDamage() {
         return damage;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+        if (name == null || name == "") {
+            throw new IllegalStateException();
+        }
     }
 
 
