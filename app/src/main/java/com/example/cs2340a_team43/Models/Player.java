@@ -1,8 +1,8 @@
 package com.example.cs2340a_team43.Models;
 
 public class Player {
-    //private float x;
-    //private float y;
+    private int x;
+    private int y;
     private double damage;
     private int hp;
 
@@ -55,6 +55,10 @@ public class Player {
         }
     }
 
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
 
 }
