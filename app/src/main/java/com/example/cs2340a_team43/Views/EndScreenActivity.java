@@ -25,7 +25,6 @@ public class EndScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_end);
 
         leaderboard = Leaderboard.getInstance();
-        //Node[] leaders = leaderboard.getArray();
         leaderTable = findViewById(R.id.leaderTableLayout);
         /* Loop over each row of the xml leaderboard table
          *  For each row, display the player's name, score, start time, and end time
