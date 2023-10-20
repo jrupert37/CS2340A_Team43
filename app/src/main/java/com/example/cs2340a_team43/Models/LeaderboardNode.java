@@ -3,7 +3,7 @@ package com.example.cs2340a_team43.Models;
 import java.util.Calendar;
 import java.util.Comparator;
 
-public class Node {
+public class LeaderboardNode {
     //NOT a singleton class, because we want multiple Nodes in the leaderboard!
     private String name;
     private int score;
@@ -12,7 +12,7 @@ public class Node {
     private static NodeComparator nodeComparator;
 
 
-    public Node(String name, int score, Calendar startTime, Calendar endTime) {
+    public LeaderboardNode(String name, int score, Calendar startTime, Calendar endTime) {
         this.name = name;
         this.score = score;
         this.startTime = startTime;
@@ -98,9 +98,9 @@ public class Node {
     }
 
     // custom comparator class for sorting a list of nodes (the leaderboard)
-    private static class NodeComparator implements Comparator<Node> {
+    private static class NodeComparator implements Comparator<LeaderboardNode> {
         @Override
-        public int compare(Node player1, Node player2) {
+        public int compare(LeaderboardNode player1, LeaderboardNode player2) {
             //Assumes neither Node is null (for now)
             if (player1.getScore() < player2.getScore()) {
                 return 1;
@@ -113,7 +113,7 @@ public class Node {
                     return -1;
                 }
             }
-            return 0; //for now
+            return 0;
         }
     } // class NodeComparator
 } // class Node

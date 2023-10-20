@@ -8,20 +8,20 @@ public class Leaderboard {
     //Following the Singleton Design Pattern for classes
     private static Leaderboard leaderboard; // The unique instance of the leaderboard.
     //AKA, the one and only leaderboard.
-    private ArrayList<Node> leaderList;
+    private ArrayList<LeaderboardNode> leaderList;
     private int size;
-    private Node mostRecentAttempt;
+    private LeaderboardNode mostRecentAttempt;
     private Leaderboard() {
-        leaderList = new ArrayList<Node>(5);
+        leaderList = new ArrayList<LeaderboardNode>(5);
         this.size = 0;
         this.mostRecentAttempt = null;
     } // Private constructor to prevent other classes from instantiating
     // our precious leaderboard.
 
     public void addAttempt(String name, int score, Calendar startTime, Calendar endTime) {
-        Node attempt = new Node(name, score, startTime, endTime);
+        LeaderboardNode attempt = new LeaderboardNode(name, score, startTime, endTime);
         this.leaderList.add(attempt);
-        this.leaderList.sort(Node.getNodeComparator());
+        this.leaderList.sort(LeaderboardNode.getNodeComparator());
         this.size++;
         setMostRecentAttempt(attempt);  // most recent attempt should be updated each time
         // a new game attempt is added to leaderboard list
@@ -35,7 +35,7 @@ public class Leaderboard {
         return leaderboard;
     }
 
-    public Node get(int index) {
+    public LeaderboardNode get(int index) {
         return this.leaderList.get(index);
     }
 
@@ -43,11 +43,11 @@ public class Leaderboard {
         return this.size;
     }
 
-    private void setMostRecentAttempt(Node attempt) {
+    private void setMostRecentAttempt(LeaderboardNode attempt) {
         this.mostRecentAttempt = attempt;
     }
 
-    public Node getMostRecentAttempt() {
+    public LeaderboardNode getMostRecentAttempt() {
         return this.mostRecentAttempt;
     }
 
