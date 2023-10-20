@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
 import android.util.Pair;
 
-
 public class Player extends Character {
     private static Player player;
     private String playerName;
