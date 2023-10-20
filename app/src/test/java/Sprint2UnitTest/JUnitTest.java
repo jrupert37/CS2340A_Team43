@@ -1,10 +1,10 @@
-package com.example.cs2340a_team43;
+package Sprint2UnitTest;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.example.cs2340a_team43.Models.Leaderboard;
-import com.example.cs2340a_team43.Models.Node;
+import com.example.cs2340a_team43.Models.LeaderboardNode;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.ViewModels.PlayerView;
 
@@ -134,7 +134,7 @@ public class JUnitTest {
     // Cason Test #1
     @Test
     public void testLeaderboardNodeGetAndSet () {
-        Node player1 = new Node("Player 1", 50, Calendar.getInstance() , Calendar.getInstance());
+        LeaderboardNode player1 = new LeaderboardNode("Player 1", 50, Calendar.getInstance() , Calendar.getInstance());
         player1.setName("Test");
         player1.setScore(100);
         Calendar date = Calendar.getInstance();
@@ -143,7 +143,7 @@ public class JUnitTest {
         assertEquals(player1.getScore(), 100);
         assertEquals(player1.getStartTime(), date);
 
-        Node player2 = new Node("Player 2", 1000, Calendar.getInstance() , Calendar.getInstance());
+        LeaderboardNode player2 = new LeaderboardNode("Player 2", 1000, Calendar.getInstance() , Calendar.getInstance());
         player2.setName("Test2");
         player2.setScore(0);
         Calendar date2 = Calendar.getInstance();

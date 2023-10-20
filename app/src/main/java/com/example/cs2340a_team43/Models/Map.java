@@ -70,9 +70,43 @@ public class Map {
                 }
             }
         }
-
+        //Blue room
+        //top wall
         for (int col = 10; col <= 47; col++) {
             layout[1][col] = MapObject.WALL;
+        }
+        //left wall
+        for (int row = 0; row <= 20; row++) {
+            layout[row][8] = MapObject.WALL;
+            layout[row][9] = MapObject.WALL;
+        }
+        //middle wall
+        for (int row = 5; row <= 20; row++) {
+            layout[row][27] = MapObject.WALL;
+            layout[row][28] = MapObject.WALL;
+            layout[row][29] = MapObject.WALL;
+        }
+        //right wall
+        for (int row = 0; row <= 20; row++) {
+            layout[row][48] = MapObject.WALL;
+            layout[row][47] = MapObject.WALL;
+        }
+        //bottom left wall
+        for (int col = 10; col <= 19; col++) {
+            layout[20][col] = MapObject.WALL;
+            layout[19][col] = MapObject.WALL;
+
+        }
+        //bottom right wall
+        for (int col = 23; col <= 47; col++) {
+            layout[20][col] = MapObject.WALL;
+            layout[19][col] = MapObject.WALL;
+        }
+
+        //Main atrium
+        //bottom wall
+        for (int col = 21; col <= 85; col++) {
+            layout[32][col] = MapObject.WALL;
         }
 
         return layout;

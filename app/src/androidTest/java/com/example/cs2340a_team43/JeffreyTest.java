@@ -13,7 +13,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 import com.example.cs2340a_team43.Models.Leaderboard;
-import com.example.cs2340a_team43.Models.Node;
+import com.example.cs2340a_team43.Models.LeaderboardNode;
 import com.example.cs2340a_team43.Views.StartScreenActivity;
 
 import org.junit.Before;

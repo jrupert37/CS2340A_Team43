@@ -1,13 +1,11 @@
-package com.example.cs2340a_team43;
+package Sprint2UnitTest;
 //package com.journaldev.mockito;
 import org.junit.Test;
 import static org.junit.Assert.assertThrows;
 import android.content.Context;
 import com.example.cs2340a_team43.Models.Player;
-import com.example.cs2340a_team43.Views.TempScoreFeature;
+
 import static org.junit.Assert.*;
-import android.os.Handler;
-import android.os.Looper;
 
 
 public class UnitTests {
