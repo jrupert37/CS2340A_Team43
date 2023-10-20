@@ -169,7 +169,7 @@
         android:id="@+id/spriteImage2"
         android:layout_width="76dp"
         android:layout_height="100dp"
-        android:src="@drawable/gymbroplayersprite"
+        android:src="@mipmap/gymbroplayersprite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.645"
