@@ -14,4 +14,11 @@
     <string name="quit_button_text">Exit</string>
     <string name="end_game_screen_text">Hooray! You won!</string>
     <string name="restart_button_text">Restart</string>
+    <string name="leaderboard_text">Leaderboard</string>
+    <string name="most_recent_text">Most Recent</string>
+    <string name="player_name">Player:</string>
+    <string name="score">Score:</string>
+    <string name="start_time">Start Time:</string>
+    <string name="end_time">End Time:</string>
+    <string name="you_win">You Win!</string>
 </resources>

@@ -1,34 +1,30 @@
 package com.example.cs2340a_team43.Models;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
+
+import java.util.Calendar;
+import java.util.ArrayList;
 
 public class Leaderboard {
     //Following the Singleton Design Pattern for classes
     private static Leaderboard leaderboard; // The unique instance of the leaderboard.
     //AKA, the one and only leaderboard.
+    private ArrayList<LeaderboardNode> leaderList;
+    private int size;
+    private LeaderboardNode mostRecentAttempt;
     private Leaderboard() {
-        Comparator<Node> comparator = new NodeComparator();
-        PriorityQueue<Node> queue = new PriorityQueue<Node>(5, comparator);
+        leaderList = new ArrayList<LeaderboardNode>(5);
+        this.size = 0;
+        this.mostRecentAttempt = null;
+    } // Private constructor to prevent other classes from instantiating
+    // our precious leaderboard.
 
-    }// Private constructor to prevent other classes from instantiating
-    //our precious leaderboard.
-
-    private class NodeComparator implements Comparator<Node> {
-        @Override
-        public int compare(Node player1, Node player2) {
-            //try {
-                if (player1.getScore() < player2.getScore()) {
-                    return 1;
-                } else if (player1.getScore() > player2.getScore()) {
-                    return -1;
-                }
-                return (player1.getTime().compareTo(player2.getTime()));
-            //}
-            //catch (NullPointerException playerNull) {
-                //throw playerNull;
-            //}
-        }
+    public void addAttempt(String name, int score, Calendar startTime, Calendar endTime) {
+        LeaderboardNode attempt = new LeaderboardNode(name, score, startTime, endTime);
+        this.leaderList.add(attempt);
+        this.leaderList.sort(LeaderboardNode.getNodeComparator());
+        this.size++;
+        setMostRecentAttempt(attempt);  // most recent attempt should be updated each time
+        // a new game attempt is added to leaderboard list
     }
 
     //Public static getter method, so every class can look at the one leaderboard.
@@ -38,4 +34,28 @@ public class Leaderboard {
         }
         return leaderboard;
     }
-}
+
+    public LeaderboardNode get(int index) {
+        return this.leaderList.get(index);
+    }
+
+    public int getSize() {
+        return this.size;
+    }
+
+    private void setMostRecentAttempt(LeaderboardNode attempt) {
+        this.mostRecentAttempt = attempt;
+    }
+
+    public LeaderboardNode getMostRecentAttempt() {
+        return this.mostRecentAttempt;
+    }
+
+    // clear method to empty leaderboard instance for testing purposes
+    public void clear() {
+        this.leaderList = new ArrayList<>(5);
+        this.size = 0;
+        this.mostRecentAttempt = null;
+    }
+
+} // class Leaderboard
