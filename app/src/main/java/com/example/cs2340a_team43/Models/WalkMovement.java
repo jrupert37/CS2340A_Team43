@@ -7,20 +7,21 @@ public class WalkMovement implements MovementBehavior {
         int x = xy.first;
         int y = xy.second;
         switch (direction) {
-        case LEFT:
-            x -= 1;
-            break;
-        case RIGHT:
-            x += 1;
-            break;
-        case UP:
-            y -= 1;
-            break;
-        case DOWN:
-            y += 1;
-            break;
-        default:
-            break;
+            case LEFT:
+                x -= 1;
+                break;
+            case RIGHT:
+                x += 1;
+                break;
+            case UP:
+                y -= 1;
+                break;
+            case DOWN:
+                y += 1;
+                break;
+            default:
+                break;
         }
         return new Pair<>(x, y);
+    }
 }
