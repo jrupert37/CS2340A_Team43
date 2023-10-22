@@ -57,5 +57,4 @@ public class Leaderboard {
         this.size = 0;
         this.mostRecentAttempt = null;
     }
-
 } // class Leaderboard

@@ -6,13 +6,8 @@ import android.widget.RadioGroup;
 import android.content.Intent;
 import android.widget.EditText;
 import com.example.cs2340a_team43.R;
-import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 
-
-//import com.example.cs2340a_team43.R;
 public class ConfigurationPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
