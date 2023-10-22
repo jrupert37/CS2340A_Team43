@@ -1,23 +1,12 @@
 package com.example.cs2340a_team43.Models;
 
-import android.util.Pair;
+
+import androidx.core.util.Pair;
 
 public class WalkMovement implements MovementBehavior {
     public Pair<Integer, Integer> move(Pair<Integer, Integer> xy, MovementDirection direction) {
-        int x;
-        int y;
-        if (xy.first == null) {
-            x = 0;
-        } else {
-            x = xy.first;
-        }
-
-        if (xy.second == null) {
-            y = 0;
-        } else {
-            y = xy.second;
-        }
-
+        int x = xy.first;
+        int y = xy.second;
         switch (direction) {
             case LEFT:
                 x -= 1;

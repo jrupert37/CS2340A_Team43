@@ -24,6 +24,9 @@ public class MapViewModel extends ViewModel implements Subject {
         this.map = new Map(context);
         this.observers = new ArrayList<>();
     }
+    public MapViewModel() {
+        this.map = new Map();
+    }
     public static MapViewModel getInstance(Context context) {
         if (mvm == null) {
             mvm = new MapViewModel(context);

@@ -1,6 +1,6 @@
 package com.example.cs2340a_team43.Models;
 
-import android.util.Pair;
+import androidx.core.util.Pair;
 
 public interface MovementBehavior {
     public enum MovementDirection {
