@@ -29,10 +29,15 @@ public class Map {
     private final int rows = 18;
     private final int cols = 40;
 
+
     public Map(Context context) {
         this.floor = Floor.FIRST_FLOOR;
         this.context = context;
         setFloor(floor);
+    }
+
+    public Map() {
+        this.roomLayout = new MapObject[rows][cols];
     }
 
     public Floor getFloor() {
