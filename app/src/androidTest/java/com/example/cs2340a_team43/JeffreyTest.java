@@ -2,7 +2,7 @@ package com.example.cs2340a_team43;
 
 import androidx.test.espresso.IdlingPolicies;
 import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.uiautomator.UiDevice;
 //import androidx.test.espresso.Espresso;
