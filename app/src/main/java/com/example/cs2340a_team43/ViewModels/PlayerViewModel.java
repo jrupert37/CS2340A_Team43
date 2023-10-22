@@ -136,3 +136,4 @@ public class PlayerViewModel extends ViewModel implements Subject {
         return mapViewModel.xyIsAnExit(getPlayerX(), getPlayerY());
     }
 } // PlayerViewModel
+

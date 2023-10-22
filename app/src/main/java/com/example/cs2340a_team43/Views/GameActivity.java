@@ -40,6 +40,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        System.out.println("WELCOME");
         screenWidth = getResources().getDisplayMetrics().widthPixels;
         screenHeight = getResources().getDisplayMetrics().heightPixels;
 
@@ -57,6 +58,7 @@ public class GameActivity extends AppCompatActivity {
             imageId = R.mipmap.gymbroplayersprite;
         }
 
+
         mapViewModel = new MapViewModel(this);
 
         playerViewModel = PlayerViewModel.getInstance();
@@ -67,6 +69,17 @@ public class GameActivity extends AppCompatActivity {
         playerViewModel.setMap(mapViewModel);
 
         gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
+
+        Button upButton = findViewById(R.id.upButton);
+        upButton.setOnClickListener(v -> {
+            playerViewModel.movePlayerUp();
+        });
+
+        Button downButton = findViewById(R.id.downButton);
+        downButton.setOnClickListener(v -> {
+            playerViewModel.movePlayerDown();
+        });
+
 
         linearLayout = findViewById(R.id.gameLayout);
         linearLayout.addView(gameView);

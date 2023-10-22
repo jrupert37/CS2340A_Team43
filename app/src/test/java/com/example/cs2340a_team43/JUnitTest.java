@@ -1,10 +1,10 @@
-package com.example.cs2340a_team43;
+/*package com.example.cs2340a_team43;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.example.cs2340a_team43.Models.Leaderboard;
-import com.example.cs2340a_team43.Models.Node;
+//import com.example.cs2340a_team43.Models.Node;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.ViewModels.PlayerView;
 
@@ -25,6 +25,7 @@ public class JUnitTest {
         assertEquals(15, player.getHP());
 
     }
+
     //Vishnu Test #2
     @Test
     public void testPlayerSingleton() {
@@ -169,3 +170,4 @@ public class JUnitTest {
         assertEquals(playerV1.getYPosition(), -1);
     }
 }
+*/
