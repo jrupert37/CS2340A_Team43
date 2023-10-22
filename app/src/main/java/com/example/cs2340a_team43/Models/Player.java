@@ -35,12 +35,24 @@ public class Player extends Character {
 
     public int getX() {
         // the "first" element of the xyCoordinatesCoordinates pair is the x coordinate
-        return xyCoordinates.first;
+        if (xyCoordinates.first != null) {
+            // the "first" element of the xyCoordinates pair is the x coordinate
+            return xyCoordinates.first;
+        } else {
+            // Handle the case where xyCoordinates is null
+            return 0; // or any other suitable default value
+        }
     }
 
     public int getY() {
         // the "second" element of the xyCoordinates pair is the y coordinate
-        return xyCoordinates.second;
+        if (xyCoordinates.second != null) {
+            // the "second" element of the xyCoordinates pair is the y coordinate
+            return xyCoordinates.second;
+        } else {
+            // Handle the case where xyCoordinates is null
+            return 0; // or any other suitable default value
+        }
     }
 
     public void setInitialXY(int x, int y) {
