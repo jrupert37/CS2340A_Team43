@@ -14,7 +14,10 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 
 import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.LeaderboardNode;
+import com.example.cs2340a_team43.Models.Player;
+import com.example.cs2340a_team43.Models.LeaderboardNode;
 import com.example.cs2340a_team43.Views.StartScreenActivity;
+import com.example.cs2340a_team43.Views.GameActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +33,7 @@ import android.os.RemoteException;
 public class JeffreyTest {
     @Rule
     public ActivityScenarioRule<StartScreenActivity> activityRule = new ActivityScenarioRule<>(StartScreenActivity.class);
+
     @Test
     public void testLeaderboardNeverBelowZero() throws RemoteException {
         UiDevice device = UiDevice.getInstance(getInstrumentation());
@@ -56,7 +60,7 @@ public class JeffreyTest {
             }
         }
         Leaderboard testLeaderboard = Leaderboard.getInstance();
-        Node temp = testLeaderboard.getMostRecentAttempt();
+        LeaderboardNode temp = testLeaderboard.getMostRecentAttempt();
         assertTrue(temp.getScore() > -1);
     }
 
@@ -85,7 +89,7 @@ public class JeffreyTest {
             }
         }
         Leaderboard testLeaderboard = Leaderboard.getInstance();
-        Node temp = testLeaderboard.getMostRecentAttempt();
+        LeaderboardNode temp = testLeaderboard.getMostRecentAttempt();
         assertTrue(temp.getScore() < 60);
 
     }
@@ -111,7 +115,7 @@ public class JeffreyTest {
             }
         }
         Leaderboard testLeaderboard = Leaderboard.getInstance();
-        Node temp = testLeaderboard.getMostRecentAttempt();
+        LeaderboardNode temp = testLeaderboard.getMostRecentAttempt();
 
         onView(withId(R.id.restartButton)).perform(click());
         onView(withId(R.id.startButton)).perform(click());
@@ -126,7 +130,36 @@ public class JeffreyTest {
 
             }
         }
-        Node temp2 = testLeaderboard.get(testLeaderboard.getSize() - 2);
+        LeaderboardNode temp2 = testLeaderboard.get(testLeaderboard.getSize() - 2);
         assertNotEquals(temp, temp2);
+    }
+
+
+    @Test
+    public void testMoveDown() throws RemoteException {
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+
+        device.setOrientationLeft();
+        //device.setOrientationNatural();
+        //device.setOrientationRight();
+        onView(withId(R.id.startButton)).perform(click());
+        onView(withId(R.id.nameInputBox)).perform(typeText("Name"));
+        onView(withId(R.id.nextButton)).perform(click());
+
+        onView(withId(R.id.downButton)).check(matches(isDisplayed()));
+
+
+
+        for(int pressButton = 1; pressButton < 3; pressButton++){
+            onView(withId(R.id.downButton)).perform(click());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e){
+
+            }
+        }
+
+        assertEquals(4, Player.getInstance().getY());
+
     }
 }
