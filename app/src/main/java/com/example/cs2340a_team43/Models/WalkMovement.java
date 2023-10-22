@@ -4,8 +4,8 @@ import android.util.Pair;
 
 public class WalkMovement implements MovementBehavior {
     public Pair<Integer, Integer> move(Pair<Integer, Integer> xy, MovementDirection direction) {
-        int x = xy.first;
-        int y = xy.second;
+        int x = xy.first != null ? xy.first : 0;
+        int y = xy.second != null ? xy.first : 0;
         switch (direction) {
             case LEFT:
                 x -= 1;
