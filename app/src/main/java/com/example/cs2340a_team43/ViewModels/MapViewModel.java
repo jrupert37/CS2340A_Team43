@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.Models.Map.Floor;
 import com.example.cs2340a_team43.Models.Observer;
+import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Models.Subject;
 import com.example.cs2340a_team43.Models.Map.MapObject;
 
@@ -18,11 +19,18 @@ public class MapViewModel extends ViewModel implements Subject {
     private Map map;
     private Context context;
     private List<Observer> observers;
+    private static MapViewModel mvm;
 
     public MapViewModel(Context context) {
         this.map = new Map(context);
         this.context = context;
         this.observers = new ArrayList<>();
+    }
+    public static MapViewModel getInstance(Context context) {
+        if (mvm == null) {
+            mvm = new MapViewModel(context);
+        }
+        return mvm;
     }
 
     public void addObserver(Observer o) {
