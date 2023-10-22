@@ -125,3 +125,4 @@ public class PlayerViewModel extends ViewModel implements Subject {
         return mapViewModel.isAWall(newX, newY);
     }
 } // PlayerViewModel
+
