@@ -122,11 +122,7 @@ public class PlayerViewModel extends ViewModel implements Subject {
     }
 
     public boolean willCollideWithWall(int newX, int newY) {
-        if (mapViewModel != null) {
-            return mapViewModel.isAWall(newX, newY);
-        } else {
-            return mapViewModel.isAWall(0, 0);
-        }
+        return mapViewModel.isAWall(newX, newY);
     }
 } // PlayerViewModel
 
