@@ -23,5 +23,4 @@ public class WalkMovement implements MovementBehavior {
             break;
         }
         return new Pair<>(x, y);
-    }
 }
