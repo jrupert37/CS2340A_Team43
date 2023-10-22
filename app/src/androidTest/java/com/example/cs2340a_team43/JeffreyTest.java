@@ -16,6 +16,7 @@ import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.LeaderboardNode;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Models.LeaderboardNode;
+import com.example.cs2340a_team43.Models.RunMovement;
 import com.example.cs2340a_team43.Views.StartScreenActivity;
 import com.example.cs2340a_team43.Views.GameActivity;
 
@@ -161,5 +162,52 @@ public class JeffreyTest {
 
         assertEquals(4, Player.getInstance().getY());
 
+    }
+    //Cason test 1
+    @Test
+    public void testLevel1Boarder() throws RemoteException {
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+        Player player = Player.getInstance();
+        device.setOrientationLeft();
+        onView(withId(R.id.startButton)).perform(click());
+        onView(withId(R.id.nameInputBox)).perform(typeText("Name"));
+        onView(withId(R.id.nextButton)).perform(click());
+        onView(withId(R.id.downButton)).check(matches(isDisplayed()));
+        onView(withId(R.id.upButton)).check(matches(isDisplayed()));
+        onView(withId(R.id.rightButton)).check(matches(isDisplayed()));
+        onView(withId(R.id.leftButton)).check(matches(isDisplayed()));
+        try {
+            Thread.sleep(5000); //wait 5 seconds
+        } catch (InterruptedException e) {
+
+        }
+        for (int pressButton = 0; pressButton < 100; pressButton++) {
+            onView(withId(R.id.leftButton)).perform(click());
+        }
+        for (int pressButton = 0; pressButton < 100; pressButton++) {
+            onView(withId(R.id.rightButton)).perform(click());
+        }
+        for (int pressButton = 0; pressButton < 100; pressButton++) {
+            onView(withId(R.id.upButton)).perform(click());
+        }
+        for (int pressButton = 0; pressButton < 100; pressButton++) {
+            onView(withId(R.id.downButton)).perform(click());
+        }
+        assertTrue(player.getX() <= 33 && player.getX() >= 0);
+        assertTrue(player.getY() <= 86 && player.getY() >= 0);
+    }
+    //Cason test 2
+    @Test
+    public void testStrategyDesignPattern() {
+        Player player = Player.getInstance();
+        Player fastPlayer = new Player(new RunMovement());
+        player.setInitialXY(1, 1);
+        player.setInitialXY(2, 1);
+        player.moveLeft();
+        fastPlayer.moveLeft();
+        int X1 = player.getX();
+        int X2 = player.getX();
+        assertEquals(0, X1);
+        assertEquals(0, X2);
     }
 }
