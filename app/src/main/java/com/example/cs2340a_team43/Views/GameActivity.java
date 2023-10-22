@@ -1,8 +1,6 @@
 package com.example.cs2340a_team43.Views;
 
 import android.content.Intent;
-import android.graphics.Rect;
-import android.widget.Button;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -117,12 +115,12 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void run() {
                 while (isRunning) {
-                    if (playerIsAtCorner()) {
-                        Map.Floor floor = gameView.getFloor();
-                        if (floor == Map.Floor.THIRD_FLOOR) {
+                    if (playerViewModel.playerIsAtExit()) {
+                        if (mapViewModel.getMapFloor() == Map.Floor.THIRD_FLOOR) {
                             isRunning = false;
+                        } else {
+                            gameView.moveToNextFloor();
                         }
-                        gameView.moveToNextFloor();
                     }
                 }
                 scoreTimer.cancel();
@@ -135,16 +133,5 @@ public class GameActivity extends AppCompatActivity {
             }
         });
         gameThread.start();
-    }
-
-    private boolean playerIsAtCorner() {
-        int playerX = playerViewModel.getPlayerX() * 30;
-        int playerY = playerViewModel.getPlayerY() * 30;
-        Rect playerLocation = new Rect(playerX, playerY, playerX + 90, playerY + 90);
-        int leftBound = screenWidth - 150;
-        int topBound = screenHeight - 150;
-        int rightBound = screenWidth;
-        int bottomBound = screenHeight;
-        return playerLocation.intersects(leftBound, topBound, rightBound, bottomBound);
     }
 } // GameActivity

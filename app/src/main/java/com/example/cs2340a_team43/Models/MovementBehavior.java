@@ -1,6 +1,5 @@
 package com.example.cs2340a_team43.Models;
 
-import android.graphics.Rect;
 import android.util.Pair;
 
 public interface MovementBehavior {
