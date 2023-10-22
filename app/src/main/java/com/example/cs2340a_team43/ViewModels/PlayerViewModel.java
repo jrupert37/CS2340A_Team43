@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team43.Models.Observer;
 import com.example.cs2340a_team43.Models.Player;
-import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
 import com.example.cs2340a_team43.Models.Subject;
 
 import java.util.ArrayList;
@@ -33,9 +32,9 @@ public class PlayerViewModel extends ViewModel implements Subject {
         return playerViewModel;
     }
 
-//    public void updatePosition(MovementDirection direction) {
-//        this.player.updatePosition(direction);
-//    }
+    //    public void updatePosition(MovementDirection direction) {
+    //        this.player.updatePosition(direction);
+    //    }
 
     public Bitmap getPlayerBitmap() {
         return this.player.getBitmap();
@@ -80,31 +79,39 @@ public class PlayerViewModel extends ViewModel implements Subject {
     }
 
     public void movePlayerLeft() {
-        if (!willCollideWithWall(getPlayerX() - 1, getPlayerY())) {
-            this.player.moveLeft();
-            notifyObservers();
+        if (willCollideWithWall(getPlayerX() - 1, getPlayerY())) {
+            return;
         }
+        // otherwise...
+        this.player.moveLeft();
+        notifyObservers();
     }
 
     public void movePlayerRight() {
-        if (!willCollideWithWall(getPlayerX() + 1, getPlayerY())) {
-            this.player.moveRight();
-            notifyObservers();
+        if (willCollideWithWall(getPlayerX() + 1, getPlayerY())) {
+            return;
         }
+        // otherwise...
+        this.player.moveRight();
+        notifyObservers();
     }
 
     public void movePlayerUp() {
-        if (!willCollideWithWall(getPlayerX(), getPlayerY() - 1)) {
-            this.player.moveUp();
-            notifyObservers();
+        if (willCollideWithWall(getPlayerX(), getPlayerY() - 1)) {
+            return;
         }
+        // otherwise...
+        this.player.moveUp();
+        notifyObservers();
     }
 
     public void movePlayerDown() {
-        if (!willCollideWithWall(getPlayerX(), getPlayerY() + 1)) {
-            this.player.moveDown();
-            notifyObservers();
+        if (willCollideWithWall(getPlayerX(), getPlayerY() + 1)) {
+            return;
         }
+        // otherwise...
+        this.player.moveDown();
+        notifyObservers();
     }
 
     public void addObserver(Observer o) {
@@ -123,5 +130,9 @@ public class PlayerViewModel extends ViewModel implements Subject {
 
     public boolean willCollideWithWall(int newX, int newY) {
         return mapViewModel.isAWall(newX, newY);
+    }
+
+    public boolean playerIsAtExit() {
+        return mapViewModel.xyIsAnExit(getPlayerX(), getPlayerY());
     }
 } // PlayerViewModel
