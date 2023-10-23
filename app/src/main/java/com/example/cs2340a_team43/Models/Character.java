@@ -1,12 +1,12 @@
 package com.example.cs2340a_team43.Models;
 
-import android.util.Pair;
+import androidx.core.util.Pair;
 
 import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
 
 public abstract class Character {
     protected MovementBehavior movementBehavior;
-    protected Pair<Integer, Integer> xyCoordinates;
+    protected Pair<Integer, Integer> xyCoordinates = new Pair<>(0, 0);
     public Character() {
     }
     public Pair<Integer, Integer> performMove(Pair<Integer, Integer> xy, MovementDirection dir) {

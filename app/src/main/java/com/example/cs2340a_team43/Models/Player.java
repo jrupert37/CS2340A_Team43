@@ -3,8 +3,11 @@ package com.example.cs2340a_team43.Models;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import androidx.core.util.Pair;
+
 import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
-import android.util.Pair;
+
 
 public class Player extends Character {
     private static Player player;
@@ -17,7 +20,7 @@ public class Player extends Character {
     private Player() {
         // null constructor, player attributes will be concretely initialized later
         this.hp = 0;
-        xyCoordinates = new Pair<>(0, 0);
+        //xyCoordinates = new Pair<>(0, 0);
         this.imageId = 0;
         this.bitmap = null;
         this.movementBehavior = new WalkMovement();
@@ -41,29 +44,17 @@ public class Player extends Character {
     }
 
     public int getX() {
-        // the "first" element of the xyCoordinatesCoordinates pair is the x coordinate
-        if (xyCoordinates.first != null) {
-            // the "first" element of the xyCoordinates pair is the x coordinate
-            return xyCoordinates.first;
-        } else {
-            // Handle the case where xyCoordinates is null
-            return 0; // or any other suitable default value
-        }
+        // the "first" element of the xyCoordinates pair is the x coordinate
+        return xyCoordinates.first;
     }
 
     public int getY() {
         // the "second" element of the xyCoordinates pair is the y coordinate
-        if (xyCoordinates.second != null) {
-            // the "second" element of the xyCoordinates pair is the y coordinate
-            return xyCoordinates.second;
-        } else {
-            // Handle the case where xyCoordinates is null
-            return 0; // or any other suitable default value
-        }
+        return xyCoordinates.second;
     }
 
     public void setInitialXY(int x, int y) {
-        xyCoordinates = new Pair<>(x, y);
+        xyCoordinates = new Pair<Integer, Integer>(x, y);
     }
     public void setHP(String difficulty) {
         if (difficulty.equals("Easy")) {
