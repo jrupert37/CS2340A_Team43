@@ -25,7 +25,14 @@ public class Player extends Character {
         this.bitmap = null;
         this.movementBehavior = new WalkMovement();
     }
-
+    public Player(MovementBehavior run) {
+        // temp constructor, player attributes will be concretely initialized later
+        this.hp = 0;
+        xyCoordinates = new Pair<>(0, 0);
+        this.imageId = 0;
+        this.bitmap = null;
+        this.movementBehavior = new RunMovement();
+    }
     public static Player getInstance() {
         if (player == null) {
             player = new Player();

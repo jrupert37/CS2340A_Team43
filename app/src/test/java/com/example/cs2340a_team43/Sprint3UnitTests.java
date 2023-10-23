@@ -26,6 +26,31 @@ public class Sprint3UnitTests {
         int newX = player.getX();
         assertEquals(0, newX);
     }
+
+    //Joseph Test #1
+    @Test
+    public void rightMovement(){
+        Player player = Player.getInstance();
+        player.setInitialXY(1, 1);
+        int newX;
+        for (int i = 2; i < 102; i++) {
+            player.moveRight();
+            newX = player.getX();
+            assertEquals(i, newX);
+        }
+    }
+    //Joseph Test #2
+    @Test
+    public void upMovement(){
+        Player player = Player.getInstance();
+        player.setInitialXY(1, 101);
+        int newY;
+        for (int i = 0; i < 100; i++) {
+            player.moveUp();
+            newY = player.getY();
+            assertEquals(100 - i, newY);
+        }
+    }
     @Test
     public void testInitialXY() {
         Player player = Player.getInstance();
