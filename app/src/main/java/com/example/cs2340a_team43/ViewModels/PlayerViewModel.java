@@ -145,5 +145,9 @@ public class PlayerViewModel extends ViewModel implements Subject {
     public boolean playerIsAtExit() {
         return mapViewModel.xyIsAnExit(getPlayerX(), getPlayerY());
     }
+
+    public int getPlayerHP() {
+        return this.player.getHp();
+    }
 } // PlayerViewModel
 
