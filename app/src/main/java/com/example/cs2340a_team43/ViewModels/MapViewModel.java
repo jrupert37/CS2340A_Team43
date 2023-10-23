@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.Models.Map.Floor;
 import com.example.cs2340a_team43.Models.Observer;
-import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Models.Subject;
 import com.example.cs2340a_team43.Models.Map.MapObject;
 
