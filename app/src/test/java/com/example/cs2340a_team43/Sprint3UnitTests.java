@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.example.cs2340a_team43.Models.Map;
+import com.example.cs2340a_team43.Models.Observer;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Models.RunMovement;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
@@ -52,7 +53,7 @@ public class Sprint3UnitTests {
             assertEquals(100 - i, newY);
         }
     }
-    //Joseph Test #2
+    //Vishnu Test #1
     @Test
     public void downMovement(){
         Player player = Player.getInstance();
@@ -112,6 +113,26 @@ public class Sprint3UnitTests {
         int X2 = fastPlayer.getX();
         assertEquals(0, X1);
         assertEquals(0, X2);
+    }
+
+    //Vishnu Test #2
+    @Test
+    public void testObserverNotified() {
+        MapViewModel mvm = new MapViewModel();
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setMap(mvm);
+        pvm.setInitialPlayerXY(1,1);
+        Observer observer = new Observer() {
+            @Override
+            public void update() {
+                System.out.println("UPDATE");
+            }
+        };
+        pvm.addObserver(observer);
+        assertTrue(!pvm.isNotified()); //Test observer is not notified before action
+        pvm.movePlayerUp();
+        assertTrue(pvm.isNotified());
+
     }
 
 }

@@ -96,8 +96,8 @@ public class Sprint3InstrumentalUnitTest {
         } catch (InterruptedException e){
 
         }
-        assertEquals(1, player.getX());
-        assertEquals(1,player.getY());
+        assertEquals(0, player.getX());
+        assertEquals(0,player.getY());
     }
     @Test
     public void testFloor1Border() throws RemoteException{

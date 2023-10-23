@@ -19,10 +19,12 @@ public class PlayerViewModel extends ViewModel implements Subject {
     private int initialX;
     private int initialY;
     private List<Observer> observers;
+    private boolean notified;
 
     private PlayerViewModel() {
         this.player = Player.getInstance();
         observers = new ArrayList<>();
+        notified = false;
     }
 
     public static PlayerViewModel getInstance() {
@@ -123,10 +125,18 @@ public class PlayerViewModel extends ViewModel implements Subject {
     }
 
     public void notifyObservers() {
+        System.out.println("OVER HERE");
+        this.notified = true;
         for (Observer o: observers) {
             o.update();
         }
+        System.out.println("NOTIFIED #1: " + notified);
     }
+
+    public boolean isNotified() {
+        return notified;
+    }
+
 
     public boolean willCollideWithWall(int newX, int newY) {
         return mapViewModel.isAWall(newX, newY);
