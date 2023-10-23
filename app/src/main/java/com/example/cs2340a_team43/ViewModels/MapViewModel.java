@@ -16,13 +16,21 @@ import java.util.List;
 
 public class MapViewModel extends ViewModel implements Subject {
     private Map map;
-    private Context context;
     private List<Observer> observers;
+    private static MapViewModel mvm;
 
     public MapViewModel(Context context) {
         this.map = new Map(context);
-        this.context = context;
         this.observers = new ArrayList<>();
+    }
+    public MapViewModel() {
+        this.map = new Map();
+    }
+    public static MapViewModel getInstance(Context context) {
+        if (mvm == null) {
+            mvm = new MapViewModel(context);
+        }
+        return mvm;
     }
 
     public void addObserver(Observer o) {
@@ -70,5 +78,9 @@ public class MapViewModel extends ViewModel implements Subject {
 
     public boolean isAWall(int x, int y) {
         return getRoomLayout()[y][x] == MapObject.WALL;
+    }
+
+    public boolean xyIsAnExit(int x, int y) {
+        return getRoomLayout()[y][x] == MapObject.EXIT;
     }
 }

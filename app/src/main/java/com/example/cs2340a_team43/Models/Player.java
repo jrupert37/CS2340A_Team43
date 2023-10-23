@@ -3,8 +3,11 @@ package com.example.cs2340a_team43.Models;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import androidx.core.util.Pair;
+
 import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
-import android.util.Pair;
+
 
 public class Player extends Character {
     private static Player player;
@@ -17,12 +20,19 @@ public class Player extends Character {
     private Player() {
         // null constructor, player attributes will be concretely initialized later
         this.hp = 0;
-        xyCoordinates = new Pair<>(0, 0);
+        //xyCoordinates = new Pair<>(0, 0);
         this.imageId = 0;
         this.bitmap = null;
         this.movementBehavior = new WalkMovement();
     }
-
+    public Player(MovementBehavior run) {
+        // temp constructor, player attributes will be concretely initialized later
+        this.hp = 0;
+        xyCoordinates = new Pair<>(0, 0);
+        this.imageId = 0;
+        this.bitmap = null;
+        this.movementBehavior = new RunMovement();
+    }
     public static Player getInstance() {
         if (player == null) {
             player = new Player();
@@ -34,7 +44,7 @@ public class Player extends Character {
     }
 
     public int getX() {
-        // the "first" element of the xyCoordinatesCoordinates pair is the x coordinate
+        // the "first" element of the xyCoordinates pair is the x coordinate
         return xyCoordinates.first;
     }
 
@@ -44,7 +54,7 @@ public class Player extends Character {
     }
 
     public void setInitialXY(int x, int y) {
-        xyCoordinates = new Pair<>(x, y);
+        xyCoordinates = new Pair<Integer, Integer>(x, y);
     }
     public void setHP(String difficulty) {
         if (difficulty.equals("Easy")) {
