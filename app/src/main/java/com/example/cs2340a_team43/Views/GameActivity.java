@@ -87,7 +87,9 @@ public class GameActivity extends AppCompatActivity {
 
         score = initialScore; // set score to initial value
         scoreTextView = findViewById(R.id.scoreTextView);
-        scoreTextView.setText("Score: " + initialScore); // Display initial score
+        int hp = playerViewModel.getPlayerHP();
+        String text = "Score: " + initialScore + "    Difficulty: " + difficulty + "    HP: " + hp;
+        scoreTextView.setText(text);
         scoreTimer = new Timer();
         scoreTimer.schedule(new TimerTask() {
             @Override
@@ -100,7 +102,9 @@ public class GameActivity extends AppCompatActivity {
                         } else {
                             scoreTimer.cancel();
                         }
-                        scoreTextView.setText("Score: " + score);
+                        String text = "Score: " + score + "    Difficulty: "
+                                + difficulty + "    HP: " + hp;
+                        scoreTextView.setText(text);
                     }
                 });
             }
