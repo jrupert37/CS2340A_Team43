@@ -106,4 +106,8 @@ public class Player extends Character {
     public Bitmap getBitmap() {
         return this.bitmap;
     }
+
+    public int getHp() {
+        return this.hp;
+    }
 } // Player
