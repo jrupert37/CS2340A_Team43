@@ -4,10 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.lifecycle.ViewModel;
 
+import com.example.cs2340a_team43.Models.MovementBehavior;
 import com.example.cs2340a_team43.Models.Observer;
 import com.example.cs2340a_team43.Models.Player;
-import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
 import com.example.cs2340a_team43.Models.Subject;
+import com.example.cs2340a_team43.Models.WalkMovement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,12 @@ public class PlayerViewModel extends ViewModel implements Subject {
     private int initialX;
     private int initialY;
     private List<Observer> observers;
+    private boolean notified;
 
     private PlayerViewModel() {
         this.player = Player.getInstance();
         observers = new ArrayList<>();
+        notified = false;
     }
 
     public static PlayerViewModel getInstance() {
@@ -32,11 +35,6 @@ public class PlayerViewModel extends ViewModel implements Subject {
         }
         return playerViewModel;
     }
-
-//    public void updatePosition(MovementDirection direction) {
-//        this.player.updatePosition(direction);
-//    }
-
     public Bitmap getPlayerBitmap() {
         return this.player.getBitmap();
     }
@@ -47,6 +45,10 @@ public class PlayerViewModel extends ViewModel implements Subject {
 
     public int getPlayerY() {
         return this.player.getY();
+    }
+
+    public int getPlayerSpeed() {
+        return this.player.getSpeed();
     }
 
     public String getPlayerName() {
@@ -80,31 +82,39 @@ public class PlayerViewModel extends ViewModel implements Subject {
     }
 
     public void movePlayerLeft() {
-        if (!willCollideWithWall(getPlayerX() - 1, getPlayerY())) {
-            this.player.moveLeft();
-            notifyObservers();
+        if (willCollideWithWall(getPlayerX() - getPlayerSpeed(), getPlayerY())) {
+            return;
         }
+        // otherwise...
+        this.player.moveLeft();
+        notifyObservers();
     }
 
     public void movePlayerRight() {
-        if (!willCollideWithWall(getPlayerX() + 1, getPlayerY())) {
-            this.player.moveRight();
-            notifyObservers();
+        if (willCollideWithWall(getPlayerX() + getPlayerSpeed(), getPlayerY())) {
+            return;
         }
+        // otherwise...
+        this.player.moveRight();
+        notifyObservers();
     }
 
     public void movePlayerUp() {
-        if (!willCollideWithWall(getPlayerX(), getPlayerY() - 1)) {
-            this.player.moveUp();
-            notifyObservers();
+        if (willCollideWithWall(getPlayerX(), getPlayerY() - getPlayerSpeed())) {
+            return;
         }
+        // otherwise...
+        this.player.moveUp();
+        notifyObservers();
     }
 
     public void movePlayerDown() {
-        if (!willCollideWithWall(getPlayerX(), getPlayerY() + 1)) {
-            this.player.moveDown();
-            notifyObservers();
+        if (willCollideWithWall(getPlayerX(), getPlayerY() + getPlayerSpeed())) {
+            return;
         }
+        // otherwise...
+        this.player.moveDown();
+        notifyObservers();
     }
 
     public void addObserver(Observer o) {
@@ -116,13 +126,33 @@ public class PlayerViewModel extends ViewModel implements Subject {
     }
 
     public void notifyObservers() {
+        System.out.println("OVER HERE");
+        this.notified = true;
         for (Observer o: observers) {
             o.update();
         }
+        System.out.println("NOTIFIED #1: " + notified);
     }
+
+    public boolean isNotified() {
+        return notified;
+    }
+
 
     public boolean willCollideWithWall(int newX, int newY) {
         return mapViewModel.isAWall(newX, newY);
+    }
+
+    public boolean playerIsAtExit() {
+        return mapViewModel.xyIsAnExit(getPlayerX(), getPlayerY());
+    }
+
+    public int getPlayerHP() {
+        return this.player.getHp();
+    }
+
+    public void setPlayerMovementBehavior(MovementBehavior behavior) {
+        this.player.setMovementBehavior(behavior);
     }
 } // PlayerViewModel
 
