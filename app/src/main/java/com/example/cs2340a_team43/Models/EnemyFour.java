@@ -4,7 +4,7 @@ import com.example.cs2340a_team43.R;
 
 public class EnemyFour extends Enemy{
     public EnemyFour() {
-        imageId = R.drawable.nerdplayersprite;
+        imageId = R.drawable.eyeball;
         hp = 10;
         damage = 5;
         movementBehavior = new RunMovement();

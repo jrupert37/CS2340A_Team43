@@ -3,7 +3,7 @@ package com.example.cs2340a_team43.Models;
 import com.example.cs2340a_team43.R;
 public class EnemyOne extends Enemy{
     public EnemyOne(String difficulty) {
-        imageId = R.drawable.frowny;
+        imageId = R.drawable.catenemy;
         hp = 50;
         if (difficulty.equals("Easy")) {
             damage = 5;

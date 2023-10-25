@@ -4,7 +4,7 @@ import com.example.cs2340a_team43.R;
 
 public class EnemyTwo extends Enemy{
     public EnemyTwo(String difficulty) {
-        imageId = R.drawable.smiley;
+        imageId = R.drawable.grimreaper;
         hp = 50;
         if (difficulty.equals("Easy")) {
             damage = 10;
