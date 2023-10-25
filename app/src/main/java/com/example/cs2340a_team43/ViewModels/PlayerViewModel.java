@@ -4,9 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.lifecycle.ViewModel;
 
+import com.example.cs2340a_team43.Models.MovementBehavior;
 import com.example.cs2340a_team43.Models.Observer;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Models.Subject;
+import com.example.cs2340a_team43.Models.WalkMovement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +35,6 @@ public class PlayerViewModel extends ViewModel implements Subject {
         }
         return playerViewModel;
     }
-
-    //    public void updatePosition(MovementDirection direction) {
-    //        this.player.updatePosition(direction);
-    //    }
-
     public Bitmap getPlayerBitmap() {
         return this.player.getBitmap();
     }
@@ -48,6 +45,10 @@ public class PlayerViewModel extends ViewModel implements Subject {
 
     public int getPlayerY() {
         return this.player.getY();
+    }
+
+    public int getPlayerSpeed() {
+        return this.player.getSpeed();
     }
 
     public String getPlayerName() {
@@ -81,7 +82,7 @@ public class PlayerViewModel extends ViewModel implements Subject {
     }
 
     public void movePlayerLeft() {
-        if (willCollideWithWall(getPlayerX() - 1, getPlayerY())) {
+        if (willCollideWithWall(getPlayerX() - getPlayerSpeed(), getPlayerY())) {
             return;
         }
         // otherwise...
@@ -90,7 +91,7 @@ public class PlayerViewModel extends ViewModel implements Subject {
     }
 
     public void movePlayerRight() {
-        if (willCollideWithWall(getPlayerX() + 1, getPlayerY())) {
+        if (willCollideWithWall(getPlayerX() + getPlayerSpeed(), getPlayerY())) {
             return;
         }
         // otherwise...
@@ -99,7 +100,7 @@ public class PlayerViewModel extends ViewModel implements Subject {
     }
 
     public void movePlayerUp() {
-        if (willCollideWithWall(getPlayerX(), getPlayerY() - 1)) {
+        if (willCollideWithWall(getPlayerX(), getPlayerY() - getPlayerSpeed())) {
             return;
         }
         // otherwise...
@@ -108,7 +109,7 @@ public class PlayerViewModel extends ViewModel implements Subject {
     }
 
     public void movePlayerDown() {
-        if (willCollideWithWall(getPlayerX(), getPlayerY() + 1)) {
+        if (willCollideWithWall(getPlayerX(), getPlayerY() + getPlayerSpeed())) {
             return;
         }
         // otherwise...
@@ -148,6 +149,10 @@ public class PlayerViewModel extends ViewModel implements Subject {
 
     public int getPlayerHP() {
         return this.player.getHp();
+    }
+
+    public void setPlayerMovementBehavior(MovementBehavior behavior) {
+        this.player.setMovementBehavior(behavior);
     }
 } // PlayerViewModel
 
