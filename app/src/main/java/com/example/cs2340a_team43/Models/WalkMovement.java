@@ -4,25 +4,29 @@ package com.example.cs2340a_team43.Models;
 import androidx.core.util.Pair;
 
 public class WalkMovement implements MovementBehavior {
+    final int speed = 1;
     public Pair<Integer, Integer> move(Pair<Integer, Integer> xy, MovementDirection direction) {
         int x = xy.first;
         int y = xy.second;
         switch (direction) {
         case LEFT:
-            x -= 1;
+            x -= speed;
             break;
         case RIGHT:
-            x += 1;
+            x += speed;
             break;
         case UP:
-            y -= 1;
+            y -= speed;
             break;
         case DOWN:
-            y += 1;
+            y += speed;
             break;
         default:
             break;
         }
         return new Pair<>(x, y);
+    }
+    public int getSpeed() {
+        return this.speed;
     }
 }

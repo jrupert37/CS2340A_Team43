@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.example.cs2340a_team43.Models.Map;
+import com.example.cs2340a_team43.Models.Observer;
 import com.example.cs2340a_team43.Models.Player;
+import com.example.cs2340a_team43.Models.RunMovement;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
 import com.example.cs2340a_team43.Views.GameActivity;
@@ -51,6 +53,18 @@ public class Sprint3UnitTests {
             assertEquals(100 - i, newY);
         }
     }
+    //Vishnu Test #1
+    @Test
+    public void downMovement(){
+        Player player = Player.getInstance();
+        player.setInitialXY(1, 1);
+        int newY;
+        for (int i = 0; i < 100; i++) {
+            player.moveDown();
+            newY = player.getY();
+            assertEquals(i+2, newY);
+        }
+    }
     @Test
     public void testInitialXY() {
         Player player = Player.getInstance();
@@ -86,6 +100,41 @@ public class Sprint3UnitTests {
         assertEquals(0, pvm.getPlayerX());
         assertEquals(1, pvm.getPlayerY());
     }
+    //Cason test 2
+    @Test
+    public void testStrategyDesignPattern() {
+        Player player = Player.getInstance();
+        Player fastPlayer = new Player(new RunMovement());
+        player.setInitialXY(1, 1);
+        fastPlayer.setInitialXY(2,1);
+        player.moveLeft();
+        fastPlayer.moveLeft();
+        int X1 = player.getX();
+        int X2 = fastPlayer.getX();
+        assertEquals(0, X1);
+        assertEquals(0, X2);
+    }
+
+    //Vishnu Test #2
+    @Test
+    public void testObserverNotified() {
+        MapViewModel mvm = new MapViewModel();
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setMap(mvm);
+        pvm.setInitialPlayerXY(1,1);
+        Observer observer = new Observer() {
+            @Override
+            public void update() {
+                System.out.println("UPDATE");
+            }
+        };
+        pvm.addObserver(observer);
+        assertTrue(!pvm.isNotified()); //Test observer is not notified before action
+        pvm.movePlayerUp();
+        assertTrue(pvm.isNotified());
+
+    }
+
 }
 
 

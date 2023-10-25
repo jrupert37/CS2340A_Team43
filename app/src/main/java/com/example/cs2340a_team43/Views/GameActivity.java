@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.cs2340a_team43.Models.Leaderboard;
+import com.example.cs2340a_team43.Models.WalkMovement;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
 import com.example.cs2340a_team43.Models.Map;
@@ -68,6 +69,7 @@ public class GameActivity extends AppCompatActivity {
         playerViewModel.setInitialPlayerXY(2, 2);
         playerViewModel.setImageId(imageId, this);
         playerViewModel.setMap(mapViewModel);
+        playerViewModel.setPlayerMovementBehavior(new WalkMovement());
 
         gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
 
@@ -87,7 +89,9 @@ public class GameActivity extends AppCompatActivity {
 
         score = initialScore; // set score to initial value
         scoreTextView = findViewById(R.id.scoreTextView);
-        scoreTextView.setText("Score: " + initialScore); // Display initial score
+        int hp = playerViewModel.getPlayerHP();
+        String text = "Score: " + initialScore + "    Difficulty: " + difficulty + "    HP: " + hp;
+        scoreTextView.setText(text);
         scoreTimer = new Timer();
         scoreTimer.schedule(new TimerTask() {
             @Override
@@ -100,7 +104,9 @@ public class GameActivity extends AppCompatActivity {
                         } else {
                             scoreTimer.cancel();
                         }
-                        scoreTextView.setText("Score: " + score);
+                        String text = "Score: " + score + "    Difficulty: "
+                                + difficulty + "    HP: " + hp;
+                        scoreTextView.setText(text);
                     }
                 });
             }
