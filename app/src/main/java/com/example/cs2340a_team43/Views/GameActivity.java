@@ -26,7 +26,7 @@ public class GameActivity extends AppCompatActivity {
     private int screenHeight;
     private TextView scoreTextView;
     private int score;
-    private final int initialScore = 60;
+    private final int initialScore = 10;
     private Timer scoreTimer;
     private Leaderboard leaderboard;
     private Calendar startTime;
@@ -122,6 +122,14 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void run() {
                 while (isRunning) {
+                    if (score == 0) {
+                        isRunning = false;
+                        scoreTimer.cancel();
+                        Intent game = new Intent(GameActivity.this, EndScreenActivity.class);
+                        game.addCategory(Intent.CATEGORY_HOME);
+                        startActivity(game);
+                        finish();
+                    }
                     if (playerViewModel.playerIsAtExit()) {
                         if (mapViewModel.getMapFloor() == Map.Floor.THIRD_FLOOR) {
                             isRunning = false;
