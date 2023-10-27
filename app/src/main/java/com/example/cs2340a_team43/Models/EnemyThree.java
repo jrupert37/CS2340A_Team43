@@ -4,7 +4,7 @@ import com.example.cs2340a_team43.R;
 
 public class EnemyThree extends Enemy {
     public EnemyThree(String difficulty) {
-        imageId = R.drawable.medium_face;
+        imageId = R.drawable.skeletonenemy;
         hp = 100;
         if (difficulty.equals("Easy")) {
             damage = 1;
