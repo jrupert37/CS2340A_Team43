@@ -122,7 +122,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void run() {
                 while (isRunning) {
-                    if (score == 0) {
+                    if (playerViewModel.getPlayerHP() == 0) {
                         isRunning = false;
                         scoreTimer.cancel();
                         Intent game = new Intent(GameActivity.this, EndScreenActivity.class);
