@@ -22,6 +22,7 @@ public class EndScreenActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_end);
 
         leaderboard = Leaderboard.getInstance();
@@ -51,6 +52,14 @@ public class EndScreenActivity extends AppCompatActivity {
         mostRecentScore.setText(Integer.toString(leaderboard.getMostRecentAttempt().getScore()));
         mostRecentStartTime.setText(leaderboard.getMostRecentAttempt().startTimeToString());
         mostRecentEndTime.setText(leaderboard.getMostRecentAttempt().endTimeToString());
+
+        if (leaderboard.getMostRecentAttempt().getScore() < 10) {
+            TextView winMessage = findViewById(R.id.youWinTextView);
+            TextView loseMessage = findViewById(R.id.youLoseTextView);
+
+            winMessage.setVisibility(TextView.GONE);
+            loseMessage.setVisibility(TextView.VISIBLE);
+        }
 
         restartButton = findViewById(R.id.restartButton);
         restartButton.setOnClickListener(v -> {

@@ -3,8 +3,8 @@ package com.example.cs2340a_team43.Models;
 import com.example.cs2340a_team43.R;
 
 public class EnemyFour extends Enemy{
-    public EnemyFour(String difficulty) {
-        imageId = R.drawable.nerdplayersprite;
+    public EnemyFour() {
+        imageId = R.drawable.eyeball;
         hp = 10;
         if (difficulty.equals("Easy")) {
             damage = 5;
