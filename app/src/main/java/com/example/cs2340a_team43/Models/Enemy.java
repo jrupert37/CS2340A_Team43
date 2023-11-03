@@ -17,18 +17,15 @@ public abstract class Enemy extends Character{
     Bitmap bitmap;
     int damage;
 
-
-
+    MovementBehavior movementBehavior;
     /*
     private Enemy() {
-        // null constructor, player attributes will be concretely initialized later
         this.hp = 50;
-        //xyCoordinates = new Pair<>(0, 0);
         this.imageId = 0;
         this.bitmap = null;
         this.movementBehavior = new WalkMovement();
     }
-*/
+     */
     public int getHP() {
         return hp;
     }
@@ -47,8 +44,8 @@ public abstract class Enemy extends Character{
         xyCoordinates = new Pair<Integer, Integer>(x, y);
     }
 
-    public void createBitmap(Context context) {
-        //this.imageId = imageId;
+    public void createBitmap(int imageId, Context context) {
+        this.imageId = imageId;
         this.context = context;
         this.bitmap = BitmapFactory.decodeResource(this.context.getResources(), imageId);
     }
@@ -81,5 +78,6 @@ public abstract class Enemy extends Character{
         return this.damage;
     }
 
-
+    public int getHp() { return this.hp; }
+    public int getImageId () { return this.imageId; }
 }
