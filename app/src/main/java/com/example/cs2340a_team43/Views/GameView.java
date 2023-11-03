@@ -11,7 +11,9 @@ import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
+import com.example.cs2340a_team43.Models.EyeballMovement;
 import com.example.cs2340a_team43.Models.Observer;
+import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
 
@@ -21,8 +23,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
     private Rect floorBounds;
     private int xLimit;
     private int yLimit;
+    private EnemyViewModel enemyViewModel;
 
-    public GameView(Context cont, PlayerViewModel pvm, MapViewModel mvm, int xLimit, int yLimit) {
+    public GameView(Context cont, PlayerViewModel pvm, MapViewModel mvm, int xLimit, int yLimit, EnemyViewModel evm) {
         super(cont);
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
@@ -30,7 +33,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
         floorBounds = new Rect(0, 0, xLimit, yLimit - 125);
         this.playerViewModel = pvm;
         this.mapViewModel = mvm;
+        this.enemyViewModel = evm;
         playerViewModel.addObserver(this);
+        enemyViewModel.addObserver(this);
         this.xLimit = xLimit;
         this.yLimit = yLimit;
     }
@@ -48,6 +53,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
 
+    }
+    public void runEnemies() {
+        EyeballMovement eyeballMovement = new EyeballMovement(enemyViewModel);
+        eyeballMovement.run();
     }
 
     @Override
@@ -80,6 +89,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
                 rect = new RectF(xDraw, yDraw, xDraw + (xLimit / 40), yDraw + (yLimit / 20));
                 Bitmap playerBitmap = playerViewModel.getPlayerBitmap();
                 canvas.drawBitmap(playerBitmap, null, rect, null);
+
+                float xEnemyDraw = (enemyViewModel.getEnemyX() * xScale);
+                float yEnemyDraw = (enemyViewModel.getEnemyY() * yScale);
+                RectF rect2;
+                rect2 = new RectF(xEnemyDraw, yEnemyDraw, xEnemyDraw + (xLimit / 40), yEnemyDraw + (yLimit / 20));
+                Bitmap enemyBitmap = enemyViewModel.getEnemyBitmap();
+                canvas.drawBitmap(enemyBitmap, null, rect2, null);
 
                 Paint paint = new Paint();
                 paint.setColor(Color.BLACK);

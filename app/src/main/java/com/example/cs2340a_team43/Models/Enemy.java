@@ -17,7 +17,7 @@ public abstract class Enemy extends Character{
     Bitmap bitmap;
     int damage;
 
-    MovementBehavior movementBehavior;
+    //MovementBehavior movementBehavior;
     /*
     private Enemy() {
         this.hp = 50;

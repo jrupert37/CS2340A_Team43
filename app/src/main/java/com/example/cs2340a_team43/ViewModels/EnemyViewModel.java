@@ -65,7 +65,7 @@ public class EnemyViewModel extends ViewModel implements Subject {
         notifyObservers();
     }
 
-    public void movePlayerRight() {
+    public void moveEnemyRight() {
         if (willCollideWithWall(getEnemyX() + getEnemySpeed(), getEnemyY())) {
             return;
         }
@@ -74,7 +74,7 @@ public class EnemyViewModel extends ViewModel implements Subject {
         notifyObservers();
     }
 
-    public void movePlayerUp() {
+    public void moveEnemyUp() {
         if (willCollideWithWall(getEnemyX(), getEnemyY() - getEnemySpeed())) {
             return;
         }
@@ -83,7 +83,7 @@ public class EnemyViewModel extends ViewModel implements Subject {
         notifyObservers();
     }
 
-    public void movePlayerDown() {
+    public void moveEnemyDown() {
         if (willCollideWithWall(getEnemyX(), getEnemyY() + getEnemySpeed())) {
             return;
         }
@@ -118,7 +118,7 @@ public class EnemyViewModel extends ViewModel implements Subject {
         return mapViewModel.isAWall(newX, newY);
     }
 
-    public boolean playerIsAtExit() {
+    public boolean enemyIsAtExit() {
         return mapViewModel.xyIsAnExit(getEnemyX(), getEnemyY());
     }
 

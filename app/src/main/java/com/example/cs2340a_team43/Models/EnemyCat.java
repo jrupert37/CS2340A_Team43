@@ -12,6 +12,6 @@ public class EnemyCat extends Enemy{
         } else {
             damage = 15;
         }
-        movementBehavior = new RunMovement();
+        movementBehavior = new WalkMovement();
     }
 }

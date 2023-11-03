@@ -4,6 +4,10 @@ import com.example.cs2340a_team43.R;
 
 public class EnemyEyeball extends Enemy{
     public EnemyEyeball(String difficulty) {
+        //this.movementBehavior = new RunMovement();
+        setMovementBehavior(new WalkMovement());
+        System.out.println("MOVEMENT BEHAVIOR SET");
+        //System.out.println(getSpeed());
         imageId = R.drawable.eyeball;
         hp = 10;
         if (difficulty.equals("Easy")) {
@@ -13,6 +17,5 @@ public class EnemyEyeball extends Enemy{
         } else {
             damage = 25;
         }
-        movementBehavior = new RunMovement();
     }
 }
