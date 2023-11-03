@@ -36,13 +36,13 @@ import android.view.KeyEvent;
 
 
 @RunWith(AndroidJUnit4.class)
-public class Sprint3InstrumentalUnitTest {
+public class Spring3InstrumentalTest {
+    private UiDevice device = UiDevice.getInstance(getInstrumentation());
     @Rule
     public ActivityScenarioRule<StartScreenActivity> activityRule = new ActivityScenarioRule<>(StartScreenActivity.class);
 
     @Test
     public void playerNeverLeaveScreen() throws RemoteException{
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
         Player player = Player.getInstance();
         device.setOrientationLeft();
 
@@ -68,13 +68,17 @@ public class Sprint3InstrumentalUnitTest {
                     onView(withId(R.id.rightButton)).perform(click());
                     break;
             }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e){
+
+            }
         }
         assertTrue(player.getX() > 0 && player.getX() < 41);
         assertTrue(player.getY() > 0 && player.getY() < 41);
     }
     @Test
     public void playerExitResetsPosition() throws RemoteException{
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
         Player player = Player.getInstance();
         device.setOrientationLeft();
 
@@ -101,7 +105,6 @@ public class Sprint3InstrumentalUnitTest {
     }
     @Test
     public void testFloor1Border() throws RemoteException{
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
         Player player = Player.getInstance();
         device.setOrientationLeft();
 
