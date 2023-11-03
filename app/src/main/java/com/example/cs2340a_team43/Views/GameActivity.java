@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.cs2340a_team43.Models.GrimreaperMovement;
 import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.WalkMovement;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
