@@ -43,10 +43,6 @@ public class GameActivity extends AppCompatActivity {
     private GameView gameView;
     private LinearLayout linearLayout;
     private boolean isRunning;
-
-    private GrimreaperMovement grimreaperMovement;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,8 +81,8 @@ public class GameActivity extends AppCompatActivity {
         EnemyViewModels.add(new EnemyViewModel(this, difficulty, "skeleton"));
         EnemyViewModels.add(new EnemyViewModel(this, difficulty, "grimreaper"));
 
+        GrimreaperMovement grimreaperMovement;
         grimreaperMovement = new GrimreaperMovement(EnemyViewModels.get(3));
-
 
         gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
 
@@ -99,7 +95,6 @@ public class GameActivity extends AppCompatActivity {
         downButton.setOnClickListener(v -> {
             playerViewModel.movePlayerDown();
         });
-
 
         linearLayout = findViewById(R.id.gameLayout);
         linearLayout.addView(gameView);
