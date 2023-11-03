@@ -2,8 +2,8 @@ package com.example.cs2340a_team43.Models;
 
 import com.example.cs2340a_team43.R;
 
-public class EnemyFour extends Enemy{
-    public EnemyFour() {
+public class EnemyEyeball extends Enemy{
+    public EnemyEyeball(String difficulty) {
         imageId = R.drawable.eyeball;
         hp = 10;
         if (difficulty.equals("Easy")) {
