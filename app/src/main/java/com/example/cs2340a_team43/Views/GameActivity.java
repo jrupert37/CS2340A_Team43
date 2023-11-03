@@ -83,6 +83,15 @@ public class GameActivity extends AppCompatActivity {
             playerViewModel.movePlayerDown();
         });
 
+        Button rightButton = findViewById(R.id.rightButton);
+        rightButton.setOnClickListener(v -> {
+            playerViewModel.movePlayerRight();
+        });
+
+        Button leftButton = findViewById(R.id.leftButton);
+        leftButton.setOnClickListener(v -> {
+            playerViewModel.movePlayerLeft();
+        });
 
         linearLayout = findViewById(R.id.gameLayout);
         linearLayout.addView(gameView);
