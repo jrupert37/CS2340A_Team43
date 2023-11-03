@@ -3,9 +3,10 @@ package com.example.cs2340a_team43.Views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.WalkMovement;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
@@ -38,7 +39,7 @@ public class GameActivity extends AppCompatActivity {
     private MapViewModel mapViewModel;
     List<EnemyViewModel> EnemyViewModels = new ArrayList<>();
     private GameView gameView;
-    private LinearLayout linearLayout;
+    private ConstraintLayout constraintLayout;
     private boolean isRunning;
 
 
@@ -102,8 +103,8 @@ public class GameActivity extends AppCompatActivity {
             playerViewModel.movePlayerLeft();
         });
 
-        linearLayout = findViewById(R.id.gameLayout);
-        linearLayout.addView(gameView);
+        constraintLayout = findViewById(R.id.gameLayout);
+        constraintLayout.addView(gameView);
 
         score = initialScore; // set score to initial value
         scoreTextView = findViewById(R.id.scoreTextView);
