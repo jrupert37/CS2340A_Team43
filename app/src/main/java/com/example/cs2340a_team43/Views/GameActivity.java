@@ -8,11 +8,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.WalkMovement;
+import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
 import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.R;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,6 +36,7 @@ public class GameActivity extends AppCompatActivity {
     private Calendar endTime;
     private PlayerViewModel playerViewModel;
     private MapViewModel mapViewModel;
+    List<EnemyViewModel> EnemyViewModels = new ArrayList<>();
     private GameView gameView;
     private LinearLayout linearLayout;
     private boolean isRunning;
@@ -70,6 +74,11 @@ public class GameActivity extends AppCompatActivity {
         playerViewModel.setImageId(imageId, this);
         playerViewModel.setMap(mapViewModel);
         playerViewModel.setPlayerMovementBehavior(new WalkMovement());
+
+        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "cat"));
+        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "eyeball"));
+        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "skeleton"));
+        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "grimreaper"));
 
         gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
 

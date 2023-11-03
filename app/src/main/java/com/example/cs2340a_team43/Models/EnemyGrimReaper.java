@@ -2,16 +2,16 @@ package com.example.cs2340a_team43.Models;
 
 import com.example.cs2340a_team43.R;
 
-public class EnemyThree extends Enemy {
-    public EnemyThree(String difficulty) {
-        imageId = R.drawable.skeletonenemy;
-        hp = 100;
+public class EnemyGrimReaper extends Enemy{
+    public EnemyGrimReaper(String difficulty) {
+        imageId = R.drawable.grimreaper;
+        hp = 50;
         if (difficulty.equals("Easy")) {
-            damage = 1;
+            damage = 10;
         } else if (difficulty.equals("Medium")) {
-            damage = 3;
+            damage = 15;
         } else {
-            damage = 5;
+            damage = 20;
         }
         movementBehavior = new WalkMovement();
     }
