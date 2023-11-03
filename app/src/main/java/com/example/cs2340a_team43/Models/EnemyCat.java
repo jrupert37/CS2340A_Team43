@@ -1,8 +1,8 @@
 package com.example.cs2340a_team43.Models;
 
 import com.example.cs2340a_team43.R;
-public class EnemyOne extends Enemy{
-    public EnemyOne(String difficulty) {
+public class EnemyCat extends Enemy{
+    public EnemyCat(String difficulty) {
         imageId = R.drawable.catenemy;
         hp = 50;
         if (difficulty.equals("Easy")) {
