@@ -81,7 +81,7 @@ public class GameActivity extends AppCompatActivity {
         enemyViewModels.add(new EnemyViewModel(this, difficulty, "eyeball"));
         enemyViewModels.add(new EnemyViewModel(this, difficulty, "skeleton"));
         enemyViewModels.add(new EnemyViewModel(this, difficulty, "grimreaper"));
-        
+
         enemyViewModels.get(1).setMap(mapViewModel);
         gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight, enemyViewModels.get(1));
 
