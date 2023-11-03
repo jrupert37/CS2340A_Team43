@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.cs2340a_team43.Models.GrimreaperMovement;
 import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.WalkMovement;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
@@ -80,6 +81,9 @@ public class GameActivity extends AppCompatActivity {
         EnemyViewModels.add(new EnemyViewModel(this, difficulty, "eyeball"));
         EnemyViewModels.add(new EnemyViewModel(this, difficulty, "skeleton"));
         EnemyViewModels.add(new EnemyViewModel(this, difficulty, "grimreaper"));
+
+        GrimreaperMovement grimreaperMovement;
+        grimreaperMovement = new GrimreaperMovement(EnemyViewModels.get(3));
 
         gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
 

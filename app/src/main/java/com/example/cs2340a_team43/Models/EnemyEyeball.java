@@ -13,6 +13,6 @@ public class EnemyEyeball extends Enemy{
         } else {
             damage = 25;
         }
-        movementBehavior = new RunMovement();
+        movementBehavior = new WalkMovement();
     }
 }
