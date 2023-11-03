@@ -38,7 +38,7 @@ public class GameActivity extends AppCompatActivity {
     private Calendar endTime;
     private PlayerViewModel playerViewModel;
     private MapViewModel mapViewModel;
-    List<EnemyViewModel> EnemyViewModels = new ArrayList<>();
+    List<EnemyViewModel> enemyViewModels = new ArrayList<>();
     private GameView gameView;
     private ConstraintLayout constraintLayout;
     private boolean isRunning;
@@ -77,15 +77,19 @@ public class GameActivity extends AppCompatActivity {
         playerViewModel.setMap(mapViewModel);
         playerViewModel.setPlayerMovementBehavior(new WalkMovement());
 
-        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "cat"));
-        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "eyeball"));
-        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "skeleton"));
-        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "grimreaper"));
+        enemyViewModels.add(new EnemyViewModel(this, difficulty, "cat"));
+        enemyViewModels.add(new EnemyViewModel(this, difficulty, "eyeball"));
+        enemyViewModels.add(new EnemyViewModel(this, difficulty, "skeleton"));
+        enemyViewModels.add(new EnemyViewModel(this, difficulty, "grimreaper"));
 
-        GrimreaperMovement grimreaperMovement;
-        grimreaperMovement = new GrimreaperMovement(EnemyViewModels.get(3));
+        enemyViewModels.get(1).setMap(mapViewModel);
+        gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight, enemyViewModels.get(1));
 
-        gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
+        //GrimreaperMovement grimreaperMovement;
+        //grimreaperMovement = new GrimreaperMovement(EnemyViewModels.get(3));
+
+        //gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
+
 
         Button upButton = findViewById(R.id.upButton);
         upButton.setOnClickListener(v -> {
@@ -144,6 +148,7 @@ public class GameActivity extends AppCompatActivity {
         Thread gameThread = new Thread(new Runnable() {
             @Override
             public void run() {
+                gameView.runEnemies();
                 while (isRunning) {
                     if (playerViewModel.getPlayerHP() == 0) {
                         isRunning = false;
