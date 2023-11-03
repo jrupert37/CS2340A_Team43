@@ -6,6 +6,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.cs2340a_team43.Models.Enemy;
+import com.example.cs2340a_team43.Models.GrimreaperMovement;
 import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.WalkMovement;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
@@ -40,6 +43,8 @@ public class GameActivity extends AppCompatActivity {
     private GameView gameView;
     private LinearLayout linearLayout;
     private boolean isRunning;
+
+    private GrimreaperMovement grimreaperMovement;
 
 
     @Override
@@ -79,6 +84,9 @@ public class GameActivity extends AppCompatActivity {
         EnemyViewModels.add(new EnemyViewModel(this, difficulty, "eyeball"));
         EnemyViewModels.add(new EnemyViewModel(this, difficulty, "skeleton"));
         EnemyViewModels.add(new EnemyViewModel(this, difficulty, "grimreaper"));
+
+        grimreaperMovement = new GrimreaperMovement(EnemyViewModels.get(3));
+
 
         gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
 
