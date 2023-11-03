@@ -43,6 +43,8 @@ public class GameActivity extends AppCompatActivity {
     private GameView gameView;
     private LinearLayout linearLayout;
     private boolean isRunning;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +97,7 @@ public class GameActivity extends AppCompatActivity {
         downButton.setOnClickListener(v -> {
             playerViewModel.movePlayerDown();
         });
+
 
         linearLayout = findViewById(R.id.gameLayout);
         linearLayout.addView(gameView);
