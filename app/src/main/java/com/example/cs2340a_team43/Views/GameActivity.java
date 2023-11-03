@@ -3,12 +3,10 @@ package com.example.cs2340a_team43.Views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.cs2340a_team43.Models.Enemy;
-import com.example.cs2340a_team43.Models.GrimreaperMovement;
 import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.WalkMovement;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
@@ -41,7 +39,7 @@ public class GameActivity extends AppCompatActivity {
     private MapViewModel mapViewModel;
     List<EnemyViewModel> EnemyViewModels = new ArrayList<>();
     private GameView gameView;
-    private LinearLayout linearLayout;
+    private ConstraintLayout constraintLayout;
     private boolean isRunning;
 
 
@@ -98,9 +96,18 @@ public class GameActivity extends AppCompatActivity {
             playerViewModel.movePlayerDown();
         });
 
+        Button rightButton = findViewById(R.id.rightButton);
+        rightButton.setOnClickListener(v -> {
+            playerViewModel.movePlayerRight();
+        });
 
-        linearLayout = findViewById(R.id.gameLayout);
-        linearLayout.addView(gameView);
+        Button leftButton = findViewById(R.id.leftButton);
+        leftButton.setOnClickListener(v -> {
+            playerViewModel.movePlayerLeft();
+        });
+
+        constraintLayout = findViewById(R.id.gameLayout);
+        constraintLayout.addView(gameView);
 
         score = initialScore; // set score to initial value
         scoreTextView = findViewById(R.id.scoreTextView);
@@ -137,7 +144,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void run() {
                 while (isRunning) {
-                    if (score == 0) {
+                    if (playerViewModel.getPlayerHP() == 0) {
                         isRunning = false;
                         scoreTimer.cancel();
                         Intent game = new Intent(GameActivity.this, EndScreenActivity.class);
