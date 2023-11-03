@@ -108,20 +108,12 @@ public class EnemyViewModel extends ViewModel implements Subject {
         }
         System.out.println("NOTIFIED #1: " + notified);
     }
-
     public boolean isNotified() {
         return notified;
     }
-
-
     public boolean willCollideWithWall(int newX, int newY) {
         return mapViewModel.isAWall(newX, newY);
     }
-
-    public boolean enemyIsAtExit() {
-        return mapViewModel.xyIsAnExit(getEnemyX(), getEnemyY());
-    }
-
     public int getEnemyHP() {
         return this.enemy.getHp();
     }
