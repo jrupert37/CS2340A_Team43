@@ -3,16 +3,21 @@ package com.example.cs2340a_team43.Views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.example.cs2340a_team43.Models.GrimreaperMovement;
 import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.WalkMovement;
+import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
 import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.R;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,8 +38,9 @@ public class GameActivity extends AppCompatActivity {
     private Calendar endTime;
     private PlayerViewModel playerViewModel;
     private MapViewModel mapViewModel;
+    List<EnemyViewModel> EnemyViewModels = new ArrayList<>();
     private GameView gameView;
-    private LinearLayout linearLayout;
+    private ConstraintLayout constraintLayout;
     private boolean isRunning;
 
 
@@ -71,6 +77,14 @@ public class GameActivity extends AppCompatActivity {
         playerViewModel.setMap(mapViewModel);
         playerViewModel.setPlayerMovementBehavior(new WalkMovement());
 
+        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "cat"));
+        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "eyeball"));
+        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "skeleton"));
+        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "grimreaper"));
+
+        GrimreaperMovement grimreaperMovement;
+        grimreaperMovement = new GrimreaperMovement(EnemyViewModels.get(3));
+
         gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
 
         Button upButton = findViewById(R.id.upButton);
@@ -83,9 +97,18 @@ public class GameActivity extends AppCompatActivity {
             playerViewModel.movePlayerDown();
         });
 
+        Button rightButton = findViewById(R.id.rightButton);
+        rightButton.setOnClickListener(v -> {
+            playerViewModel.movePlayerRight();
+        });
 
-        linearLayout = findViewById(R.id.gameLayout);
-        linearLayout.addView(gameView);
+        Button leftButton = findViewById(R.id.leftButton);
+        leftButton.setOnClickListener(v -> {
+            playerViewModel.movePlayerLeft();
+        });
+
+        constraintLayout = findViewById(R.id.gameLayout);
+        constraintLayout.addView(gameView);
 
         score = initialScore; // set score to initial value
         scoreTextView = findViewById(R.id.scoreTextView);

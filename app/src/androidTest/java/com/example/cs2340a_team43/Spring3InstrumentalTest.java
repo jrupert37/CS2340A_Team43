@@ -36,13 +36,13 @@ import android.view.KeyEvent;
 
 
 @RunWith(AndroidJUnit4.class)
-public class Sprint3InstrumentalUnitTest {
+public class Spring3InstrumentalTest {
+    private UiDevice device = UiDevice.getInstance(getInstrumentation());
     @Rule
     public ActivityScenarioRule<StartScreenActivity> activityRule = new ActivityScenarioRule<>(StartScreenActivity.class);
 
     @Test
     public void playerNeverLeaveScreen() throws RemoteException{
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
         Player player = Player.getInstance();
         device.setOrientationLeft();
 
@@ -56,17 +56,22 @@ public class Sprint3InstrumentalUnitTest {
             randomInt = random.nextInt(4);
             switch(randomInt) {
                 case 0:
-                    device.pressKeyCode(KeyEvent.KEYCODE_DPAD_UP);
+                    onView(withId(R.id.upButton)).perform(click());
                     break;
                 case 1:
-                    device.pressKeyCode(KeyEvent.KEYCODE_DPAD_DOWN);
+                    onView(withId(R.id.downButton)).perform(click());
                     break;
                 case 2:
-                    device.pressKeyCode(KeyEvent.KEYCODE_DPAD_LEFT);
+                    onView(withId(R.id.leftButton)).perform(click());
                     break;
                 case 3:
-                    device.pressKeyCode(KeyEvent.KEYCODE_DPAD_RIGHT);
+                    onView(withId(R.id.rightButton)).perform(click());
                     break;
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e){
+
             }
         }
         assertTrue(player.getX() > 0 && player.getX() < 41);
@@ -74,7 +79,6 @@ public class Sprint3InstrumentalUnitTest {
     }
     @Test
     public void playerExitResetsPosition() throws RemoteException{
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
         Player player = Player.getInstance();
         device.setOrientationLeft();
 
@@ -83,13 +87,13 @@ public class Sprint3InstrumentalUnitTest {
         onView(withId(R.id.nextButton)).perform(click());
         onView(withId(R.id.nextButton)).perform(click());
         for(int i = 0; i < 4; i++) {
-            device.pressKeyCode(KeyEvent.KEYCODE_DPAD_RIGHT);
+            onView(withId(R.id.rightButton)).perform(click());
         }
         for(int i = 0; i < 12; i++) {
-            device.pressKeyCode(KeyEvent.KEYCODE_DPAD_DOWN);
+            onView(withId(R.id.downButton)).perform(click());
         }
         for(int i = 0; i < 4; i++) {
-            device.pressKeyCode(KeyEvent.KEYCODE_DPAD_LEFT);
+            onView(withId(R.id.leftButton)).perform(click());
         }
         try {
             Thread.sleep(1000);
@@ -101,7 +105,6 @@ public class Sprint3InstrumentalUnitTest {
     }
     @Test
     public void testFloor1Border() throws RemoteException{
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
         Player player = Player.getInstance();
         device.setOrientationLeft();
 
@@ -110,16 +113,16 @@ public class Sprint3InstrumentalUnitTest {
         onView(withId(R.id.nextButton)).perform(click());
         onView(withId(R.id.nextButton)).perform(click());
         for(int i = 0; i < 40; i++) {
-            device.pressKeyCode(KeyEvent.KEYCODE_DPAD_UP);
+            onView(withId(R.id.upButton)).perform(click());
         }
         for(int i = 0; i < 40; i++) {
-            device.pressKeyCode(KeyEvent.KEYCODE_DPAD_DOWN);
+            onView(withId(R.id.downButton)).perform(click());
         }
         for(int i = 0; i < 40; i++) {
-            device.pressKeyCode(KeyEvent.KEYCODE_DPAD_LEFT);
+            onView(withId(R.id.leftButton)).perform(click());
         }
         for(int i = 0; i < 40; i++) {
-            device.pressKeyCode(KeyEvent.KEYCODE_DPAD_RIGHT);
+            onView(withId(R.id.rightButton)).perform(click());
         }
         assertTrue(player.getX() > 0 && player.getX() < 41);
         assertTrue(player.getY() > 0 && player.getY() < 41);
