@@ -15,7 +15,7 @@ import com.example.cs2340a_team43.Models.Subject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnemyViewModel extends ViewModel implements Subject {
+public class EnemyViewModel extends ViewModel implements Subject, Observer {
     private Enemy enemy;
     private MapViewModel mapViewModel;
     private int initialX;
@@ -112,6 +112,8 @@ public class EnemyViewModel extends ViewModel implements Subject {
     public boolean isNotified() {
         return notified;
     }
+
+    public void update() {}
 
 
     public boolean willCollideWithWall(int newX, int newY) {
