@@ -8,24 +8,14 @@ import androidx.core.util.Pair;
 import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
 
 
-public abstract class Enemy extends Character{
-
+public abstract class Enemy extends Character {
     Context context;
-    //String type;
     int hp;
     int imageId;
     Bitmap bitmap;
     int damage;
+    ControllableMovement movementPattern;
 
-    //MovementBehavior movementBehavior;
-    /*
-    private Enemy() {
-        this.hp = 50;
-        this.imageId = 0;
-        this.bitmap = null;
-        this.movementBehavior = new WalkMovement();
-    }
-     */
     public int getHP() {
         return hp;
     }
@@ -78,6 +68,16 @@ public abstract class Enemy extends Character{
         return this.damage;
     }
 
-    public int getHp() { return this.hp; }
-    public int getImageId () { return this.imageId; }
+    public int getHp() {
+        return this.hp;
+    }
+    public int getImageId() {
+        return this.imageId;
+    }
+    public void runMovementPattern() {
+        this.movementPattern.start();
+    }
+    public void cancelMovement() {
+        this.movementPattern.stop();
+    }
 }
