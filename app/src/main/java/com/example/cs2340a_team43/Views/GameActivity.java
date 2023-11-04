@@ -3,9 +3,11 @@ package com.example.cs2340a_team43.Views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.example.cs2340a_team43.Models.GrimreaperMovement;
 import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.Models.WalkMovement;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
@@ -36,9 +38,9 @@ public class GameActivity extends AppCompatActivity {
     private Calendar endTime;
     private PlayerViewModel playerViewModel;
     private MapViewModel mapViewModel;
-    List<EnemyViewModel> EnemyViewModels = new ArrayList<>();
+    List<EnemyViewModel> enemyViewModels = new ArrayList<>();
     private GameView gameView;
-    private LinearLayout linearLayout;
+    private ConstraintLayout constraintLayout;
     private boolean isRunning;
 
 
@@ -75,12 +77,19 @@ public class GameActivity extends AppCompatActivity {
         playerViewModel.setMap(mapViewModel);
         playerViewModel.setPlayerMovementBehavior(new WalkMovement());
 
-        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "cat"));
-        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "eyeball"));
-        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "skeleton"));
-        EnemyViewModels.add(new EnemyViewModel(this, difficulty, "grimreaper"));
+        enemyViewModels.add(new EnemyViewModel(this, difficulty, "cat"));
+        enemyViewModels.add(new EnemyViewModel(this, difficulty, "eyeball"));
+        enemyViewModels.add(new EnemyViewModel(this, difficulty, "skeleton"));
+        enemyViewModels.add(new EnemyViewModel(this, difficulty, "grimreaper"));
 
-        gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
+        enemyViewModels.get(1).setMap(mapViewModel);
+        gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight, enemyViewModels.get(1));
+
+        //GrimreaperMovement grimreaperMovement;
+        //grimreaperMovement = new GrimreaperMovement(EnemyViewModels.get(3));
+
+        //gameView = new GameView(this, playerViewModel, mapViewModel, screenWidth, screenHeight);
+
 
         Button upButton = findViewById(R.id.upButton);
         upButton.setOnClickListener(v -> {
@@ -92,9 +101,18 @@ public class GameActivity extends AppCompatActivity {
             playerViewModel.movePlayerDown();
         });
 
+        Button rightButton = findViewById(R.id.rightButton);
+        rightButton.setOnClickListener(v -> {
+            playerViewModel.movePlayerRight();
+        });
 
-        linearLayout = findViewById(R.id.gameLayout);
-        linearLayout.addView(gameView);
+        Button leftButton = findViewById(R.id.leftButton);
+        leftButton.setOnClickListener(v -> {
+            playerViewModel.movePlayerLeft();
+        });
+
+        constraintLayout = findViewById(R.id.gameLayout);
+        constraintLayout.addView(gameView);
 
         score = initialScore; // set score to initial value
         scoreTextView = findViewById(R.id.scoreTextView);
@@ -130,6 +148,7 @@ public class GameActivity extends AppCompatActivity {
         Thread gameThread = new Thread(new Runnable() {
             @Override
             public void run() {
+                gameView.runEnemies();
                 while (isRunning) {
                     if (playerViewModel.getPlayerHP() == 0) {
                         isRunning = false;
