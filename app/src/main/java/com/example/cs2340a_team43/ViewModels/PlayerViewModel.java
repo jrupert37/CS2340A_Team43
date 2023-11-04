@@ -13,7 +13,7 @@ import com.example.cs2340a_team43.Models.WalkMovement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerViewModel extends ViewModel implements Subject {
+public class PlayerViewModel extends ViewModel implements Subject,Observer {
     private Player player;
 
     private static PlayerViewModel playerViewModel;
@@ -150,6 +150,8 @@ public class PlayerViewModel extends ViewModel implements Subject {
     public int getPlayerHP() {
         return this.player.getHp();
     }
+
+    public void update() {}
 
     public void setPlayerMovementBehavior(MovementBehavior behavior) {
         this.player.setMovementBehavior(behavior);
