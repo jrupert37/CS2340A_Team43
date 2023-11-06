@@ -28,7 +28,7 @@ public class EnemyFactory extends EnemySpawner {
         if (type.equals("cat")) {
             return new CatMovementPattern(evm);
         } else if (type.equals("eyeball")) {
-            return new EyeballMovement(evm);
+            return new EyeballMovementPattern(evm);
         } else {
             return null;
         }
