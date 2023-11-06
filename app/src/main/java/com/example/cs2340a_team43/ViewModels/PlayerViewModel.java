@@ -10,8 +10,8 @@ import com.example.cs2340a_team43.Models.Subject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerViewModel extends ViewModel implements Subject {
-    private final Player player;
+public class PlayerViewModel extends ViewModel implements Subject,Observer {
+    private Player player;
     private static PlayerViewModel playerViewModel;
     private MapViewModel mapViewModel;
     private int initialX;
@@ -145,6 +145,8 @@ public class PlayerViewModel extends ViewModel implements Subject {
     public int getPlayerHP() {
         return this.player.getHp();
     }
+
+    public void update() {}
 
     public void setPlayerMovementBehavior(MovementBehavior behavior) {
         this.player.setMovementBehavior(behavior);

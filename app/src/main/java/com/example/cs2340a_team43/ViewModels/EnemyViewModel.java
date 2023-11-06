@@ -19,10 +19,12 @@ import java.util.List;
  * models.
  * This class uses the Observer Design Pattern.
  */
-public class EnemyViewModel extends ViewModel implements Subject {
-    private final Enemy enemy;
-    private final MapViewModel mapViewModel;
-    private final List<Observer> observers;
+public class EnemyViewModel extends ViewModel implements Subject, Observer {
+    private Enemy enemy;
+    private MapViewModel mapViewModel;
+    private int initialX;
+    private int initialY;
+    private List<Observer> observers;
     private boolean notified;
     private final ControllableMovement enemyMovementPattern;
 
@@ -61,7 +63,7 @@ public class EnemyViewModel extends ViewModel implements Subject {
         notifyObservers();
     }
 
-    public void moveEnemyRight() {
+    public void movePlayerRight() {
         if (willCollideWithWall(getEnemyX() + getEnemySpeed(), getEnemyY())) {
             return;
         }
@@ -70,7 +72,7 @@ public class EnemyViewModel extends ViewModel implements Subject {
         notifyObservers();
     }
 
-    public void moveEnemyUp() {
+    public void movePlayerUp() {
         if (willCollideWithWall(getEnemyX(), getEnemyY() - getEnemySpeed())) {
             return;
         }
@@ -79,7 +81,7 @@ public class EnemyViewModel extends ViewModel implements Subject {
         notifyObservers();
     }
 
-    public void moveEnemyDown() {
+    public void movePlayerDown() {
         if (willCollideWithWall(getEnemyX(), getEnemyY() + getEnemySpeed())) {
             return;
         }
@@ -105,9 +107,11 @@ public class EnemyViewModel extends ViewModel implements Subject {
         System.out.println("NOTIFIED #1: " + notified);
     }
 
+
     public boolean willCollideWithWall(int newX, int newY) {
         return mapViewModel.isAWall(newX, newY);
     }
+
 
     public int getEnemyHP() {
         return this.enemy.getHp();
