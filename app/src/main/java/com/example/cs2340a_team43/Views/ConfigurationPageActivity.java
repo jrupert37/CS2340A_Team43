@@ -19,18 +19,15 @@ public class ConfigurationPageActivity extends AppCompatActivity {
         EditText nameEditText = findViewById(R.id.nameInputBox);
         Button nextBtn = findViewById(R.id.nextButton);
 
-        //Create button listener for setted attributes
+        //Create button listener for attributes
         nextBtn.setOnClickListener(v -> {
             //find radio button group
             RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
             //default values
-            int hp = 50;
             String difficulty = "Easy";
             if (difficultyRadioGroup.getCheckedRadioButtonId() == R.id.mediumButton) {
-                hp = 30;
                 difficulty = "Medium";
             } else if (difficultyRadioGroup.getCheckedRadioButtonId() == R.id.hardButton) {
-                hp = 15;
                 difficulty = "Hard";
             }
 
@@ -52,16 +49,11 @@ public class ConfigurationPageActivity extends AppCompatActivity {
             } else {
                 Intent game = new Intent(ConfigurationPageActivity.this, GameActivity.class);
                 game.putExtra("nameText", nameText);
-                game.putExtra("hp", hp);
                 game.putExtra("sprite", choice);
                 game.putExtra("difficulty", difficulty);
                 startActivity(game);
                 finish();
             }
-
         });
-
-
-
     }
-}
+} // ConfigurationPageActivity
