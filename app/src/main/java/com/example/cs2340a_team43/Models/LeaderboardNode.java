@@ -3,16 +3,21 @@ package com.example.cs2340a_team43.Models;
 import java.util.Calendar;
 import java.util.Comparator;
 
+/*
+ * This node class is used by the leaderboard. A node holds a player's name, score,
+ * start time, and end time.
+ * This class also contains a singleton custom comparator useful for sorting a list
+ * of leaderboard nodes based on score.
+ * This class is not singleton, since we want to have multiple nodes in the leaderboard.
+ */
 public class LeaderboardNode {
-    //NOT a singleton class, because we want multiple Nodes in the leaderboard!
-    private String name;
-    private int score;
-    private Calendar startTime;
-    private Calendar endTime;
+    private final String name;
+    private final int score;
+    private final Calendar startTime;
+    private final Calendar endTime;
     private static NodeComparator nodeComparator;
 
-
-    public LeaderboardNode(String name, int score, Calendar startTime, Calendar endTime) {
+    LeaderboardNode(String name, int score, Calendar startTime, Calendar endTime) {
         this.name = name;
         this.score = score;
         this.startTime = startTime;
@@ -22,90 +27,72 @@ public class LeaderboardNode {
     public String getName() {
         return this.name;
     }
-    public void setName(String newName) {
-        name = newName;
-    }
+
     public int getScore() {
         return this.score;
-    }
-    public void setScore(int newScore) {
-        score = newScore;
     }
 
     public Calendar getStartTime() {
         return this.startTime;
     }
 
-    public void setStartTime(Calendar newTime) {
-        startTime = newTime;
-    }
 
     public Calendar getEndTime() {
         return this.endTime;
     }
 
-    public void setEndTime(Calendar newTime) {
-        endTime = newTime;
+    /* Custom toString method for converting a Calendar into a useful, readable String.
+    *  Return value will be of the format "DayOfWeek mm/dd/yyyy hour:min:sec".
+    */
+    public String toString(String key) {
+        // the calendar in question my either be the player's start time OR end time
+        Calendar calendar = getStartTime();
+        if (key.equals("end")) {
+            calendar = getEndTime();
+        }
+
+        String[] days = {"Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"};
+
+        String dayOfWeek = days[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        String monthDayYear = month + "/" + day + "/" + year;
+
+        int hour = calendar.get(Calendar.HOUR);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
+
+        String min = minute < 10 ? "0" + minute : Integer.toString(minute);
+        String sec = second < 10 ? "0" + second : Integer.toString(second);
+        String hrMinSec = hour + ":" + min + ":" + sec;
+
+        return dayOfWeek + " " + monthDayYear + " " + hrMinSec;
     }
 
-    public String startTimeToString() {
-        String[] days = {"Sun ", "Mon ", "Tues ", "Wed ", "Thu ", "Fri ", "Sat "};
-        String dayOfWeek = days[getStartTime().get(Calendar.DAY_OF_WEEK) - 1];
-
-        int month = getStartTime().get(Calendar.MONTH) + 1;
-        int day = getStartTime().get(Calendar.DAY_OF_MONTH);
-        int year = getStartTime().get(Calendar.YEAR);
-
-        int startHour = getStartTime().get(Calendar.HOUR) + 1;
-        int startMinute = getStartTime().get(Calendar.MINUTE);
-        int startSecond = getStartTime().get(Calendar.SECOND);
-
-        String monthDayYear = month + "/" + day + "/" + year + " ";
-
-        String startMin = startMinute < 10 ? "0" + startMinute : Integer.toString(startMinute);
-        String startSec = startSecond < 10 ? "0" + startSecond : Integer.toString(startSecond);
-        String hourMinSec = startHour + ":" + startMin + ":" + startSec;
-
-        return dayOfWeek + monthDayYear + hourMinSec;
-    }
-
-    public String endTimeToString() {
-        String[] days = {"Sun ", "Mon ", "Tues ", "Wed ", "Thu ", "Fri ", "Sat "};
-        String dayOfWeek = days[getEndTime().get(Calendar.DAY_OF_WEEK) - 1];
-
-        int month = getEndTime().get(Calendar.MONTH) + 1;
-        int day = getEndTime().get(Calendar.DAY_OF_MONTH);
-        int year = getEndTime().get(Calendar.YEAR);
-
-        int endHour = getEndTime().get(Calendar.HOUR) + 1;
-        int endMinute = getEndTime().get(Calendar.MINUTE);
-        int endSecond = getEndTime().get(Calendar.SECOND);
-
-        String monthDayYear = month + "/" + day + "/" + year + " ";
-
-        String endMin = endMinute < 10 ? "0" + endMinute : Integer.toString(endMinute);
-        String endSec = endSecond < 10 ? "0" + endSecond : Integer.toString(endSecond);
-        String hourMinSec = endHour + ":" + endMin + ":" + endSec;
-
-        return dayOfWeek + monthDayYear + hourMinSec;
-    }
-
-    public static NodeComparator getNodeComparator() {
+    /* Static getter method, so that Leaderboard class can access the node comparator */
+    static NodeComparator getNodeComparator() {
         if (nodeComparator == null) {
             nodeComparator = new NodeComparator();
         }
         return nodeComparator;
     }
 
-    // custom comparator class for sorting a list of nodes (the leaderboard)
+    /*
+     * Custom comparator class useful for sorting a list of LeaderboardNodes
+     * based on score. If the two scores match, player with the earlier start
+     * time is sorted "higher" in the list. Two start times cannot and will not match.
+     */
     private static class NodeComparator implements Comparator<LeaderboardNode> {
         @Override
         public int compare(LeaderboardNode player1, LeaderboardNode player2) {
-            //Assumes neither Node is null (for now)
             if (player1.getScore() < player2.getScore()) {
                 return 1;
             } else if (player1.getScore() > player2.getScore()) {
                 return -1;
+            // if player scores match, sort based on start time, which cannot be equal
             } else if (player1.getScore() == player2.getScore()) {
                 if (player1.getStartTime().compareTo(player2.getStartTime()) < 0) {
                     return 1;
@@ -115,5 +102,5 @@ public class LeaderboardNode {
             }
             return 0;
         }
-    } // class NodeComparator
-} // class Node
+    } // NodeComparator
+} // Node

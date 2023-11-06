@@ -6,30 +6,45 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/*
+* This pattern of movement is made with the Cat enemy in mind, but could be used by 
+* other enemy types. 
+* Movement pattern is on a timer. An enemy with this pattern will move in a clockwise
+* square pattern.
+* After every "moveTime" milliseconds, the enemy will move to the next square in the
+* pattern determined by the "nextDirection" in "directions".
+* "moveTime" is generated one time randomly at the beginning of movement execution,
+* between 500 (inclusive) and 1000 (inclusive).
+* This movement pattern uses the given EnemyViewModel's movement methods, which will
+* handle wall collisions.
+*/
 public class CatMovementPattern extends Timer implements ControllableMovement {
 
     private final EnemyViewModel evm;
-    private int nextDirectionIndex = 0;
+    private int nextDirection = 0;
     private final String[] directions = new String[] {
         "right", "right", "down", "down", "left", "left", "up", "up"
     };
     private final long moveTime;
+
     public CatMovementPattern(EnemyViewModel evm) {
         this.evm = evm;
-        Random rand = new Random();
-        moveTime = rand.nextInt(500) + 500;
+        // generate a random moveTime to be used by the movement timer
+        moveTime = new Random().nextInt(501) + 500;
     }
 
     public void stop() {
-        cancel();
+        // cancel the Timer, stops enemy movement
+        super.cancel();
     }
 
     public void start() {
-        schedule(new TimerTask() {
+        // start new TimerTask that moves enemy to next position every "moveTime" milliseconds
+        super.schedule(new TimerTask() {
             @Override
             public void run() {
-                String nextDirection = directions[nextDirectionIndex];
-                switch (nextDirection) {
+                String next = directions[nextDirection];
+                switch (next) {
                     case "right":
                         evm.moveEnemyRight();
                         break;
@@ -45,8 +60,9 @@ public class CatMovementPattern extends Timer implements ControllableMovement {
                     default:
                         break;
                 }
-                nextDirectionIndex = (nextDirectionIndex + 1) % directions.length;
+                // limit nextDirection index from moving out of bounds of directions[]
+                nextDirection = (nextDirection + 1) % directions.length;
             }
         }, moveTime, moveTime);
     }
-}
+} // CatMovementPattern

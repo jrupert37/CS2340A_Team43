@@ -3,26 +3,35 @@ package com.example.cs2340a_team43.Models;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import com.example.cs2340a_team43.R;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+/*
+ * This class holds information about the physical layout of each room, 
+ * including the floor image/bitmap for each floor, and the layout of walls.
+ * The current layout of a map is determined by the floor in which the player 
+ * is currently located.
+ * "Blueprint" text files are provided for creating a 2d array layout of empty
+ * tiles, walls, and an exit for each floor. 
+ */
 public class Map {
+    
+    // helpful enumeration for distinguishing between floors
     public enum Floor {
         FIRST_FLOOR,
         SECOND_FLOOR,
         THIRD_FLOOR
     }
+    
+    // another helpful enumeration for distinguishing between an empty tile, wall, and exit
     public enum MapObject {
         WALL,
         EXIT,
         EMPTY
     }
-    //private static Map map;
-    private Floor floor;
+    private Floor currentFloor;
     private Bitmap floorBitmap;
     private Context context;
     private MapObject[][] roomLayout;
@@ -31,109 +40,77 @@ public class Map {
 
 
     public Map(Context context) {
-        this.floor = Floor.FIRST_FLOOR;
+        // initialize the currentFloor to First Floor
+        this.currentFloor = Floor.FIRST_FLOOR;
         this.context = context;
-        setFloor(floor);
-    }
-
-    public Map() {
-        this.roomLayout = new MapObject[rows][cols];
+        // use createFloor to create the 2d layout array and set the floor background image
+        setFloor(currentFloor);
     }
 
     public Floor getFloor() {
-        return this.floor;
+        return this.currentFloor;
     }
-
-    public void setFloor(Floor floor) {
-        this.floor = floor;
-        switch (floor) {
+    
+    public void setFloor(Floor currentFloor) {
+        this.currentFloor = currentFloor;
+        switch (currentFloor) {
         case FIRST_FLOOR:
             this.floorBitmap = BitmapFactory.decodeResource(context.getResources(),
                                 R.drawable.floor1);
-            this.roomLayout = setFloorLayout("first_floor_blueprint.txt");
+            this.roomLayout = createFloorLayout("first_floor_blueprint.txt");
             break;
         case SECOND_FLOOR:
             this.floorBitmap = BitmapFactory.decodeResource(context.getResources(),
                                 R.drawable.floor2);
-            this.roomLayout = setFloorLayout("second_floor_blueprint.txt");
+            this.roomLayout = createFloorLayout("second_floor_blueprint.txt");
             break;
         case THIRD_FLOOR:
             this.floorBitmap = BitmapFactory.decodeResource(context.getResources(),
                     R.drawable.floor3);
-            this.roomLayout = setFloorLayout("third_floor_blueprint.txt");
+            this.roomLayout = createFloorLayout("third_floor_blueprint.txt");
             break;
         default:
             break;
         }
     }
+    
     public Bitmap getFloorBitmap() {
         return this.floorBitmap;
     }
+    
     public MapObject[][] getRoomLayout() {
         return this.roomLayout;
     }
-    private MapObject[][] setFloorLayout(String pathname) {
+    
+    /* 
+    * This method creates the 2d layout array of walls/empty tiles/exit based
+    * on a "blueprint" text file. 
+    * Uses an input stream to read from the text file and create the layout accordingly.
+    */
+    private MapObject[][] createFloorLayout(String pathname) {
         InputStream stream = null;
         try {
             stream = this.context.getAssets().open(pathname);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int index = 0;
+        int index = 0; // "index" refers to the nth character from the text file
         MapObject[][] layout = new MapObject[rows][cols];
         Scanner streamScanner = new Scanner(stream);
         while (streamScanner.hasNext()) {
-            int row = index / 40;
-            int col = index % 40;
-            char value = streamScanner.next().charAt(0);
-            if (value == 'W') {
+            // use "index" to determine the corresponding row and col of the next map object
+            int row = index / cols;
+            int col = index % cols;
+            char value = streamScanner.next().charAt(0); // grab the next character
+            if (value == 'W') {  // W indicates a wall
                 layout[row][col] = MapObject.WALL;
-            } else if (value == 'N') {
+            } else if (value == 'N') { // N indicates an empty space 
                 layout[row][col] = MapObject.EMPTY;
-            } else if (value == 'E') {
+            } else if (value == 'E') { // E indicates an exit
                 layout[row][col] = MapObject.EXIT;
             }
             index++;
         }
         return layout;
     }
-
-    //    private void createFirstFloorLayout() {
-    //        firstFloorLayout = new MapObject[rows][cols];
-    //        for (int row = 0; row < rows; row++) {
-    //            for (int col = 0; col < cols; col++) {
-    //                if (row == 0 || col == 0 || col == 39 || row == 17) {
-    //                    firstFloorLayout[row][col] = MapObject.WALL;
-    //                } else {
-    //                    firstFloorLayout[row][col] = MapObject.EMPTY;
-    //                }
-    //            }
-    //        }
-    //        for (int row = 3; row <= 7; row++) {
-    //            for (int col = 24; col <= 27; col++) {
-    //                firstFloorLayout[row][col] = MapObject.WALL;
-    //            }
-    //        }
-    //        for (int row = 1; row <= 9; row++) {
-    //            firstFloorLayout[row][18] = MapObject.WALL;
-    //        }
-    //        for (int col = 1; col <= 18; col++) {
-    //            if (col != 5 && col != 6) {
-    //                firstFloorLayout[10][col] = MapObject.WALL;
-    //            }
-    //        }
-    //        for (int row = 1; row <= 12; row++) {
-    //            firstFloorLayout[row][33] = MapObject.WALL;
-    //        }
-    //        for (int row = 10; row <= 16; row++) {
-    //            firstFloorLayout[row][23] = MapObject.WALL;
-    //        }
-    //        for (int row = 10; row <= 16; row++) {
-    //            firstFloorLayout[row][28] = MapObject.WALL;
-    //        }
-    //        firstFloorLayout[10][24] = MapObject.WALL;
-    //        firstFloorLayout[10][27] = MapObject.WALL;
-    //        firstFloorLayout[12][29] = MapObject.WALL;
-    //        firstFloorLayout[12][32] = MapObject.WALL;
-    //    }
 } // Map
