@@ -3,7 +3,7 @@ package com.example.cs2340a_team43.ViewModels;
 import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.lifecycle.ViewModel;
-import com.example.cs2340a_team43.Models.ControllableMovement;
+import com.example.cs2340a_team43.Models.ControllableMovementPattern;
 import com.example.cs2340a_team43.Models.Enemy;
 import com.example.cs2340a_team43.Models.EnemyFactory;
 import com.example.cs2340a_team43.Models.MovementBehavior;
@@ -24,7 +24,7 @@ public class EnemyViewModel extends ViewModel implements Subject, Observer {
     private final MapViewModel mapViewModel;
     private final List<Observer> observers;
     private boolean notified;
-    private final ControllableMovement enemyMovementPattern;
+    private final ControllableMovementPattern enemyMovementPattern;
 
     public EnemyViewModel(Context context, String difficulty, String type, MapViewModel mvm,
                           int enemyX, int enemyY) {
