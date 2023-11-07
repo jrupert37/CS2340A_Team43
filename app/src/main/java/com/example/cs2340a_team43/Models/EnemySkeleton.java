@@ -4,15 +4,14 @@ import com.example.cs2340a_team43.R;
 
 public class EnemySkeleton extends Enemy {
     public EnemySkeleton(String difficulty) {
-        imageId = R.drawable.skeletonenemy;
-        hp = 100;
+        super.setImageId(R.drawable.skeletonenemy);
+        super.setHP(100);
         if (difficulty.equals("Easy")) {
-            damage = 1;
+            super.setDamage(1);
         } else if (difficulty.equals("Medium")) {
-            damage = 3;
+            super.setDamage(3);
         } else {
-            damage = 5;
+            super.setDamage(5);
         }
-        movementBehavior = new WalkMovement();
     }
-}
+} // EnemySkeleton

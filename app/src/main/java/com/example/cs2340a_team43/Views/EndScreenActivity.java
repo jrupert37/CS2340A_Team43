@@ -1,6 +1,7 @@
 package com.example.cs2340a_team43.Views;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -14,20 +15,15 @@ import com.example.cs2340a_team43.R;
 
 
 public class EndScreenActivity extends AppCompatActivity {
-
-    private Button restartButton;
-    private Leaderboard leaderboard;
-    private TableLayout leaderTable;
-    private TableRow mostRecentTableRow;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_end);
 
-        leaderboard = Leaderboard.getInstance();
-        leaderTable = findViewById(R.id.leaderTableLayout);
-        /* Loop over each row of the xml leaderboard table
+        Leaderboard leaderboard = Leaderboard.getInstance();
+        TableLayout leaderTable = findViewById(R.id.leaderTableLayout);
+        /*
+         *  Loop over each row of the xml leaderboard table.
          *  For each row, display the player's name, score, start time, and end time
          *  Player for each row comes from a sorted list of players (sorted by score)
          *  Top player at index 0, bottom player at index size - 1 of leaderboard
@@ -41,8 +37,8 @@ public class EndScreenActivity extends AppCompatActivity {
 
             playerName.setText(leaderboard.get(i).getName());
             playerScore.setText(Integer.toString(leaderboard.get(i).getScore()));
-            startTime.setText(leaderboard.get(i).startTimeToString());
-            endTime.setText(leaderboard.get(i).endTimeToString());
+            startTime.setText(leaderboard.get(i).toString("start"));
+            endTime.setText(leaderboard.get(i).toString("end"));
         }
         TextView mostRecentName = findViewById(R.id.mostRecentName);
         TextView mostRecentScore = findViewById(R.id.mostRecentScore);
@@ -50,18 +46,17 @@ public class EndScreenActivity extends AppCompatActivity {
         TextView mostRecentEndTime = findViewById(R.id.mostRecentEndTime);
         mostRecentName.setText(leaderboard.getMostRecentAttempt().getName());
         mostRecentScore.setText(Integer.toString(leaderboard.getMostRecentAttempt().getScore()));
-        mostRecentStartTime.setText(leaderboard.getMostRecentAttempt().startTimeToString());
-        mostRecentEndTime.setText(leaderboard.getMostRecentAttempt().endTimeToString());
+        mostRecentStartTime.setText(leaderboard.getMostRecentAttempt().toString("start"));
+        mostRecentEndTime.setText(leaderboard.getMostRecentAttempt().toString("end"));
 
-        if (leaderboard.getMostRecentAttempt().getScore() < 10) {
-            TextView winMessage = findViewById(R.id.youWinTextView);
-            TextView loseMessage = findViewById(R.id.youLoseTextView);
-
-            winMessage.setVisibility(TextView.GONE);
-            loseMessage.setVisibility(TextView.VISIBLE);
+        TextView winLoseTextView = findViewById(R.id.winLoseTextView);
+        boolean playerIsAlive = getIntent().getBooleanExtra("isAlive", true);
+        if (!playerIsAlive) {
+            winLoseTextView.setText("You Lose!");
+            winLoseTextView.setTextColor(Color.RED);
         }
 
-        restartButton = findViewById(R.id.restartButton);
+        Button restartButton = findViewById(R.id.restartButton);
         restartButton.setOnClickListener(v -> {
             Intent intent = new Intent(EndScreenActivity.this, StartScreenActivity.class);
             intent.addCategory(Intent.CATEGORY_HOME);
@@ -69,4 +64,4 @@ public class EndScreenActivity extends AppCompatActivity {
             finish();
         });
     }
-}
+} // EndScreenActivity
