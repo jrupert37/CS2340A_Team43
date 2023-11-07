@@ -10,7 +10,7 @@ import com.example.cs2340a_team43.Models.Subject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerViewModel extends ViewModel implements Subject {
+public class PlayerViewModel extends ViewModel implements Subject, Observer {
     private final Player player;
     private static PlayerViewModel playerViewModel;
     private MapViewModel mapViewModel;
@@ -126,8 +126,13 @@ public class PlayerViewModel extends ViewModel implements Subject {
     public void notifyObservers() {
         this.notified = true;
         for (Observer o: observers) {
-            o.update();
+            o.update(getPlayerX(), getPlayerY());
         }
+    }
+
+    @Override
+    public void update(int x, int y) {
+
     }
 
     public boolean isNotified() {
@@ -148,6 +153,14 @@ public class PlayerViewModel extends ViewModel implements Subject {
 
     public void setPlayerMovementBehavior(MovementBehavior behavior) {
         this.player.setMovementBehavior(behavior);
+    }
+
+    public int getPreviousX() {
+        return this.player.getPreviousX();
+    }
+
+    public int getPreviousY() {
+        return this.player.getPreviousY();
     }
 
     public boolean isAlive() {

@@ -19,7 +19,7 @@ import java.util.List;
  * models.
  * This class uses the Observer Design Pattern.
  */
-public class EnemyViewModel extends ViewModel implements Subject {
+public class EnemyViewModel extends ViewModel implements Subject, Observer {
     private final Enemy enemy;
     private final MapViewModel mapViewModel;
     private final List<Observer> observers;
@@ -100,9 +100,14 @@ public class EnemyViewModel extends ViewModel implements Subject {
         System.out.println("OVER HERE");
         this.notified = true;
         for (Observer o: observers) {
-            o.update();
+            o.update(getEnemyX(), getEnemyY());
         }
         System.out.println("NOTIFIED #1: " + notified);
+    }
+
+    @Override
+    public void update(int x, int y) {
+
     }
 
     public boolean willCollideWithWall(int newX, int newY) {
