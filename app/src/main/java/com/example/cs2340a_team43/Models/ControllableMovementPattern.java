@@ -6,7 +6,7 @@ package com.example.cs2340a_team43.Models;
 * enemy movements.
 * One floor's enemies are "stopped", then the next floor's are "started".
 */
-public interface ControllableMovement {
+public interface ControllableMovementPattern {
     void start();
     void stop();
 } // ControllableMovement (interface)
