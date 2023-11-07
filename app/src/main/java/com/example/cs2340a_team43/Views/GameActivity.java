@@ -84,9 +84,10 @@ public class GameActivity extends AppCompatActivity {
         //        thirdFloorEnemies.add(new EnemyViewModel(this, difficulty, "skeleton", mvm));
 
         currentEnemies = firstFloorEnemies;
-
         gameView = new GameView(this, playerViewModel, mvm, screenWidth, screenHeight,
-                firstFloorEnemies);
+                                currentEnemies);
+        playerViewModel.addObserver(gameView);
+        setEnemyObservers();
 
 
 
@@ -153,7 +154,7 @@ public class GameActivity extends AppCompatActivity {
                     isRunning = false;
                 }
                 if (playerViewModel.playerIsAtExit()) {
-                    if (mvm.getMapFloor() == Map.Floor.THIRD_FLOOR) {
+                    if (mvm.isThirdFloor()) {
                         isRunning = false;
                     } else {
                         terminateCurrentEnemies();
@@ -185,10 +186,28 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void moveToNextFloor() {
+        removeEnemyObservers();
         this.currentEnemies = new ArrayList<>(); // TEMPORARY, add logic to set next floor enemies
+        setEnemyObservers();
         gameView.setCurrentEnemies(currentEnemies);
         this.mvm.moveToNextFloor();
         this.playerViewModel.resetPlayerXY();
+    }
+
+    public void removeEnemyObservers() {
+        for (EnemyViewModel evm : currentEnemies) {
+            evm.removeObserver(gameView);
+            evm.removeObserver(playerViewModel);
+            playerViewModel.removeObserver(evm);
+        }
+    }
+
+    public void setEnemyObservers() {
+        for (EnemyViewModel evm : currentEnemies) {
+            evm.addObserver(gameView);
+            evm.addObserver(playerViewModel);
+            playerViewModel.addObserver(evm);
+        }
     }
 
     @Override
