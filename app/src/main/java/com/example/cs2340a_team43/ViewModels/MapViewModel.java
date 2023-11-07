@@ -11,7 +11,7 @@ import com.example.cs2340a_team43.Models.Map.MapObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapViewModel extends ViewModel implements Subject {
+public class MapViewModel extends ViewModel { //implements Subject {
     private final Map map;
     private final List<Observer> observers;
 
@@ -28,11 +28,11 @@ public class MapViewModel extends ViewModel implements Subject {
         observers.remove(o);
     }
 
-    public void notifyObservers() {
-        for (Observer o: observers) {
-            o.update();
-        }
-    }
+//    public void notifyObservers() {
+//        for (Observer o: observers) {
+//            o.update();
+//        }
+//    }
 
     public Bitmap getMapFloorBitmap() {
         return this.map.getFloorBitmap();
@@ -69,5 +69,9 @@ public class MapViewModel extends ViewModel implements Subject {
 
     public boolean xyIsAnExit(int x, int y) {
         return getRoomLayout()[y][x] == MapObject.EXIT;
+    }
+
+    public boolean isThirdFloor() {
+        return getMapFloor() == Floor.THIRD_FLOOR;
     }
 } // MapViewModel
