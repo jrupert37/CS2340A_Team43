@@ -24,7 +24,7 @@ public class EnemyFactory extends EnemySpawner {
         }
     }
 
-    public ControllableMovementPattern getMovementPattern(String type, EnemyViewModel evm) {
+    public ExecutableMovementPattern getMovementPattern(String type, EnemyViewModel evm) {
         if (type.equals("cat")) {
             return new CatMovementPattern(evm);
         } else if (type.equals("eyeball")) {
