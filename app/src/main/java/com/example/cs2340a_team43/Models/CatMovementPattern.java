@@ -18,7 +18,7 @@ import java.util.TimerTask;
 * This movement pattern uses the given EnemyViewModel's movement methods, which will
 * handle wall collisions.
 */
-public class CatMovementPattern extends Timer implements ControllableMovement {
+public class CatMovementPattern extends Timer implements ExecutableMovementPattern {
 
     private final EnemyViewModel evm;
     private int nextDirection = 0;

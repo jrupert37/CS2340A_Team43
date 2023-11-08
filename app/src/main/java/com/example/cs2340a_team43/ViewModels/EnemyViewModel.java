@@ -3,7 +3,7 @@ package com.example.cs2340a_team43.ViewModels;
 import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.lifecycle.ViewModel;
-import com.example.cs2340a_team43.Models.ControllableMovement;
+import com.example.cs2340a_team43.Models.ExecutableMovementPattern;
 import com.example.cs2340a_team43.Models.Enemy;
 import com.example.cs2340a_team43.Models.EnemyFactory;
 import com.example.cs2340a_team43.Models.MovementBehavior;
@@ -20,13 +20,11 @@ import java.util.List;
  * This class uses the Observer Design Pattern.
  */
 public class EnemyViewModel extends ViewModel implements Subject, Observer {
-    private Enemy enemy;
-    private MapViewModel mapViewModel;
-    private int initialX;
-    private int initialY;
-    private List<Observer> observers;
+    private final Enemy enemy;
+    private final MapViewModel mapViewModel;
+    private final List<Observer> observers;
     private boolean notified;
-    private final ControllableMovement enemyMovementPattern;
+    private final ExecutableMovementPattern enemyMovementPattern;
 
     public EnemyViewModel(Context context, String difficulty, String type, MapViewModel mvm,
                           int enemyX, int enemyY) {
@@ -102,16 +100,19 @@ public class EnemyViewModel extends ViewModel implements Subject, Observer {
         System.out.println("OVER HERE");
         this.notified = true;
         for (Observer o: observers) {
-            o.update();
+            o.update(getEnemyX(), getEnemyY());
         }
         System.out.println("NOTIFIED #1: " + notified);
     }
 
+    @Override
+    public void update(int x, int y) {
+
+    }
 
     public boolean willCollideWithWall(int newX, int newY) {
         return mapViewModel.isAWall(newX, newY);
     }
-
 
     public int getEnemyHP() {
         return this.enemy.getHp();

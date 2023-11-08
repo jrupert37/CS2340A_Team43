@@ -3,7 +3,7 @@ package com.example.cs2340a_team43.Models;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
+import androidx.core.util.Pair;
 import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
 
 /*
@@ -20,11 +20,14 @@ public class Player extends Character {
     private String playerName;
     private int hp;
     private Bitmap bitmap;
+    private Pair<Integer, Integer> previousXY;
+    // super.xyCoordinates (contained in Character parent class
 
     /* Private constructor to prevent other classes from instantiating a new player */
     private Player() {
         super(); // calls the Character constructor
         // player attributes will be more concretely initialized later
+        previousXY = new Pair<>(1, 1);
         this.hp = 0;
         this.bitmap = null;
     }
@@ -92,9 +95,22 @@ public class Player extends Character {
     }
 
     private void updatePosition(MovementDirection direction) {
+        setPreviousXY(super.getX(), super.getY());
         super.performMove(direction);
         System.out.println("X: " + super.getX());
         System.out.println("Y: " + super.getY());
+    }
+
+    private void setPreviousXY(int x, int y) {
+        this.previousXY = new Pair<>(x, y);
+    }
+
+    public int getPreviousX() {
+        return this.previousXY.first;
+    }
+
+    public int getPreviousY() {
+        return this.previousXY.second;
     }
 
     public Bitmap getBitmap() {

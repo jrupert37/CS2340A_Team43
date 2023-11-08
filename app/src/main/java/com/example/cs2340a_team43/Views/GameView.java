@@ -24,7 +24,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
     private List<EnemyViewModel> currentEnemies;
 
     public GameView(Context cont, PlayerViewModel pvm, MapViewModel mvm, int xLimit, int yLimit,
-                    List<EnemyViewModel> evms) {
+                    List<EnemyViewModel> initialEnemies) {
         super(cont);
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
@@ -32,11 +32,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
         floorBounds = new Rect(0, 0, xLimit, yLimit - 125);
         this.playerViewModel = pvm;
         this.mapViewModel = mvm;
-        this.currentEnemies = evms;
-        playerViewModel.addObserver(this);
-        for (EnemyViewModel evm : currentEnemies) {
-            evm.addObserver(this);
-        }
+        this.currentEnemies = initialEnemies;
+//        playerViewModel.addObserver(this);
+//        for (EnemyViewModel evm : currentEnemies) {
+//            evm.addObserver(this);
+//        }
         this.xLimit = xLimit;
         this.yLimit = yLimit;
     }
@@ -56,8 +56,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
 
     }
 
+    /*
+     * In this case, the given x and y are not actually needed, as the draw function
+     * will have to fetch all enemy x and y coordinates as well as player x and y anyway.
+     * In other words, this "update" override just needs to call "draw"
+     */
     @Override
-    public void update() {
+    public void update(int x, int y) {
         draw();
         System.out.println("Screen Redrawn");
     }
