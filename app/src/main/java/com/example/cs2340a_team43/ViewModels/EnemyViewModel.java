@@ -63,7 +63,7 @@ public class EnemyViewModel extends ViewModel implements Subject, Observer {
         notifyObservers();
     }
 
-    public void movePlayerRight() {
+    public void moveEnemyRight() {
         if (willCollideWithWall(getEnemyX() + getEnemySpeed(), getEnemyY())) {
             return;
         }
@@ -72,7 +72,7 @@ public class EnemyViewModel extends ViewModel implements Subject, Observer {
         notifyObservers();
     }
 
-    public void movePlayerUp() {
+    public void moveEnemyUp() {
         if (willCollideWithWall(getEnemyX(), getEnemyY() - getEnemySpeed())) {
             return;
         }
@@ -81,7 +81,7 @@ public class EnemyViewModel extends ViewModel implements Subject, Observer {
         notifyObservers();
     }
 
-    public void movePlayerDown() {
+    public void moveEnemyDown() {
         if (willCollideWithWall(getEnemyX(), getEnemyY() + getEnemySpeed())) {
             return;
         }
