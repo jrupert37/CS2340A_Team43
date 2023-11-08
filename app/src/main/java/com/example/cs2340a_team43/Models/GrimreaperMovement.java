@@ -15,7 +15,12 @@ public class GrimreaperMovement extends Timer {
     public GrimreaperMovement (EnemyViewModel enemyViewModel) {
         this.enemyViewModel = enemyViewModel;
     }
-    public void move(){
+    public void stop() {
+        // cancel the Timer, stops enemy movement
+        super.cancel();
+    }
+
+    public void start(){
         enemyTimer.schedule(new TimerTask() {
             @Override
             public void run() {
