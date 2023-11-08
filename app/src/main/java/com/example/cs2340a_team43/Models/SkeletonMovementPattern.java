@@ -4,12 +4,12 @@ import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Random;
-public class SkeletonMovement extends Timer {
+public class SkeletonMovementPattern extends Timer {
     private EnemyViewModel enemyViewModel;
     private Random rand = new Random();
     private int random;
     private Timer enemyTimer = new Timer();
-    public SkeletonMovement(EnemyViewModel enemyViewModel) {
+    public SkeletonMovementPattern(EnemyViewModel enemyViewModel) {
         this.enemyViewModel = enemyViewModel;
     }
     public void stop() {
