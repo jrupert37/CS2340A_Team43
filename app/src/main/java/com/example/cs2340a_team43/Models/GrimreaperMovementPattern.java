@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GrimreaperMovement extends Timer {
+public class GrimreaperMovementPattern extends Timer {
     private EnemyViewModel enemyViewModel;
     private Random rand = new Random();
     private int random;
