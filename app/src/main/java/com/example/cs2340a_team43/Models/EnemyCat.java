@@ -1,17 +1,17 @@
 package com.example.cs2340a_team43.Models;
 
 import com.example.cs2340a_team43.R;
-public class EnemyCat extends Enemy{
+
+public class EnemyCat extends Enemy {
     public EnemyCat(String difficulty) {
-        imageId = R.drawable.catenemy;
-        hp = 50;
+        super.setImageId(R.drawable.catenemy);
+        super.setHP(50);
         if (difficulty.equals("Easy")) {
-            damage = 5;
+            super.setDamage(5);
         } else if (difficulty.equals("Medium")) {
-            damage = 10;
+            super.setDamage(10);
         } else {
-            damage = 15;
+            super.setDamage(15);
         }
-        movementBehavior = new RunMovement();
     }
-}
+} // EnemyCat

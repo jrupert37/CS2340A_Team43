@@ -22,7 +22,8 @@ public class StartScreenActivity extends AppCompatActivity {
             intent.addCategory(Intent.CATEGORY_HOME);
             startActivity(intent);
         });
-        //Start game, move on to configuration page
+
+        // Set button listener to move on to configuration page when start button clicked
         startBtn.setOnClickListener(v -> {
             Intent game = new Intent(StartScreenActivity.this, ConfigurationPageActivity.class);
             startActivity(game);

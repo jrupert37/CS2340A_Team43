@@ -2,35 +2,22 @@ package com.example.cs2340a_team43.ViewModels;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-
 import androidx.lifecycle.ViewModel;
-
 import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.Models.Map.Floor;
 import com.example.cs2340a_team43.Models.Observer;
 import com.example.cs2340a_team43.Models.Subject;
 import com.example.cs2340a_team43.Models.Map.MapObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapViewModel extends ViewModel implements Subject {
-    private Map map;
-    private List<Observer> observers;
-    private static MapViewModel mvm;
+public class MapViewModel extends ViewModel { //implements Subject {
+    private final Map map;
+    private final List<Observer> observers;
 
     public MapViewModel(Context context) {
         this.map = new Map(context);
         this.observers = new ArrayList<>();
-    }
-    public MapViewModel() {
-        this.map = new Map();
-    }
-    public static MapViewModel getInstance(Context context) {
-        if (mvm == null) {
-            mvm = new MapViewModel(context);
-        }
-        return mvm;
     }
 
     public void addObserver(Observer o) {
@@ -41,11 +28,11 @@ public class MapViewModel extends ViewModel implements Subject {
         observers.remove(o);
     }
 
-    public void notifyObservers() {
-        for (Observer o: observers) {
-            o.update();
-        }
-    }
+//    public void notifyObservers() {
+//        for (Observer o: observers) {
+//            o.update();
+//        }
+//    }
 
     public Bitmap getMapFloorBitmap() {
         return this.map.getFloorBitmap();
@@ -83,4 +70,8 @@ public class MapViewModel extends ViewModel implements Subject {
     public boolean xyIsAnExit(int x, int y) {
         return getRoomLayout()[y][x] == MapObject.EXIT;
     }
-}
+
+    public boolean isThirdFloor() {
+        return getMapFloor() == Floor.THIRD_FLOOR;
+    }
+} // MapViewModel

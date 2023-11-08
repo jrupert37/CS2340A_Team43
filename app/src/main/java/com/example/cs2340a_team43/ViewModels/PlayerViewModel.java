@@ -3,24 +3,20 @@ package com.example.cs2340a_team43.ViewModels;
 import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.lifecycle.ViewModel;
-
 import com.example.cs2340a_team43.Models.MovementBehavior;
 import com.example.cs2340a_team43.Models.Observer;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Models.Subject;
-import com.example.cs2340a_team43.Models.WalkMovement;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerViewModel extends ViewModel implements Subject {
-    private Player player;
-
+public class PlayerViewModel extends ViewModel implements Subject, Observer {
+    private final Player player;
     private static PlayerViewModel playerViewModel;
     private MapViewModel mapViewModel;
     private int initialX;
     private int initialY;
-    private List<Observer> observers;
+    private final List<Observer> observers;
     private boolean notified;
 
     private PlayerViewModel() {
@@ -35,6 +31,7 @@ public class PlayerViewModel extends ViewModel implements Subject {
         }
         return playerViewModel;
     }
+
     public Bitmap getPlayerBitmap() {
         return this.player.getBitmap();
     }
@@ -71,10 +68,11 @@ public class PlayerViewModel extends ViewModel implements Subject {
 
     public void resetPlayerXY() {
         this.player.setInitialXY(initialX, initialY);
+        notifyObservers();
     }
 
-    public void setImageId(int imageId, Context context) {
-        this.player.setImageId(imageId, context);
+    public void setSprite(int imageId, Context context) {
+        this.player.setSprite(imageId, context);
     }
 
     public void setMap(MapViewModel mapViewModel) {
@@ -126,18 +124,20 @@ public class PlayerViewModel extends ViewModel implements Subject {
     }
 
     public void notifyObservers() {
-        System.out.println("OVER HERE");
         this.notified = true;
         for (Observer o: observers) {
-            o.update();
+            o.update(getPlayerX(), getPlayerY());
         }
-        System.out.println("NOTIFIED #1: " + notified);
+    }
+
+    @Override
+    public void update(int x, int y) {
+
     }
 
     public boolean isNotified() {
         return notified;
     }
-
 
     public boolean willCollideWithWall(int newX, int newY) {
         return mapViewModel.isAWall(newX, newY);
@@ -153,6 +153,18 @@ public class PlayerViewModel extends ViewModel implements Subject {
 
     public void setPlayerMovementBehavior(MovementBehavior behavior) {
         this.player.setMovementBehavior(behavior);
+    }
+
+    public int getPreviousX() {
+        return this.player.getPreviousX();
+    }
+
+    public int getPreviousY() {
+        return this.player.getPreviousY();
+    }
+
+    public boolean isAlive() {
+        return getPlayerHP() > 0;
     }
 } // PlayerViewModel
 

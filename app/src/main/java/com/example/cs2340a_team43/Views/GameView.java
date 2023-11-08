@@ -7,22 +7,24 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
-
 import com.example.cs2340a_team43.Models.Observer;
+import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
+import java.util.List;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, Observer {
-    private PlayerViewModel playerViewModel;
-    private MapViewModel mapViewModel;
-    private Rect floorBounds;
-    private int xLimit;
-    private int yLimit;
+    private final PlayerViewModel playerViewModel;
+    private final MapViewModel mapViewModel;
+    private final Rect floorBounds;
+    private final int xLimit;
+    private final int yLimit;
+    private List<EnemyViewModel> currentEnemies;
 
-    public GameView(Context cont, PlayerViewModel pvm, MapViewModel mvm, int xLimit, int yLimit) {
+    public GameView(Context cont, PlayerViewModel pvm, MapViewModel mvm, int xLimit, int yLimit,
+                    List<EnemyViewModel> initialEnemies) {
         super(cont);
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
@@ -30,7 +32,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
         floorBounds = new Rect(0, 0, xLimit, yLimit - 125);
         this.playerViewModel = pvm;
         this.mapViewModel = mvm;
-        playerViewModel.addObserver(this);
+        this.currentEnemies = initialEnemies;
+//        playerViewModel.addObserver(this);
+//        for (EnemyViewModel evm : currentEnemies) {
+//            evm.addObserver(this);
+//        }
         this.xLimit = xLimit;
         this.yLimit = yLimit;
     }
@@ -50,16 +56,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
 
     }
 
+    /*
+     * In this case, the given x and y are not actually needed, as the draw function
+     * will have to fetch all enemy x and y coordinates as well as player x and y anyway.
+     * In other words, this "update" override just needs to call "draw"
+     */
     @Override
-    public void update() {
+    public void update(int x, int y) {
         draw();
-        System.out.println("Redrew player");
-    }
-
-    public void moveToNextFloor() {
-        this.mapViewModel.moveToNextFloor();
-        this.playerViewModel.resetPlayerXY();
-        draw();
+        System.out.println("Screen Redrawn");
     }
 
     private void draw() {
@@ -81,6 +86,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
                 Bitmap playerBitmap = playerViewModel.getPlayerBitmap();
                 canvas.drawBitmap(playerBitmap, null, rect, null);
 
+                for (EnemyViewModel evm: currentEnemies) {
+                    float xEnemyDraw = (evm.getEnemyX() * xScale);
+                    float yEnemyDraw = (evm.getEnemyY() * yScale);
+                    RectF rect2;
+                    rect2 = new RectF(xEnemyDraw, yEnemyDraw, xEnemyDraw + (xLimit / 40),
+                            yEnemyDraw + (yLimit / 20));
+                    Bitmap enemyBitmap = evm.getEnemyBitmap();
+                    canvas.drawBitmap(enemyBitmap, null, rect2, null);
+                }
+
                 Paint paint = new Paint();
                 paint.setColor(Color.BLACK);
                 paint.setStyle(Paint.Style.FILL);
@@ -96,24 +111,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-        case KeyEvent.KEYCODE_DPAD_LEFT:
-            playerViewModel.movePlayerLeft();
-            break;
-        case KeyEvent.KEYCODE_DPAD_RIGHT:
-            playerViewModel.movePlayerRight();
-            break;
-        case KeyEvent.KEYCODE_DPAD_UP:
-            playerViewModel.movePlayerUp();
-            break;
-        case KeyEvent.KEYCODE_DPAD_DOWN:
-            playerViewModel.movePlayerDown();
-            break;
-        default:
-            break;
-        }
-        return true;
+    public void setCurrentEnemies(List<EnemyViewModel> currentEnemies) {
+        this.currentEnemies = currentEnemies;
     }
 } // GameView
