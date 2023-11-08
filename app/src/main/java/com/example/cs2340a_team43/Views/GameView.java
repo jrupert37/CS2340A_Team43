@@ -9,13 +9,14 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
-import com.example.cs2340a_team43.Models.Observer;
+
+import com.example.cs2340a_team43.Models.ViewObserver;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
 import java.util.List;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback, Observer {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback, ViewObserver {
     private final PlayerViewModel playerViewModel;
     private final MapViewModel mapViewModel;
     private final Rect floorBounds;
@@ -62,7 +63,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Obs
      * In other words, this "update" override just needs to call "draw"
      */
     @Override
-    public void update(int x, int y) {
+    public void update() {
         draw();
         System.out.println("Screen Redrawn");
     }

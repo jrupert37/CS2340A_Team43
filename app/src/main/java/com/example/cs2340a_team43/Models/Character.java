@@ -8,17 +8,33 @@ import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
 */
 public abstract class Character {
     private MovementBehavior movementBehavior;
-    private Pair<Integer, Integer> xyCoordinates;
+    protected Pair<Integer, Integer> xyCoordinates;
+    private int hp;
+    protected int damageTaken;
 
     protected Character() {
         this.movementBehavior = new WalkMovement(); // set to WalkMovement by default
         this.xyCoordinates = new Pair<>(0, 0);      // set to (0,0) by default
+        this.damageTaken = 0;
     }
 
     //    public Pair<Integer, Integer> performMove(Pair<Integer, Integer> xy, MovementDirection
     //    dir) {
     //        return movementBehavior.move(xy, dir);
     //    }
+
+    public void setInitialHP(String difficulty) {
+        if (difficulty.equals("Easy")) {
+            hp = 50;
+            damageTaken = 2;
+        } else if (difficulty.equals("Medium")) {
+            hp = 30;
+            damageTaken = 3;
+        } else {
+            hp = 15;
+            damageTaken = 5;
+        }
+    }
 
     public void performMove(MovementDirection dir) {
         setXyCoordinates(movementBehavior.move(this.xyCoordinates, dir));
@@ -48,4 +64,19 @@ public abstract class Character {
         this.xyCoordinates = xyCoordinates;
     }
 
+    protected int getDamageTaken() {
+        return this.damageTaken;
+    }
+
+    public int getHP() {
+        return this.hp;
+    }
+
+    protected void setHP(int hp) {
+        this.hp = hp;
+    }
+
+    public void gotHit() {
+        this.setHP(getHP() - getDamageTaken());
+    }
 } // Character (abstract parent)
