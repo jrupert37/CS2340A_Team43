@@ -68,7 +68,7 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
         }
         // otherwise...
         this.enemy.moveLeft();
-        notifyOfPosition();
+        notifyWithPosition();
         notifyViewObservers();
     }
 
@@ -78,7 +78,7 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
         }
         // otherwise...
         this.enemy.moveRight();
-        notifyOfPosition();
+        notifyWithPosition();
         notifyViewObservers();
     }
 
@@ -88,7 +88,7 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
         }
         // otherwise...
         this.enemy.moveUp();
-        notifyOfPosition();
+        notifyWithPosition();
         notifyViewObservers();
     }
 
@@ -98,12 +98,12 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
         }
         // otherwise...
         this.enemy.moveDown();
-        notifyOfPosition();
+        notifyWithPosition();
         notifyViewObservers();
     }
 
     @Override
-    public void notifyOfPosition() {
+    public void notifyWithPosition() {
         for (CollisionObserver co : collisionObservers) {
             co.updateWithPosition(getEnemyX(), getEnemyY());
         }
