@@ -29,6 +29,10 @@ public class EnemyFactory extends EnemySpawner {
             return new CatMovementPattern(evm);
         } else if (type.equals("eyeball")) {
             return new EyeballMovementPattern(evm);
+        } else if (type.equals("grimreaper")) {
+            return new GrimreaperMovementPattern(evm);
+        } else if (type.equals("skeleton")) {
+            return new SkeletonMovementPattern(evm);
         } else {
             return null;
         }
