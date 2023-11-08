@@ -10,7 +10,6 @@ public class GrimreaperMovementPattern extends Timer implements ExecutableMoveme
     private EnemyViewModel enemyViewModel;
     private Random rand = new Random();
     private int random;
-    private Timer enemyTimer = new Timer();
 
     public GrimreaperMovementPattern (EnemyViewModel enemyViewModel) {
         this.enemyViewModel = enemyViewModel;
@@ -23,12 +22,13 @@ public class GrimreaperMovementPattern extends Timer implements ExecutableMoveme
     }
 
     @Override
-    public void start(){
-        enemyTimer.schedule(new TimerTask() {
+    public void start() {
+        Random rand = new Random();
+        super.schedule(new TimerTask() {
             @Override
             public void run() {
-                random = rand.nextInt(4);
-                switch (random) {
+                int randomValue = rand.nextInt(4);
+                switch (randomValue) {
                     case 0:
                         enemyViewModel.moveEnemyDown();
                         break;
@@ -40,6 +40,8 @@ public class GrimreaperMovementPattern extends Timer implements ExecutableMoveme
                         break;
                     case 3:
                         enemyViewModel.moveEnemyLeft();
+                        break;
+                    default:
                         break;
                 }
             }
