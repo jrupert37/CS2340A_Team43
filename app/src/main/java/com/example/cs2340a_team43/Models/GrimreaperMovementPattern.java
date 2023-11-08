@@ -6,20 +6,23 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GrimreaperMovementPattern extends Timer {
+public class GrimreaperMovementPattern extends Timer implements ExecutableMovementPattern {
     private EnemyViewModel enemyViewModel;
     private Random rand = new Random();
     private int random;
     private Timer enemyTimer = new Timer();
 
-    public GrimreaperMovement (EnemyViewModel enemyViewModel) {
+    public GrimreaperMovementPattern (EnemyViewModel enemyViewModel) {
         this.enemyViewModel = enemyViewModel;
     }
+
+    @Override
     public void stop() {
         // cancel the Timer, stops enemy movement
         super.cancel();
     }
 
+    @Override
     public void start(){
         enemyTimer.schedule(new TimerTask() {
             @Override

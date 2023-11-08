@@ -22,10 +22,12 @@ public class EyeballMovementPattern extends Timer implements ExecutableMovementP
         this.evm = evm;
     }
 
+    @Override
     public void stop() {
         super.cancel();
     }
 
+    @Override
     public void start() {
         Random rand = new Random();
         super.schedule(new TimerTask() {
