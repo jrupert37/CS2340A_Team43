@@ -30,6 +30,7 @@ public class Player extends Character {
         previousXY = new Pair<>(1, 1);
         this.hp = 0;
         this.bitmap = null;
+        this.damageTaken = 0;
     }
 
     //    public Player(MovementBehavior run) {
@@ -49,19 +50,6 @@ public class Player extends Character {
         return player;
     }
 
-    public int getHP() {
-        return hp;
-    }
-
-    public void setHP(String difficulty) {
-        if (difficulty.equals("Easy")) {
-            hp = 50;
-        } else if (difficulty.equals("Medium")) {
-            hp = 30;
-        } else {
-            hp = 15;
-        }
-    }
 
     public String getName() {
         return playerName;
@@ -117,7 +105,17 @@ public class Player extends Character {
         return this.bitmap;
     }
 
-    public int getHp() {
-        return this.hp;
+    private void recoilXY() {
+        int tempX = super.getX();
+        int tempY = super.getY();
+        super.xyCoordinates = new Pair<>(getPreviousX(), getPreviousY());
+        setPreviousXY(tempX, tempY);
+    }
+
+    @Override
+    public void gotHit() {
+        super.setHP(getHP() - getDamageTaken());
+        recoilXY();
+        System.out.println("recoil!");
     }
 } // Player
