@@ -10,7 +10,7 @@ public abstract class Character {
     private MovementBehavior movementBehavior;
     protected Pair<Integer, Integer> xyCoordinates;
     private int hp;
-    private int damageTaken;
+    protected int damageTaken;
 
     protected Character() {
         this.movementBehavior = new WalkMovement(); // set to WalkMovement by default
