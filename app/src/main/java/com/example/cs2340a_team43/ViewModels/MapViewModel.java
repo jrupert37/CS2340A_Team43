@@ -60,6 +60,14 @@ public class MapViewModel extends ViewModel { //implements Subject {
         return getRoomLayout()[y][x] == MapObject.EXIT;
     }
 
+    public boolean isFirstFloor() {
+        return getMapFloor() == Floor.FIRST_FLOOR;
+    }
+
+    public boolean isSecondFloor() {
+        return getMapFloor() == Floor.SECOND_FLOOR;
+    }
+
     public boolean isThirdFloor() {
         return getMapFloor() == Floor.THIRD_FLOOR;
     }

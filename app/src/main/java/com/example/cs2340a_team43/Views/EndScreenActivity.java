@@ -36,7 +36,7 @@ public class EndScreenActivity extends AppCompatActivity {
             TextView endTime = (TextView) row.getChildAt(3);
 
             playerName.setText(leaderboard.get(i).getName());
-            playerScore.setText(Integer.toString(leaderboard.get(i).getScore()));
+            playerScore.setText(String.format(Integer.toString(leaderboard.get(i).getScore())));
             startTime.setText(leaderboard.get(i).toString("start"));
             endTime.setText(leaderboard.get(i).toString("end"));
         }
@@ -45,7 +45,7 @@ public class EndScreenActivity extends AppCompatActivity {
         TextView mostRecentStartTime = findViewById(R.id.mostRecentStartTime);
         TextView mostRecentEndTime = findViewById(R.id.mostRecentEndTime);
         mostRecentName.setText(leaderboard.getMostRecentAttempt().getName());
-        mostRecentScore.setText(Integer.toString(leaderboard.getMostRecentAttempt().getScore()));
+        mostRecentScore.setText(String.format(Integer.toString(leaderboard.getMostRecentAttempt().getScore())));
         mostRecentStartTime.setText(leaderboard.getMostRecentAttempt().toString("start"));
         mostRecentEndTime.setText(leaderboard.getMostRecentAttempt().toString("end"));
 

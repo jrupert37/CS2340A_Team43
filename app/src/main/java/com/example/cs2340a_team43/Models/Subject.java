@@ -9,6 +9,6 @@ public interface Subject {
     public void addViewObserver(ViewObserver vo);
     public void removeCollisionObserver(CollisionObserver co);
     public void removeViewObserver(ViewObserver vo);
-    public void notifyOfPosition();
+    public void notifyWithPosition();
     public void notifyViewObservers();
 } // Subject (interface)

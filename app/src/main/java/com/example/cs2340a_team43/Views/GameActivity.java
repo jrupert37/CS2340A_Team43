@@ -77,11 +77,15 @@ public class GameActivity extends AppCompatActivity {
         firstFloorEnemies.add(new EnemyViewModel(this, difficulty, "cat", mvm,
                 4, 12));
 
-        //        secondFloorEnemies.add(new EnemyViewModel(this, difficulty, "skeleton", mvm));
-        //        secondFloorEnemies.add(new EnemyViewModel(this, difficulty, "eyeball", mvm));
-        //
-        //        thirdFloorEnemies.add(new EnemyViewModel(this, difficulty, "grimreaper", mvm));
-        //        thirdFloorEnemies.add(new EnemyViewModel(this, difficulty, "skeleton", mvm));
+        secondFloorEnemies.add(new EnemyViewModel(this, difficulty, "skeleton", mvm,
+                19, 8));
+        secondFloorEnemies.add(new EnemyViewModel(this, difficulty, "eyeball", mvm,
+                34, 5));
+
+        thirdFloorEnemies.add(new EnemyViewModel(this, difficulty, "grimreaper", mvm,
+                23, 10));
+        thirdFloorEnemies.add(new EnemyViewModel(this, difficulty, "cat", mvm,
+                35, 2));
 
         currentEnemies = firstFloorEnemies;
         gameView = new GameView(this, playerViewModel, mvm, screenWidth, screenHeight,
@@ -190,7 +194,14 @@ public class GameActivity extends AppCompatActivity {
 
     public void moveToNextFloor() {
         removeEnemyObservers();
-        this.currentEnemies = new ArrayList<>(); // TEMPORARY, add logic to set next floor enemies
+        //this.currentEnemies = new ArrayList<>(); // TEMPORARY, add logic to set next floor enemies
+        if (mvm.isFirstFloor()) {
+            this.currentEnemies = secondFloorEnemies;
+        } else if (mvm.isSecondFloor()) {
+            this.currentEnemies = thirdFloorEnemies;
+        } else {
+            this.currentEnemies = new ArrayList<>();
+        }
         setEnemyObservers();
         gameView.setCurrentEnemies(currentEnemies);
         this.mvm.moveToNextFloor();
