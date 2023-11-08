@@ -75,7 +75,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
 
     public void resetPlayerXY() {
         this.player.setInitialXY(initialX, initialY);
-        notifyOfPosition();
+        notifyWithPosition();
         notifyViewObservers();
     }
 
@@ -97,7 +97,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
 //        }
         // otherwise...
         this.player.moveLeft();
-        notifyOfPosition();
+        notifyWithPosition();
         notifyViewObservers();
     }
 
@@ -110,7 +110,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
 //            return;
 //        }
         this.player.moveRight();
-        notifyOfPosition();
+        notifyWithPosition();
         notifyViewObservers();
     }
 
@@ -124,7 +124,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
 //        }
         // otherwise...
         this.player.moveUp();
-        notifyOfPosition();
+        notifyWithPosition();
         notifyViewObservers();
     }
 
@@ -138,12 +138,12 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
 //        }
         // otherwise...
         this.player.moveDown();
-        notifyOfPosition();
+        notifyWithPosition();
         notifyViewObservers();
     }
 
     @Override
-    public void notifyOfPosition() {
+    public void notifyWithPosition() {
         for (CollisionObserver co : collisionObservers) {
             if (co.updateWithPosition(getPlayerX(), getPlayerY())) {
                 this.gotHit();
