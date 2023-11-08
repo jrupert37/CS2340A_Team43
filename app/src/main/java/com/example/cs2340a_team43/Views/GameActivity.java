@@ -24,7 +24,7 @@ public class GameActivity extends AppCompatActivity {
 
     private String difficulty;
     private String playerName;
-    private TextView scoreTextView;
+    private volatile TextView scoreTextView;
     private int score;
     private final int initialScore = 60;
     private Timer scoreTimer;
@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity {
 
         playerViewModel = PlayerViewModel.getInstance();
         playerViewModel.setPlayerName(playerName);
-        playerViewModel.setPlayerHP(difficulty);
+        playerViewModel.setPlayerInitialHP(difficulty);
         playerViewModel.setInitialPlayerXY(2, 2);
         playerViewModel.setSprite(imageId, this);
         playerViewModel.setMap(mvm);
@@ -86,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
         currentEnemies = firstFloorEnemies;
         gameView = new GameView(this, playerViewModel, mvm, screenWidth, screenHeight,
                                 currentEnemies);
-        playerViewModel.addObserver(gameView);
+        playerViewModel.addViewObserver(gameView);
         setEnemyObservers();
 
 
@@ -149,8 +149,7 @@ public class GameActivity extends AppCompatActivity {
         Thread gameThread = new Thread(() -> {
             runCurrentEnemies();
             while (isRunning) {
-                //if (!playerViewModel.isAlive()) {
-                if (score <= 0) { // TEMPORARY!! ^ Use above instead
+                if (!playerViewModel.isAlive()) {
                     isRunning = false;
                 }
                 if (playerViewModel.playerIsAtExit()) {
@@ -162,12 +161,16 @@ public class GameActivity extends AppCompatActivity {
                         runCurrentEnemies();
                     }
                 }
+                //scoreTextView = findViewById(R.id.scoreTextView);
+                String text1 = "Score: " + score + "    Difficulty: "
+                            + difficulty + "    HP: " + playerViewModel.getPlayerHP();
+                scoreTextView.setText(text1);
             }
             terminateCurrentEnemies();
             scoreTimer.cancel();
             endTime = Calendar.getInstance(TimeZone.getTimeZone("America/New_York"));
             leaderboard.addAttempt(playerName, score, startTime, endTime);
-            game.putExtra("isAlive", score > 0);
+            game.putExtra("isAlive", playerViewModel.isAlive());
             startActivity(game);
             finish();
         });
@@ -196,17 +199,17 @@ public class GameActivity extends AppCompatActivity {
 
     public void removeEnemyObservers() {
         for (EnemyViewModel evm : currentEnemies) {
-            evm.removeObserver(gameView);
-            evm.removeObserver(playerViewModel);
-            playerViewModel.removeObserver(evm);
+            evm.removeViewObserver(gameView);
+            evm.removeCollisionObserver(playerViewModel);
+            playerViewModel.removeCollisionObserver(evm);
         }
     }
 
     public void setEnemyObservers() {
         for (EnemyViewModel evm : currentEnemies) {
-            evm.addObserver(gameView);
-            evm.addObserver(playerViewModel);
-            playerViewModel.addObserver(evm);
+            evm.addViewObserver(gameView);
+            evm.addCollisionObserver(playerViewModel);
+            playerViewModel.addCollisionObserver(evm);
         }
     }
 
