@@ -5,27 +5,16 @@ import android.graphics.Bitmap;
 import androidx.lifecycle.ViewModel;
 import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.Models.Map.Floor;
-import com.example.cs2340a_team43.Models.Observer;
-import com.example.cs2340a_team43.Models.Subject;
+import com.example.cs2340a_team43.Models.CollisionObserver;
 import com.example.cs2340a_team43.Models.Map.MapObject;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MapViewModel extends ViewModel { //implements Subject {
     private final Map map;
-    private final List<Observer> observers;
 
     public MapViewModel(Context context) {
         this.map = new Map(context);
-        this.observers = new ArrayList<>();
-    }
-
-    public void addObserver(Observer o) {
-        this.observers.add(o);
-    }
-
-    public void removeObserver(Observer o) {
-        observers.remove(o);
     }
 
 //    public void notifyObservers() {
