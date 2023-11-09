@@ -5,34 +5,20 @@ import android.graphics.Bitmap;
 import androidx.lifecycle.ViewModel;
 import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.Models.Map.Floor;
-import com.example.cs2340a_team43.Models.Observer;
-import com.example.cs2340a_team43.Models.Subject;
 import com.example.cs2340a_team43.Models.Map.MapObject;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MapViewModel extends ViewModel { //implements Subject {
     private final Map map;
-    private final List<Observer> observers;
 
-    public MapViewModel(Context context) {
-        this.map = new Map(context);
-        this.observers = new ArrayList<>();
+    public MapViewModel(Context context, int rows, int cols) {
+        this.map = new Map(context, rows, cols);
     }
 
-    public void addObserver(Observer o) {
-        this.observers.add(o);
-    }
-
-    public void removeObserver(Observer o) {
-        observers.remove(o);
-    }
-
-//    public void notifyObservers() {
-//        for (Observer o: observers) {
-//            o.update();
-//        }
-//    }
+    //    public void notifyObservers() {
+    //        for (Observer o: observers) {
+    //            o.update();
+    //        }
+    //    }
 
     public Bitmap getMapFloorBitmap() {
         return this.map.getFloorBitmap();
@@ -71,7 +57,23 @@ public class MapViewModel extends ViewModel { //implements Subject {
         return getRoomLayout()[y][x] == MapObject.EXIT;
     }
 
+    public boolean isFirstFloor() {
+        return getMapFloor() == Floor.FIRST_FLOOR;
+    }
+
+    public boolean isSecondFloor() {
+        return getMapFloor() == Floor.SECOND_FLOOR;
+    }
+
     public boolean isThirdFloor() {
         return getMapFloor() == Floor.THIRD_FLOOR;
+    }
+
+    public int getXBound() {
+        return this.map.getXBound();
+    }
+
+    public int getYBound() {
+        return this.map.getYBound();
     }
 } // MapViewModel

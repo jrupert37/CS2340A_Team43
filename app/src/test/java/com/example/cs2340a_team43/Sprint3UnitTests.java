@@ -4,18 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.example.cs2340a_team43.Models.Map;
-import com.example.cs2340a_team43.Models.Observer;
+import com.example.cs2340a_team43.Interfaces.CollisionObserver;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Models.RunMovement;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
-import com.example.cs2340a_team43.Views.GameActivity;
-
-import android.app.Activity;
-import android.content.Context;
-import android.media.metrics.PlaybackStateEvent;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 
 public class Sprint3UnitTests {
@@ -122,13 +115,13 @@ public class Sprint3UnitTests {
         PlayerViewModel pvm = PlayerViewModel.getInstance();
         pvm.setMap(mvm);
         pvm.setInitialPlayerXY(1,1);
-        Observer observer = new Observer() {
+        CollisionObserver collisionObserver = new CollisionObserver() {
             @Override
             public void update() {
                 System.out.println("UPDATE");
             }
         };
-        pvm.addObserver(observer);
+        pvm.addObserver(collisionObserver);
         assertTrue(!pvm.isNotified()); //Test observer is not notified before action
         pvm.movePlayerUp();
         assertTrue(pvm.isNotified());

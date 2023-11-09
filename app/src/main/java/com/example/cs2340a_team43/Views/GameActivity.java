@@ -11,7 +11,6 @@ import com.example.cs2340a_team43.Models.WalkMovement;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
-import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.R;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,9 +23,8 @@ public class GameActivity extends AppCompatActivity {
 
     private String difficulty;
     private String playerName;
-    private TextView scoreTextView;
+    private volatile TextView scoreTextView;
     private int score;
-    private final int initialScore = 60;
     private Timer scoreTimer;
     private Leaderboard leaderboard;
     private Calendar startTime;
@@ -43,7 +41,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
         System.out.println("WELCOME");
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
         int screenHeight = getResources().getDisplayMetrics().heightPixels;
@@ -62,31 +60,30 @@ public class GameActivity extends AppCompatActivity {
             imageId = R.mipmap.gymbroplayersprite;
         }
 
-        mvm = new MapViewModel(this);
+        mvm = new MapViewModel(this, 18, 40);
 
         playerViewModel = PlayerViewModel.getInstance();
         playerViewModel.setPlayerName(playerName);
-        playerViewModel.setPlayerHP(difficulty);
+        playerViewModel.setPlayerInitialHP(difficulty);
         playerViewModel.setInitialPlayerXY(2, 2);
         playerViewModel.setSprite(imageId, this);
         playerViewModel.setMap(mvm);
         playerViewModel.setPlayerMovementBehavior(new WalkMovement());
+        playerViewModel.setXYBounds(mvm.getXBound(), mvm.getYBound());
 
-        firstFloorEnemies.add(new EnemyViewModel(this, difficulty, "eyeball", mvm,
-                20, 8));
-        firstFloorEnemies.add(new EnemyViewModel(this, difficulty, "cat", mvm,
-                4, 12));
+        firstFloorEnemies.add(new EnemyViewModel(this, "eyeball", mvm, 20, 8));
+        firstFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 4, 12));
 
-        //        secondFloorEnemies.add(new EnemyViewModel(this, difficulty, "skeleton", mvm));
-        //        secondFloorEnemies.add(new EnemyViewModel(this, difficulty, "eyeball", mvm));
-        //
-        //        thirdFloorEnemies.add(new EnemyViewModel(this, difficulty, "grimreaper", mvm));
-        //        thirdFloorEnemies.add(new EnemyViewModel(this, difficulty, "skeleton", mvm));
+        secondFloorEnemies.add(new EnemyViewModel(this, "skeleton", mvm, 19, 8));
+        secondFloorEnemies.add(new EnemyViewModel(this, "eyeball", mvm, 34, 5));
+
+        thirdFloorEnemies.add(new EnemyViewModel(this, "grimreaper", mvm, 23, 10));
+        thirdFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 35, 2));
 
         currentEnemies = firstFloorEnemies;
         gameView = new GameView(this, playerViewModel, mvm, screenWidth, screenHeight,
                                 currentEnemies);
-        playerViewModel.addObserver(gameView);
+        playerViewModel.addViewObserver(gameView);
         setEnemyObservers();
 
 
@@ -114,6 +111,7 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.gameLayout);
         linearLayout.addView(gameView);
 
+        int initialScore = 60;
         score = initialScore; // set score to initial value
         scoreTextView = findViewById(R.id.scoreTextView);
         int hp = playerViewModel.getPlayerHP();
@@ -129,9 +127,9 @@ public class GameActivity extends AppCompatActivity {
                     } else {
                         scoreTimer.cancel();
                     }
-                    String text1 = "Score: " + score + "    Difficulty: "
+                    String text = "Score: " + score + "    Difficulty: "
                             + difficulty + "    HP: " + hp;
-                    scoreTextView.setText(text1);
+                    scoreTextView.setText(text);
                 });
             }
         }, 1000, 1000); // delay 1sec, then execute run() every 1sec til score is 0
@@ -149,8 +147,7 @@ public class GameActivity extends AppCompatActivity {
         Thread gameThread = new Thread(() -> {
             runCurrentEnemies();
             while (isRunning) {
-                //if (!playerViewModel.isAlive()) {
-                if (score <= 0) { // TEMPORARY!! ^ Use above instead
+                if (!playerViewModel.isAlive()) {
                     isRunning = false;
                 }
                 if (playerViewModel.playerIsAtExit()) {
@@ -162,12 +159,15 @@ public class GameActivity extends AppCompatActivity {
                         runCurrentEnemies();
                     }
                 }
+                String text = "Score: " + score + "    Difficulty: "
+                            + difficulty + "    HP: " + playerViewModel.getPlayerHP();
+                runOnUiThread(() -> scoreTextView.setText(text));
             }
             terminateCurrentEnemies();
             scoreTimer.cancel();
             endTime = Calendar.getInstance(TimeZone.getTimeZone("America/New_York"));
             leaderboard.addAttempt(playerName, score, startTime, endTime);
-            game.putExtra("isAlive", score > 0);
+            game.putExtra("isAlive", playerViewModel.isAlive());
             startActivity(game);
             finish();
         });
@@ -187,7 +187,14 @@ public class GameActivity extends AppCompatActivity {
 
     public void moveToNextFloor() {
         removeEnemyObservers();
-        this.currentEnemies = new ArrayList<>(); // TEMPORARY, add logic to set next floor enemies
+        //this.currentEnemies = new ArrayList<>(); // TEMPORARY, add logic to set next floor enemies
+        if (mvm.isFirstFloor()) {
+            this.currentEnemies = secondFloorEnemies;
+        } else if (mvm.isSecondFloor()) {
+            this.currentEnemies = thirdFloorEnemies;
+        } else {
+            this.currentEnemies = new ArrayList<>();
+        }
         setEnemyObservers();
         gameView.setCurrentEnemies(currentEnemies);
         this.mvm.moveToNextFloor();
@@ -196,17 +203,17 @@ public class GameActivity extends AppCompatActivity {
 
     public void removeEnemyObservers() {
         for (EnemyViewModel evm : currentEnemies) {
-            evm.removeObserver(gameView);
-            evm.removeObserver(playerViewModel);
-            playerViewModel.removeObserver(evm);
+            evm.removeViewObserver(gameView);
+            evm.removeCollisionObserver(playerViewModel);
+            playerViewModel.removeCollisionObserver(evm);
         }
     }
 
     public void setEnemyObservers() {
         for (EnemyViewModel evm : currentEnemies) {
-            evm.addObserver(gameView);
-            evm.addObserver(playerViewModel);
-            playerViewModel.addObserver(evm);
+            evm.addViewObserver(gameView);
+            evm.addCollisionObserver(playerViewModel);
+            playerViewModel.addCollisionObserver(evm);
         }
     }
 

@@ -1,7 +1,7 @@
-package com.example.cs2340a_team43.Models;
+package com.example.cs2340a_team43.EnemyMovementPatterns;
 
+import com.example.cs2340a_team43.Interfaces.ExecutableMovementPattern;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
-
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,11 +33,13 @@ public class CatMovementPattern extends Timer implements ExecutableMovementPatte
         moveTime = new Random().nextInt(501) + 500;
     }
 
+    @Override
     public void stop() {
         // cancel the Timer, stops enemy movement
         super.cancel();
     }
 
+    @Override
     public void start() {
         // start new TimerTask that moves enemy to next position every "moveTime" milliseconds
         super.schedule(new TimerTask() {

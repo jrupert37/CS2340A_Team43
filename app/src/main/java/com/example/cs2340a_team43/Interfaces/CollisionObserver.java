@@ -1,4 +1,4 @@
-package com.example.cs2340a_team43.Models;
+package com.example.cs2340a_team43.Interfaces;
 
 /*
  * This interface is used by player, enemies, and the game view.
@@ -6,6 +6,6 @@ package com.example.cs2340a_team43.Models;
  * GameView will be an observer of player and enemies.
  * This interface is useful for implementing the Observer Design Pattern.
  */
-public interface Observer {
-    public void update(int x, int y);
-} // Observer (interface)
+public interface CollisionObserver {
+    boolean updateWithPosition(int x, int y);
+} // CollisionObserver (interface)

@@ -2,13 +2,14 @@ package com.example.cs2340a_team43.ViewModels;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import androidx.lifecycle.ViewModel;
-import com.example.cs2340a_team43.Models.ExecutableMovementPattern;
+
+import com.example.cs2340a_team43.Interfaces.CollisionObserver;
+import com.example.cs2340a_team43.Interfaces.ExecutableMovementPattern;
 import com.example.cs2340a_team43.Models.Enemy;
 import com.example.cs2340a_team43.Models.EnemyFactory;
-import com.example.cs2340a_team43.Models.MovementBehavior;
-import com.example.cs2340a_team43.Models.Observer;
-import com.example.cs2340a_team43.Models.Subject;
+import com.example.cs2340a_team43.Interfaces.Subject;
+import com.example.cs2340a_team43.Interfaces.ViewObserver;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,25 +20,27 @@ import java.util.List;
  * models.
  * This class uses the Observer Design Pattern.
  */
-public class EnemyViewModel extends ViewModel implements Subject, Observer {
+public class EnemyViewModel extends CharacterViewModel implements Subject, CollisionObserver {
     private final Enemy enemy;
     private final MapViewModel mapViewModel;
-    private final List<Observer> observers;
-    private boolean notified;
+    private final List<CollisionObserver> collisionObservers;
+    private final List<ViewObserver> viewObservers;
     private final ExecutableMovementPattern enemyMovementPattern;
 
-    public EnemyViewModel(Context context, String difficulty, String type, MapViewModel mvm,
+    public EnemyViewModel(Context context, String type, MapViewModel mvm,
                           int enemyX, int enemyY) {
         EnemyFactory enemyFactory = new EnemyFactory();
-        this.enemy = enemyFactory.makeEnemy(context, difficulty, type, enemyX, enemyY);
+        Enemy enemy = enemyFactory.makeEnemy(context, type, enemyX, enemyY);
+        this.enemy = enemy;
+        super.setCharacter(enemy);
         this.enemyMovementPattern = enemyFactory.getMovementPattern(type, this);
         this.mapViewModel = mvm;
-        observers = new ArrayList<>();
-        notified = false;
+        collisionObservers = new ArrayList<>();
+        viewObservers = new ArrayList<>();
     }
 
-    public Bitmap getEnemyBitmap() {
-        return this.enemy.getBitmap();
+    public Bitmap getEnemySprite() {
+        return this.enemy.getSprite();
     }
 
     public int getEnemyX() {
@@ -58,7 +61,8 @@ public class EnemyViewModel extends ViewModel implements Subject, Observer {
         }
         // otherwise...
         this.enemy.moveLeft();
-        notifyObservers();
+        notifyWithPosition();
+        notifyViewObservers();
     }
 
     public void moveEnemyRight() {
@@ -67,7 +71,8 @@ public class EnemyViewModel extends ViewModel implements Subject, Observer {
         }
         // otherwise...
         this.enemy.moveRight();
-        notifyObservers();
+        notifyWithPosition();
+        notifyViewObservers();
     }
 
     public void moveEnemyUp() {
@@ -76,7 +81,8 @@ public class EnemyViewModel extends ViewModel implements Subject, Observer {
         }
         // otherwise...
         this.enemy.moveUp();
-        notifyObservers();
+        notifyWithPosition();
+        notifyViewObservers();
     }
 
     public void moveEnemyDown() {
@@ -85,41 +91,51 @@ public class EnemyViewModel extends ViewModel implements Subject, Observer {
         }
         // otherwise...
         this.enemy.moveDown();
-        notifyObservers();
-    }
-
-    public void addObserver(Observer o) {
-        this.observers.add(o);
-    }
-
-    public void removeObserver(Observer o) {
-        observers.remove(o);
-    }
-
-    public void notifyObservers() {
-        System.out.println("OVER HERE");
-        this.notified = true;
-        for (Observer o: observers) {
-            o.update(getEnemyX(), getEnemyY());
-        }
-        System.out.println("NOTIFIED #1: " + notified);
+        notifyWithPosition();
+        notifyViewObservers();
     }
 
     @Override
-    public void update(int x, int y) {
+    public void notifyWithPosition() {
+        for (CollisionObserver co : collisionObservers) {
+            co.updateWithPosition(getEnemyX(), getEnemyY());
+        }
+    }
 
+    @Override
+    public void notifyViewObservers() {
+        for (ViewObserver vo : viewObservers) {
+            vo.update();
+        }
+    }
+
+    @Override
+    public void addCollisionObserver(CollisionObserver co) {
+        this.collisionObservers.add(co);
+    }
+
+    @Override
+    public void addViewObserver(ViewObserver vo) {
+        this.viewObservers.add(vo);
+    }
+
+    @Override
+    public void removeCollisionObserver(CollisionObserver co) {
+        this.collisionObservers.remove(co);
+    }
+
+    @Override
+    public void removeViewObserver(ViewObserver vo) {
+        this.viewObservers.remove(vo);
+    }
+
+    @Override
+    public boolean updateWithPosition(int x, int y) {
+        return (getEnemyX() == x && getEnemyY() == y);
     }
 
     public boolean willCollideWithWall(int newX, int newY) {
         return mapViewModel.isAWall(newX, newY);
-    }
-
-    public int getEnemyHP() {
-        return this.enemy.getHp();
-    }
-
-    public void setEnemyMovementBehavior(MovementBehavior behavior) {
-        this.enemy.setMovementBehavior(behavior);
     }
 
     public void runMovementPattern() {

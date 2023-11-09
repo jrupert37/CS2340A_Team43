@@ -143,8 +143,8 @@
 
     <ImageView
         android:id="@+id/spriteImage0"
-        android:layout_width="75dp"
-        android:layout_height="87dp"
+        android:layout_width="83dp"
+        android:layout_height="86dp"
         android:src="@drawable/footballplayersprite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -155,20 +155,20 @@
 
     <ImageView
         android:id="@+id/spriteImage1"
-        android:layout_width="117dp"
-        android:layout_height="123dp"
+        android:layout_width="95dp"
+        android:layout_height="87dp"
         android:src="@drawable/nerdplayersprite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.659"
+        app:layout_constraintHorizontal_bias="0.661"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.628" />
+        app:layout_constraintVertical_bias="0.591" />
 
     <ImageView
         android:id="@+id/spriteImage2"
-        android:layout_width="76dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="102dp"
         android:src="@mipmap/gymbroplayersprite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
