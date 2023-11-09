@@ -17,14 +17,6 @@ public abstract class CharacterViewModel {
         this.character = character;
     }
 
-    protected int getX() {
-        return this.character.getX();
-    }
-
-    protected int getY() {
-        return this.character.getY();
-    }
-
     protected void gotHit() {
         this.character.gotHit();
     }
