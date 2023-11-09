@@ -1,6 +1,7 @@
 package com.example.cs2340a_team43.Models;
 
 import androidx.core.util.Pair;
+import com.example.cs2340a_team43.Interfaces.MovementBehavior;
 
 /*
  * Represents a type of MovementBehavior, used by player and enemies.
@@ -16,6 +17,7 @@ public class WalkMovement implements MovementBehavior {
      * can move at one time.
      */
     private final int speed = 1;
+
     public Pair<Integer, Integer> move(Pair<Integer, Integer> xy, MovementDirection direction) {
         int x = xy.first;
         int y = xy.second;

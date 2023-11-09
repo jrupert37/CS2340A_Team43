@@ -3,6 +3,8 @@ package com.example.cs2340a_team43.Models;
 
 import androidx.core.util.Pair;
 
+import com.example.cs2340a_team43.Interfaces.MovementBehavior;
+
 public class RunMovement implements MovementBehavior {
     private final int speed = 2;
     public Pair<Integer, Integer> move(Pair<Integer, Integer> xy, MovementDirection direction) {
