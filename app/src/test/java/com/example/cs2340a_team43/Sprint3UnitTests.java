@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.example.cs2340a_team43.Models.Map;
-import com.example.cs2340a_team43.Models.CollisionObserver;
+import com.example.cs2340a_team43.Interfaces.CollisionObserver;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Models.RunMovement;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;

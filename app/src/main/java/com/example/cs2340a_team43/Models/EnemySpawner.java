@@ -9,14 +9,14 @@ import android.content.Context;
  * with the given (x,y) starting location.
  */
 public abstract class EnemySpawner {
-    public Enemy makeEnemy(Context context, String difficulty, String type, int x, int y) {
+    public Enemy makeEnemy(Context context, String type, int x, int y) {
         Enemy enemy;
-        enemy = createEnemy(difficulty, type);
-        enemy.createBitmap(enemy.getImageId(), context);
+        enemy = createEnemy(type, context);
+        //enemy.setSprite(enemy.getImageId(), context);
         enemy.setInitialXY(x, y);
         enemy.setMovementBehavior(new WalkMovement());
         return enemy;
     }
 
-    abstract Enemy createEnemy(String difficulty, String type);
+    abstract Enemy createEnemy(String difficulty, Context context);
 } // EnemySpawner (abstract parent)

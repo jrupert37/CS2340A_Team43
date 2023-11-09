@@ -1,5 +1,6 @@
-package com.example.cs2340a_team43.Models;
+package com.example.cs2340a_team43.EnemyMovementPatterns;
 
+import com.example.cs2340a_team43.Interfaces.ExecutableMovementPattern;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import java.util.Random;
 import java.util.Timer;

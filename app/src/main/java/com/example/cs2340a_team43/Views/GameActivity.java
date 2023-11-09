@@ -11,7 +11,6 @@ import com.example.cs2340a_team43.Models.WalkMovement;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
-import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.R;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,7 +25,6 @@ public class GameActivity extends AppCompatActivity {
     private String playerName;
     private volatile TextView scoreTextView;
     private int score;
-    private final int initialScore = 60;
     private Timer scoreTimer;
     private Leaderboard leaderboard;
     private Calendar startTime;
@@ -62,7 +60,7 @@ public class GameActivity extends AppCompatActivity {
             imageId = R.mipmap.gymbroplayersprite;
         }
 
-        mvm = new MapViewModel(this);
+        mvm = new MapViewModel(this, 18, 40);
 
         playerViewModel = PlayerViewModel.getInstance();
         playerViewModel.setPlayerName(playerName);
@@ -71,21 +69,16 @@ public class GameActivity extends AppCompatActivity {
         playerViewModel.setSprite(imageId, this);
         playerViewModel.setMap(mvm);
         playerViewModel.setPlayerMovementBehavior(new WalkMovement());
+        playerViewModel.setXYBounds(mvm.getXBound(), mvm.getYBound());
 
-        firstFloorEnemies.add(new EnemyViewModel(this, difficulty, "eyeball", mvm,
-                20, 8));
-        firstFloorEnemies.add(new EnemyViewModel(this, difficulty, "cat", mvm,
-                4, 12));
+        firstFloorEnemies.add(new EnemyViewModel(this, "eyeball", mvm, 20, 8));
+        firstFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 4, 12));
 
-        secondFloorEnemies.add(new EnemyViewModel(this, difficulty, "skeleton", mvm,
-                19, 8));
-        secondFloorEnemies.add(new EnemyViewModel(this, difficulty, "eyeball", mvm,
-                34, 5));
+        secondFloorEnemies.add(new EnemyViewModel(this, "skeleton", mvm, 19, 8));
+        secondFloorEnemies.add(new EnemyViewModel(this, "eyeball", mvm, 34, 5));
 
-        thirdFloorEnemies.add(new EnemyViewModel(this, difficulty, "grimreaper", mvm,
-                23, 10));
-        thirdFloorEnemies.add(new EnemyViewModel(this, difficulty, "cat", mvm,
-                35, 2));
+        thirdFloorEnemies.add(new EnemyViewModel(this, "grimreaper", mvm, 23, 10));
+        thirdFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 35, 2));
 
         currentEnemies = firstFloorEnemies;
         gameView = new GameView(this, playerViewModel, mvm, screenWidth, screenHeight,
@@ -118,6 +111,7 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.gameLayout);
         linearLayout.addView(gameView);
 
+        int initialScore = 60;
         score = initialScore; // set score to initial value
         scoreTextView = findViewById(R.id.scoreTextView);
         int hp = playerViewModel.getPlayerHP();
@@ -133,9 +127,9 @@ public class GameActivity extends AppCompatActivity {
                     } else {
                         scoreTimer.cancel();
                     }
-                    String text1 = "Score: " + score + "    Difficulty: "
+                    String text = "Score: " + score + "    Difficulty: "
                             + difficulty + "    HP: " + hp;
-                    scoreTextView.setText(text1);
+                    scoreTextView.setText(text);
                 });
             }
         }, 1000, 1000); // delay 1sec, then execute run() every 1sec til score is 0
@@ -165,10 +159,9 @@ public class GameActivity extends AppCompatActivity {
                         runCurrentEnemies();
                     }
                 }
-                //scoreTextView = findViewById(R.id.scoreTextView);
-                String text1 = "Score: " + score + "    Difficulty: "
+                String text = "Score: " + score + "    Difficulty: "
                             + difficulty + "    HP: " + playerViewModel.getPlayerHP();
-                scoreTextView.setText(text1);
+                runOnUiThread(() -> scoreTextView.setText(text));
             }
             terminateCurrentEnemies();
             scoreTimer.cancel();

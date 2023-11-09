@@ -1,4 +1,4 @@
-package com.example.cs2340a_team43.Models;
+package com.example.cs2340a_team43.Interfaces;
 
 /*
 * This interface is specifically for Enemies.

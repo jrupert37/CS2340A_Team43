@@ -5,23 +5,20 @@ import android.graphics.Bitmap;
 import androidx.lifecycle.ViewModel;
 import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.Models.Map.Floor;
-import com.example.cs2340a_team43.Models.CollisionObserver;
 import com.example.cs2340a_team43.Models.Map.MapObject;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MapViewModel extends ViewModel { //implements Subject {
     private final Map map;
 
-    public MapViewModel(Context context) {
-        this.map = new Map(context);
+    public MapViewModel(Context context, int rows, int cols) {
+        this.map = new Map(context, rows, cols);
     }
 
-//    public void notifyObservers() {
-//        for (Observer o: observers) {
-//            o.update();
-//        }
-//    }
+    //    public void notifyObservers() {
+    //        for (Observer o: observers) {
+    //            o.update();
+    //        }
+    //    }
 
     public Bitmap getMapFloorBitmap() {
         return this.map.getFloorBitmap();
@@ -70,5 +67,13 @@ public class MapViewModel extends ViewModel { //implements Subject {
 
     public boolean isThirdFloor() {
         return getMapFloor() == Floor.THIRD_FLOOR;
+    }
+
+    public int getXBound() {
+        return this.map.getXBound();
+    }
+
+    public int getYBound() {
+        return this.map.getYBound();
     }
 } // MapViewModel

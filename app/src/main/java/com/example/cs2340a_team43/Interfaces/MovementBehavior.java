@@ -1,4 +1,4 @@
-package com.example.cs2340a_team43.Models;
+package com.example.cs2340a_team43.Interfaces;
 
 import androidx.core.util.Pair;
 
@@ -8,7 +8,7 @@ import androidx.core.util.Pair;
 public interface MovementBehavior {
 
     // helpful enumeration when calling move method
-    public enum MovementDirection {
+    enum MovementDirection {
         LEFT,
         RIGHT,
         UP,

@@ -1,5 +1,11 @@
 package com.example.cs2340a_team43.Models;
 
+import android.content.Context;
+import com.example.cs2340a_team43.EnemyMovementPatterns.CatMovementPattern;
+import com.example.cs2340a_team43.EnemyMovementPatterns.EyeballMovementPattern;
+import com.example.cs2340a_team43.EnemyMovementPatterns.GrimreaperMovementPattern;
+import com.example.cs2340a_team43.EnemyMovementPatterns.SkeletonMovementPattern;
+import com.example.cs2340a_team43.Interfaces.ExecutableMovementPattern;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 
 /*
@@ -9,31 +15,32 @@ import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
  * This class is useful for implementing the Factory Design Pattern.
  */
 public class EnemyFactory extends EnemySpawner {
-    protected Enemy createEnemy(String difficulty, String type) {
+    protected Enemy createEnemy(String type, Context context) {
         switch (type) {
         case "cat":
-            return new EnemyCat(difficulty);
+            return new EnemyCat(context);
         case "grimreaper":
-            return new EnemyGrimReaper(difficulty);
+            return new EnemyGrimReaper(context);
         case "skeleton":
-            return new EnemySkeleton(difficulty);
+            return new EnemySkeleton(context);
         case "eyeball":
-            return new EnemyEyeball(difficulty);
+            return new EnemyEyeball(context);
         default:
             return null;
         }
     }
 
     public ExecutableMovementPattern getMovementPattern(String type, EnemyViewModel evm) {
-        if (type.equals("cat")) {
+        switch (type) {
+        case "cat":
             return new CatMovementPattern(evm);
-        } else if (type.equals("eyeball")) {
+        case "eyeball":
             return new EyeballMovementPattern(evm);
-        } else if (type.equals("grimreaper")) {
+        case "grimreaper":
             return new GrimreaperMovementPattern(evm);
-        } else if (type.equals("skeleton")) {
+        case "skeleton":
             return new SkeletonMovementPattern(evm);
-        } else {
+        default:
             return null;
         }
     }

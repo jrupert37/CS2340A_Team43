@@ -1,18 +1,26 @@
-package com.example.cs2340a_team43.Models;
-import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
+package com.example.cs2340a_team43.EnemyMovementPatterns;
 
-import java.sql.Time;
+import com.example.cs2340a_team43.Interfaces.ExecutableMovementPattern;
+import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Random;
-import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
+
+/*
+ * This pattern of movement is made with the Skeleton enemy in mind, but could be used by
+ * other enemy types.
+ * Movement pattern is on a timer. An enemy with this pattern will start by moving left
+ * until it reaches a wall, then turn around and move right until it reaches a wall, etc.
+ * Enemy will move every 0.5 seconds.
+ * This movement pattern uses the given EnemyViewModel's movement methods, which will
+ * handle wall collisions.
+ */
 public class SkeletonMovementPattern extends Timer implements ExecutableMovementPattern {
-    private EnemyViewModel enemyViewModel;
-    private Timer enemyTimer = new Timer();
+    private final EnemyViewModel enemyViewModel;
     private String direction;
+
     public SkeletonMovementPattern(EnemyViewModel enemyViewModel) {
         this.enemyViewModel = enemyViewModel;
-        this.direction = "left";
+        this.direction = "left"; // skeleton should be moving to the left at first
     }
 
     @Override
@@ -50,6 +58,5 @@ public class SkeletonMovementPattern extends Timer implements ExecutableMovement
                 }
             }
         }, 500, 500);
-        
     }
-}
+} // SkeletonMovementPattern
