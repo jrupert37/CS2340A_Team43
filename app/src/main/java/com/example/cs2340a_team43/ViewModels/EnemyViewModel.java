@@ -2,18 +2,13 @@ package com.example.cs2340a_team43.ViewModels;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.view.View;
 
-import androidx.lifecycle.ViewModel;
-
-import com.example.cs2340a_team43.Models.Character;
-import com.example.cs2340a_team43.Models.CollisionObserver;
-import com.example.cs2340a_team43.Models.ExecutableMovementPattern;
+import com.example.cs2340a_team43.Interfaces.CollisionObserver;
+import com.example.cs2340a_team43.Interfaces.ExecutableMovementPattern;
 import com.example.cs2340a_team43.Models.Enemy;
 import com.example.cs2340a_team43.Models.EnemyFactory;
-import com.example.cs2340a_team43.Models.MovementBehavior;
-import com.example.cs2340a_team43.Models.Subject;
-import com.example.cs2340a_team43.Models.ViewObserver;
+import com.example.cs2340a_team43.Interfaces.Subject;
+import com.example.cs2340a_team43.Interfaces.ViewObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,24 +25,22 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
     private final MapViewModel mapViewModel;
     private final List<CollisionObserver> collisionObservers;
     private final List<ViewObserver> viewObservers;
-    private boolean notified;
     private final ExecutableMovementPattern enemyMovementPattern;
 
-    public EnemyViewModel(Context context, String difficulty, String type, MapViewModel mvm,
+    public EnemyViewModel(Context context, String type, MapViewModel mvm,
                           int enemyX, int enemyY) {
         EnemyFactory enemyFactory = new EnemyFactory();
-        Enemy enemy = enemyFactory.makeEnemy(context, difficulty, type, enemyX, enemyY);
+        Enemy enemy = enemyFactory.makeEnemy(context, type, enemyX, enemyY);
         this.enemy = enemy;
         super.setCharacter(enemy);
         this.enemyMovementPattern = enemyFactory.getMovementPattern(type, this);
         this.mapViewModel = mvm;
         collisionObservers = new ArrayList<>();
         viewObservers = new ArrayList<>();
-        notified = false;
     }
 
-    public Bitmap getEnemyBitmap() {
-        return this.enemy.getBitmap();
+    public Bitmap getEnemySprite() {
+        return this.enemy.getSprite();
     }
 
     public int getEnemyX() {
@@ -145,18 +138,6 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
         return mapViewModel.isAWall(newX, newY);
     }
 
-    public int getEnemyHP() {
-        return this.enemy.getHp();
-    }
-
-    public int getEnemyDamage() {
-        return this.enemy.getDamage();
-    }
-
-    public void setEnemyMovementBehavior(MovementBehavior behavior) {
-        this.enemy.setMovementBehavior(behavior);
-    }
-
     public void runMovementPattern() {
         this.enemyMovementPattern.start();
     }
@@ -164,5 +145,4 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
     public void cancelMovement() {
         this.enemyMovementPattern.stop();
     }
-    
 } // EnemyViewModel
