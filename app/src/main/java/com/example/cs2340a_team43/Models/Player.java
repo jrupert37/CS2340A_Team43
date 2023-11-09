@@ -1,10 +1,7 @@
 package com.example.cs2340a_team43.Models;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import androidx.core.util.Pair;
-import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
+import com.example.cs2340a_team43.Interfaces.MovementBehavior.MovementDirection;
 
 /*
  * This class serves as the player "model" and holds all necessary information,
@@ -18,8 +15,6 @@ import com.example.cs2340a_team43.Models.MovementBehavior.MovementDirection;
 public class Player extends Character {
     private static Player player;
     private String playerName;
-    private int hp;
-    private Bitmap bitmap;
     private Pair<Integer, Integer> previousXY;
     // super.xyCoordinates (contained in Character parent class
 
@@ -50,47 +45,15 @@ public class Player extends Character {
         return player;
     }
 
-
     public String getName() {
         return playerName;
     }
 
     public void setName(String playerName) {
         this.playerName = playerName;
-        if (playerName == null || playerName == "") {
+        if (playerName == null || playerName.equals("")) {
             throw new IllegalStateException();
         }
-    }
-
-    public void setSprite(int imageId, Context context) {
-        this.bitmap = BitmapFactory.decodeResource(context.getResources(), imageId);
-    }
-
-    public void moveLeft() {
-        updatePosition(MovementDirection.LEFT);
-    }
-
-    public void moveRight() {
-        updatePosition(MovementDirection.RIGHT);
-    }
-
-    public void moveUp() {
-        updatePosition(MovementDirection.UP);
-    }
-
-    public void moveDown() {
-        updatePosition(MovementDirection.DOWN);
-    }
-
-    private void updatePosition(MovementDirection direction) {
-        setPreviousXY(super.getX(), super.getY());
-        super.performMove(direction);
-        System.out.println("X: " + super.getX());
-        System.out.println("Y: " + super.getY());
-    }
-
-    private void setPreviousXY(int x, int y) {
-        this.previousXY = new Pair<>(x, y);
     }
 
     public int getPreviousX() {
@@ -101,8 +64,8 @@ public class Player extends Character {
         return this.previousXY.second;
     }
 
-    public Bitmap getBitmap() {
-        return this.bitmap;
+    private void setPreviousXY(int x, int y) {
+        this.previousXY = new Pair<>(x, y);
     }
 
     private void recoilXY() {
@@ -113,9 +76,14 @@ public class Player extends Character {
     }
 
     @Override
+    protected void updatePosition(MovementDirection direction) {
+        setPreviousXY(super.getX(), super.getY());
+        super.performMove(direction);
+    }
+
+    @Override
     public void gotHit() {
         super.setHP(getHP() - getDamageTaken());
         recoilXY();
-        System.out.println("recoil!");
     }
 } // Player
