@@ -7,12 +7,9 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.cs2340a_team43.Models.Leaderboard;
 import com.example.cs2340a_team43.R;
-
 
 public class EndScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +42,16 @@ public class EndScreenActivity extends AppCompatActivity {
         TextView mostRecentStartTime = findViewById(R.id.mostRecentStartTime);
         TextView mostRecentEndTime = findViewById(R.id.mostRecentEndTime);
         mostRecentName.setText(leaderboard.getMostRecentAttempt().getName());
-        mostRecentScore.setText(String.format(Integer.toString(leaderboard.getMostRecentAttempt().getScore())));
+        String score;
+        score = String.format(Integer.toString(leaderboard.getMostRecentAttempt().getScore()));
+        mostRecentScore.setText(score);
         mostRecentStartTime.setText(leaderboard.getMostRecentAttempt().toString("start"));
         mostRecentEndTime.setText(leaderboard.getMostRecentAttempt().toString("end"));
 
         TextView winLoseTextView = findViewById(R.id.winLoseTextView);
         boolean playerIsAlive = getIntent().getBooleanExtra("isAlive", true);
         if (!playerIsAlive) {
-            winLoseTextView.setText("You Lose!");
+            winLoseTextView.setText(R.string.you_lose);
             winLoseTextView.setTextColor(Color.RED);
         }
 
