@@ -9,8 +9,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
-
-import com.example.cs2340a_team43.Models.ViewObserver;
+import com.example.cs2340a_team43.Interfaces.ViewObserver;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
@@ -34,10 +33,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         this.playerViewModel = pvm;
         this.mapViewModel = mvm;
         this.currentEnemies = initialEnemies;
-//        playerViewModel.addObserver(this);
-//        for (EnemyViewModel evm : currentEnemies) {
-//            evm.addObserver(this);
-//        }
         this.xLimit = xLimit;
         this.yLimit = yLimit;
     }
@@ -57,11 +52,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
     }
 
-    /*
-     * In this case, the given x and y are not actually needed, as the draw function
-     * will have to fetch all enemy x and y coordinates as well as player x and y anyway.
-     * In other words, this "update" override just needs to call "draw"
-     */
     @Override
     public void update() {
         draw();
@@ -84,17 +74,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
                 float yDraw = (playerViewModel.getPlayerY() * yScale);
                 RectF rect;
                 rect = new RectF(xDraw, yDraw, xDraw + (xLimit / 40), yDraw + (yLimit / 20));
-                Bitmap playerBitmap = playerViewModel.getPlayerBitmap();
+                Bitmap playerBitmap = playerViewModel.getPlayerSprite();
                 canvas.drawBitmap(playerBitmap, null, rect, null);
 
                 for (EnemyViewModel evm: currentEnemies) {
                     float xEnemyDraw = (evm.getEnemyX() * xScale);
                     float yEnemyDraw = (evm.getEnemyY() * yScale);
-                    RectF rect2;
-                    rect2 = new RectF(xEnemyDraw, yEnemyDraw, xEnemyDraw + (xLimit / 40),
+                    rect = new RectF(xEnemyDraw, yEnemyDraw, xEnemyDraw + (xLimit / 40),
                             yEnemyDraw + (yLimit / 20));
-                    Bitmap enemyBitmap = evm.getEnemyBitmap();
-                    canvas.drawBitmap(enemyBitmap, null, rect2, null);
+                    Bitmap enemyBitmap = evm.getEnemySprite();
+                    canvas.drawBitmap(enemyBitmap, null, rect, null);
                 }
 
                 Paint paint = new Paint();
