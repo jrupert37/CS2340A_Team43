@@ -21,4 +21,5 @@
     <string name="start_time">Start Time:</string>
     <string name="end_time">End Time:</string>
     <string name="you_win">You Win!</string>
+    <string name="you_lose">You Lose!</string>
 </resources>
