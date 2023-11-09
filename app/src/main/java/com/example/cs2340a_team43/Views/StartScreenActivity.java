@@ -5,6 +5,7 @@ import com.example.cs2340a_team43.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
 public class StartScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,4 +31,4 @@ public class StartScreenActivity extends AppCompatActivity {
             finish();
         });
     }
-}
+} // StartScreenActivity
