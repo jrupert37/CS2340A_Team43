@@ -1,17 +1,26 @@
-package com.example.cs2340a_team43.Models;
+package com.example.cs2340a_team43.EnemyMovementPatterns;
 
+import com.example.cs2340a_team43.Interfaces.ExecutableMovementPattern;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
-
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/*
+ * This pattern of movement is made with the Grimreaper enemy in mind, but could be used by
+ * other enemy types.
+ * Movement pattern is on a timer. An enemy with this pattern will move in a random
+ * direction every 0.5 seconds.
+ * The next direction the enemy will move is generated randomly between up, down,
+ * left, and right, similar to Eyeball, but faster.
+ * This movement pattern uses the given EnemyViewModel's movement methods, which will
+ * handle wall collisions.
+ */
 public class GrimreaperMovementPattern extends Timer implements ExecutableMovementPattern {
-    private EnemyViewModel enemyViewModel;
-    private Random rand = new Random();
-    private int random;
+    private final EnemyViewModel enemyViewModel;
+    private final Random rand = new Random();
 
-    public GrimreaperMovementPattern (EnemyViewModel enemyViewModel) {
+    public GrimreaperMovementPattern(EnemyViewModel enemyViewModel) {
         this.enemyViewModel = enemyViewModel;
     }
 
@@ -23,7 +32,6 @@ public class GrimreaperMovementPattern extends Timer implements ExecutableMoveme
 
     @Override
     public void start() {
-        Random rand = new Random();
         super.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -47,4 +55,4 @@ public class GrimreaperMovementPattern extends Timer implements ExecutableMoveme
             }
         }, 500, 500);
     }
-}
+} // GrimreaperMovementPattern

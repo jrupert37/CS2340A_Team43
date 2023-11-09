@@ -1,6 +1,4 @@
-package com.example.cs2340a_team43.Models;
-
-import com.example.cs2340a_team43.ViewModels.CharacterViewModel;
+package com.example.cs2340a_team43.Interfaces;
 
 /*
  * This interface is used by player, enemies, and the game view.
@@ -9,5 +7,5 @@ import com.example.cs2340a_team43.ViewModels.CharacterViewModel;
  * This interface is useful for implementing the Observer Design Pattern.
  */
 public interface CollisionObserver {
-    public boolean updateWithPosition(int x, int y);
+    boolean updateWithPosition(int x, int y);
 } // CollisionObserver (interface)
