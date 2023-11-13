@@ -7,4 +7,8 @@ public class EnemyGrimReaper extends Enemy {
     public EnemyGrimReaper(Context context) {
         super.setSprite(R.drawable.grimreaper, context);
     }
+
+    public EnemyGrimReaper() {
+
+    }
 } // EnemyGrimReaper

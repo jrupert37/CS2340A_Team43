@@ -23,9 +23,9 @@ import java.util.List;
 public class EnemyViewModel extends CharacterViewModel implements Subject, CollisionObserver {
     private final Enemy enemy;
     private final MapViewModel mapViewModel;
-    private final List<CollisionObserver> collisionObservers;
-    private final List<ViewObserver> viewObservers;
-    private final ExecutableMovementPattern enemyMovementPattern;
+    private List<CollisionObserver> collisionObservers;
+    private List<ViewObserver> viewObservers;
+    private ExecutableMovementPattern enemyMovementPattern;
 
     public EnemyViewModel(Context context, String type, MapViewModel mvm,
                           int enemyX, int enemyY) {
@@ -39,6 +39,13 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
         viewObservers = new ArrayList<>();
     }
 
+    public EnemyViewModel(String type, MapViewModel mvm, int enemyX, int enemyY) {
+        EnemyFactory enemyFactory = new EnemyFactory();
+        Enemy enemy = enemyFactory.makeEnemy(type, enemyX, enemyY);
+        this.enemy = enemy;
+        super.setCharacter(enemy);
+        this.mapViewModel = mvm;
+    }
     public Bitmap getEnemySprite() {
         return this.enemy.getSprite();
     }
