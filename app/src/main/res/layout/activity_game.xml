@@ -16,8 +16,8 @@
 
 <!--    <Button-->
 <!--        android:id="@+id/downButton"-->
-<!--        android:layout_width="48dp"-->
-<!--        android:layout_height="48dp"-->
+<!--        android:layout_width="22dp"-->
+<!--        android:layout_height="2dp"-->
 <!--        android:layout_marginEnd="72dp"-->
 <!--        android:background="#0A000000"-->
 <!--        android:text="▼"-->
@@ -25,26 +25,26 @@
 
 <!--    <Button-->
 <!--        android:id="@+id/upButton"-->
-<!--        android:layout_width="48dp"-->
-<!--        android:layout_height="48dp"-->
+<!--        android:layout_width="6dp"-->
+<!--        android:layout_height="1dp"-->
 <!--        android:layout_marginEnd="72dp"-->
 <!--        android:background="#0A000000"-->
 <!--        android:text="▲" />-->
 
 <!--    <Button-->
-<!--        android:id="@+id/leftButton"-->
-<!--        android:layout_width="48dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginEnd="120dp"-->
-<!--        android:background="#0A000000"-->
-<!--        android:text="◀" />-->
-
-<!--    <Button-->
 <!--        android:id="@+id/rightButton"-->
-<!--        android:layout_width="48dp"-->
-<!--        android:layout_height="48dp"-->
+<!--        android:layout_width="49dp"-->
+<!--        android:layout_height="3dp"-->
 <!--        android:layout_marginEnd="24dp"-->
 <!--        android:background="#0A000000"-->
 <!--        android:text="▶" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/leftButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="6dp"-->
+<!--        android:layout_marginEnd="120dp"-->
+<!--        android:background="#0A000000"-->
+<!--        android:text="◀" />-->
 
 </LinearLayout>
