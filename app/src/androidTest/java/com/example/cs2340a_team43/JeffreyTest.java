@@ -200,7 +200,11 @@
 //    @Test
 //    public void testStrategyDesignPattern() {
 //        Player player = Player.getInstance();
+<<<<<<< HEAD
+//        Player fastPlayer;
+=======
 //        Player fastPlayer = new Player(new RunMovement());
+>>>>>>> main
 //        player.setInitialXY(1, 1);
 //        player.setInitialXY(2, 1);
 //        player.moveLeft();
