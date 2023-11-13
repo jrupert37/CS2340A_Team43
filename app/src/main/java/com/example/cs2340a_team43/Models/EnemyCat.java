@@ -7,4 +7,8 @@ public class EnemyCat extends Enemy {
     public EnemyCat(Context context) {
         super.setSprite(R.drawable.catenemy, context);
     }
+
+    public EnemyCat() {
+
+    }
 } // EnemyCat
