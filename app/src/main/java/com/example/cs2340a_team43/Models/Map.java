@@ -33,7 +33,7 @@ public class Map {
     }
     private Floor currentFloor;
     private Bitmap floorBitmap;
-    private final Context context;
+    private Context context;
     private MapObject[][] roomLayout;
     private final int rows;
     private final int cols;
@@ -47,6 +47,12 @@ public class Map {
         this.context = context;
         // use createFloor to create the 2d layout array and set the floor background image
         setFloor(currentFloor);
+    }
+
+    public Map(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        this.currentFloor = Floor.FIRST_FLOOR;
     }
 
     public Floor getFloor() {
@@ -82,6 +88,10 @@ public class Map {
     
     public MapObject[][] getRoomLayout() {
         return this.roomLayout;
+    }
+
+    public void setRoomLayout(MapObject[][] x) {
+        this.roomLayout = x;
     }
     
     /* 

@@ -14,6 +14,10 @@ public class MapViewModel extends ViewModel { //implements Subject {
         this.map = new Map(context, rows, cols);
     }
 
+    public MapViewModel(int rows, int cols) {
+        this.map = new Map(rows, cols);
+    }
+
     //    public void notifyObservers() {
     //        for (Observer o: observers) {
     //            o.update();
@@ -75,5 +79,9 @@ public class MapViewModel extends ViewModel { //implements Subject {
 
     public int getYBound() {
         return this.map.getYBound();
+    }
+
+    public void setMapLayout(MapObject[][] x) {
+        this.map.setRoomLayout(x);
     }
 } // MapViewModel

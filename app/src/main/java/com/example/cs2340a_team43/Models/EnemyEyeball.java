@@ -7,4 +7,8 @@ public class EnemyEyeball extends Enemy {
     public EnemyEyeball(Context context) {
         super.setSprite(R.drawable.eyeball, context);
     }
+
+    public EnemyEyeball() {
+
+    }
 } // EnemyEyeball
