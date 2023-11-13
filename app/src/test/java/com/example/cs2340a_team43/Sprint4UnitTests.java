@@ -19,9 +19,8 @@ public class Sprint4UnitTests{
     //Test 1
     @Test
     public void EnemyDoesNotMoveOffScreen() {
-        GameActivity test = new GameActivity();
-        MapViewModel mvm = new MapViewModel(test, 18, 40);;
-        EnemyViewModel enemyViewModel = new EnemyViewModel(test, "eyeball", mvm, 20, 8);
+        MapViewModel mvm = new MapViewModel(18, 40);;
+        EnemyViewModel enemyViewModel = new EnemyViewModel("eyeball", mvm, 20, 8);
         int min = 0;
         int max = 4;
         int randomInt = (int) (Math.random() * (max - min + 1) + min);
@@ -47,9 +46,8 @@ public class Sprint4UnitTests{
     //Test 2
     @Test
     public void EnemyDoesNotMoveThroughWall(){
-        GameActivity test = new GameActivity();
-        MapViewModel mvm = new MapViewModel(test, 18, 40);;
-        EnemyViewModel enemyViewModel = new EnemyViewModel(test, "eyeball", mvm, 20, 8);
+        MapViewModel mvm = new MapViewModel( 18, 40);
+        EnemyViewModel enemyViewModel = new EnemyViewModel("eyeball", mvm, 20, 8);
         for(int i = 0; i < 20; i ++) {
             enemyViewModel.moveEnemyUp();
         }
@@ -58,21 +56,19 @@ public class Sprint4UnitTests{
     //Test 3
     @Test
     public void EnemyCannotUseExit(){
-        GameActivity test = new GameActivity();
-        MapViewModel mvm = new MapViewModel(test, 18, 40);;
-        EnemyViewModel enemyViewModel = new EnemyViewModel(test, "eyeball", mvm, 2, 8);
+        MapViewModel mvm = new MapViewModel(18, 40);
+        EnemyViewModel enemyViewModel = new EnemyViewModel("eyeball", mvm, 2, 8);
         enemyViewModel.moveEnemyLeft();
         assertTrue(enemyViewModel.getEnemyX() == 1 && enemyViewModel.getEnemyY() == 8);
     }
     //Test 4
     @Test
     public void EnemyHaveDifferentMovementPatterns(){
-        GameActivity test = new GameActivity();
-        MapViewModel mvm = new MapViewModel(test, 18, 40);;
-        EnemyViewModel enemy1 = new EnemyViewModel(test, "eyeball", mvm, 1, 8);
-        EnemyViewModel enemy2 = new EnemyViewModel(test, "cat", mvm, 2, 8);
-        EnemyViewModel enemy3 = new EnemyViewModel(test, "grimreaper", mvm, 3, 8);
-        EnemyViewModel enemy4 = new EnemyViewModel(test, "skeleton", mvm, 4, 8);
+        MapViewModel mvm = new MapViewModel( 18, 40);;
+        EnemyViewModel enemy1 = new EnemyViewModel("eyeball", mvm, 1, 8);
+        EnemyViewModel enemy2 = new EnemyViewModel( "cat", mvm, 2, 8);
+        EnemyViewModel enemy3 = new EnemyViewModel("grimreaper", mvm, 3, 8);
+        EnemyViewModel enemy4 = new EnemyViewModel( "skeleton", mvm, 4, 8);
         EnemyFactory factoryTest = new EnemyFactory();
         ExecutableMovementPattern enemy1MP = factoryTest.getMovementPattern("eyeball", enemy1);
         ExecutableMovementPattern enemy2MP = factoryTest.getMovementPattern("cat", enemy2);
@@ -83,19 +79,17 @@ public class Sprint4UnitTests{
     //test5
     @Test
     public void EnemyHaveDifferentSpeeds(){
-        GameActivity test = new GameActivity();
-        MapViewModel mvm = new MapViewModel(test, 18, 40);;
-        EnemyViewModel enemy1 = new EnemyViewModel(test, "eyeball", mvm, 1, 8);
-        EnemyViewModel enemy2 = new EnemyViewModel(test, "grimreaper", mvm, 2, 8);
-        assertTrue(enemy1.getEnemySpeed() != enemy2.getEnemySpeed());
+        MapViewModel mvm = new MapViewModel( 18, 40);;
+        EnemyViewModel enemy1 = new EnemyViewModel("eyeball", mvm, 1, 8);
+        EnemyViewModel enemy2 = new EnemyViewModel("skeleton", mvm, 2, 8);
+        assertTrue(enemy1.getEnemySpeed() == enemy2.getEnemySpeed());
     }
     //test6
     @Test
     public void EnemyCollisionWithEnemy(){
-        GameActivity test = new GameActivity();
-        MapViewModel mvm = new MapViewModel(test, 18, 40);;
-        EnemyViewModel enemy1 = new EnemyViewModel(test, "eyeball", mvm, 1, 8);
-        EnemyViewModel enemy2 = new EnemyViewModel(test, "eyeball", mvm, 2, 8);
+        MapViewModel mvm = new MapViewModel(18, 40);;
+        EnemyViewModel enemy1 = new EnemyViewModel( "eyeball", mvm, 1, 8);
+        EnemyViewModel enemy2 = new EnemyViewModel("eyeball", mvm, 2, 8);
         enemy1.moveEnemyRight();
         assertTrue(enemy1.getEnemyX() == 2);
     }
