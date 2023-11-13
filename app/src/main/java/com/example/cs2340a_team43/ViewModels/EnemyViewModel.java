@@ -45,6 +45,8 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
         this.enemy = enemy;
         super.setCharacter(enemy);
         this.mapViewModel = mvm;
+        collisionObservers = new ArrayList<>();
+        viewObservers = new ArrayList<>();
     }
     public Bitmap getEnemySprite() {
         return this.enemy.getSprite();
