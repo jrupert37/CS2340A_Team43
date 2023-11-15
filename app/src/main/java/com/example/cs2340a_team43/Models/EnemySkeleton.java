@@ -7,4 +7,8 @@ public class EnemySkeleton extends Enemy {
     public EnemySkeleton(Context context) {
         super.setSprite(R.drawable.skeletonenemy, context);
     }
+
+    public EnemySkeleton() {
+
+    }
 } // EnemySkeleton
