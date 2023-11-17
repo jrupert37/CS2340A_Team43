@@ -223,16 +223,25 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
         if (mvm.isAPowerUp(getPlayerX(), getPlayerY())) {
             String type = mvm.getThisFloorsPowerUp().getType();
             if (type.equals("score boost")) {
-                player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
-                player.setScoreBoost(true);
+                attainScoreBoost();
             } else if (type.equals("wall walker")) {
-                player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
-                player.setWallWalker(true);
+                attainWallWalker();
             } else { // type.equals("health")
-                player.setPowerUp(new HealthDecorator(player.getPowerUp()));
-                player.setHP(player.getHP() + 10);
+                attainHealth();
             }
         }
+    }
+    public void attainScoreBoost(){
+        player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
+        player.setScoreBoost(true);
+    }
+    public void attainWallWalker(){
+        player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
+        player.setWallWalker(true);
+    }
+    public void attainHealth(){
+        player.setPowerUp(new HealthDecorator(player.getPowerUp()));
+        player.setHP(player.getHP() + 10);
     }
 
     public String listPowerUps() {

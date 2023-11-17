@@ -1,0 +1,52 @@
+package com.example.cs2340a_team43;
+import com.example.cs2340a_team43.Interfaces.ExecutableMovementPattern;
+import com.example.cs2340a_team43.Models.EnemyFactory;
+import com.example.cs2340a_team43.Models.HealthDecorator;
+import com.example.cs2340a_team43.Models.HealthPowerUp;
+import com.example.cs2340a_team43.Models.Player;
+import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
+import com.example.cs2340a_team43.ViewModels.MapViewModel;
+import com.example.cs2340a_team43.Views.GameActivity;
+import static org.junit.Assert.assertEquals;
+
+import com.example.cs2340a_team43.Models.Map;
+import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
+import com.example.cs2340a_team43.ViewModels.MapViewModel;
+import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
+
+import org.junit.Test;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+public class Sprint5UnitTests {
+    @Test
+    public void powerupGetsPlayerHealth(){
+        Player player = Player.getInstance();
+        int healthBefore = 50;
+        player.setHP(healthBefore);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.attainHealth();
+        assertTrue(healthBefore < player.getHP());
+    }
+    @Test
+    public void powerupLetsPlayerGoThroughWalls(){
+        Player player = Player.getInstance();
+        MapViewModel mvm = new MapViewModel(18, 40);
+        Map.MapObject[][] x = new Map.MapObject[18][40];
+        for (int row = 0; row < 18; row++) {
+            for (int col = 0; col < 40; col++) {
+                if (row == 0 || row == 17 || col == 0 || col == 39) {
+                    x[row][col] = Map.MapObject.WALL;
+                }
+            }
+        }
+        x[5][5] = Map.MapObject.WALL;
+        mvm.setMapLayout(x);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.attainWallWalker();
+        player.setInitialXY(5,4);
+        player.moveDown();
+        assertTrue(player.getX() == 5 && player.getY() == 5);
+
+    }
+}
