@@ -17,7 +17,7 @@ import java.util.Scanner;
  * tiles, walls, and an exit for each floor. 
  */
 public class Map {
-    
+
     // helpful enumeration for distinguishing between floors
     public enum Floor {
         FIRST_FLOOR,
@@ -37,7 +37,7 @@ public class Map {
     private MapObject[][] roomLayout;
     private final int rows;
     private final int cols;
-
+    private PowerUp thisFloorsPowerUp;
 
     public Map(Context context, int rows, int cols) {
         // initialize the currentFloor to First Floor
@@ -132,5 +132,13 @@ public class Map {
 
     public int getYBound() {
         return this.rows - 1;
+    }
+
+    public PowerUp getThisFloorsPowerUp() {
+        return this.thisFloorsPowerUp;
+    }
+
+    public void setPowerUp(PowerUp powerUp) {
+        this.thisFloorsPowerUp = powerUp;
     }
 } // Map
