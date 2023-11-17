@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import com.example.cs2340a_team43.Interfaces.ViewObserver;
+import com.example.cs2340a_team43.Models.PowerUp;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
@@ -70,9 +71,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
                 float xScale = (float) ((xLimit / 40) + 0.5);
                 float yScale = (float) ((yLimit / 20) - 0.5);
+
+                PowerUp powerUp = mapViewModel.getThisFloorsPowerUp();
+                float xPowerUpDraw = (powerUp.getX() * xScale);
+                float yPowerUpDraw = (powerUp.getY() * yScale);
+                RectF rect;
+                rect = new RectF(xPowerUpDraw, yPowerUpDraw, xPowerUpDraw + (xLimit / 40),
+                        yPowerUpDraw + (yLimit / 20));
+                Bitmap powerUpBitmap = powerUp.getSprite();
+                canvas.drawBitmap(powerUpBitmap, null, rect, null);
+
                 float xDraw = (playerViewModel.getPlayerX() * xScale);
                 float yDraw = (playerViewModel.getPlayerY() * yScale);
-                RectF rect;
                 rect = new RectF(xDraw, yDraw, xDraw + (xLimit / 40), yDraw + (yLimit / 20));
                 Bitmap playerBitmap = playerViewModel.getPlayerSprite();
                 canvas.drawBitmap(playerBitmap, null, rect, null);
