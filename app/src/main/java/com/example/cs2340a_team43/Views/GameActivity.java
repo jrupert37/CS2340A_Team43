@@ -6,8 +6,11 @@ import android.view.KeyEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.cs2340a_team43.Models.HealthPowerUp;
 import com.example.cs2340a_team43.Models.Leaderboard;
+import com.example.cs2340a_team43.Models.ScoreBoostPowerUp;
 import com.example.cs2340a_team43.Models.WalkMovement;
+import com.example.cs2340a_team43.Models.WallWalkerPowerUp;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
@@ -24,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
     private String difficulty;
     private String playerName;
     private volatile TextView scoreTextView;
+    private TextView powerUpsTextView;
     private int score;
     private Timer scoreTimer;
     private Leaderboard leaderboard;
@@ -70,6 +74,7 @@ public class GameActivity extends AppCompatActivity {
         playerViewModel.setMap(mvm);
         playerViewModel.setPlayerMovementBehavior(new WalkMovement());
         playerViewModel.setXYBounds(mvm.getXBound(), mvm.getYBound());
+        playerViewModel.resetPowerUps();
 
         firstFloorEnemies.add(new EnemyViewModel(this, "eyeball", mvm, 20, 8));
         firstFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 4, 12));
@@ -83,6 +88,7 @@ public class GameActivity extends AppCompatActivity {
         currentEnemies = firstFloorEnemies;
         gameView = new GameView(this, playerViewModel, mvm, screenWidth, screenHeight,
                                 currentEnemies);
+        mvm.addPowerUp(new ScoreBoostPowerUp(this, 38, 1));
         playerViewModel.addViewObserver(gameView);
         setEnemyObservers();
 
@@ -128,7 +134,7 @@ public class GameActivity extends AppCompatActivity {
                         scoreTimer.cancel();
                     }
                     String text = "Score: " + score + "    Difficulty: "
-                            + difficulty + "    HP: " + hp;
+                            + difficulty + "    HP: " + playerViewModel.getPlayerHP();
                     scoreTextView.setText(text);
                 });
             }
@@ -144,6 +150,7 @@ public class GameActivity extends AppCompatActivity {
         game.addCategory(Intent.CATEGORY_HOME);
         //if (!playerViewModel.isAlive()) {
         // TEMPORARY!! ^ Use above instead
+        powerUpsTextView = findViewById(R.id.powerUpsTextView);
         Thread gameThread = new Thread(() -> {
             runCurrentEnemies();
             while (isRunning) {
@@ -159,9 +166,16 @@ public class GameActivity extends AppCompatActivity {
                         runCurrentEnemies();
                     }
                 }
+                //checkEnemiesStatus(); -> If any enemy has been killed, needs to be removed,
+                //                         remove enemy from observers, remove game view from it
+                //                         redraw game screen, remove that enemy from currentEnemi
+                //                         reset gameViews current enemies
                 String text = "Score: " + score + "    Difficulty: "
                             + difficulty + "    HP: " + playerViewModel.getPlayerHP();
-                runOnUiThread(() -> scoreTextView.setText(text));
+                runOnUiThread(() -> {
+                    scoreTextView.setText(text);
+                    powerUpsTextView.setText(playerViewModel.listPowerUps());
+                });
             }
             terminateCurrentEnemies();
             scoreTimer.cancel();
@@ -174,14 +188,14 @@ public class GameActivity extends AppCompatActivity {
         gameThread.start();
     }
     public void runCurrentEnemies() {
-        for (EnemyViewModel enemy : currentEnemies) {
-            enemy.runMovementPattern();
+        for (EnemyViewModel evm : currentEnemies) {
+            evm.runMovementPattern();
         }
     }
 
     public void terminateCurrentEnemies() {
-        for (EnemyViewModel enemy : currentEnemies) {
-            enemy.cancelMovement();
+        for (EnemyViewModel evm : currentEnemies) {
+            evm.cancelMovement();
         }
     }
 
@@ -190,8 +204,10 @@ public class GameActivity extends AppCompatActivity {
         //this.currentEnemies = new ArrayList<>(); // TEMPORARY, add logic to set next floor enemies
         if (mvm.isFirstFloor()) {
             this.currentEnemies = secondFloorEnemies;
+            mvm.addPowerUp(new WallWalkerPowerUp(this, 27, 6));
         } else if (mvm.isSecondFloor()) {
             this.currentEnemies = thirdFloorEnemies;
+            mvm.addPowerUp(new HealthPowerUp(this, 36, 3));
         } else {
             this.currentEnemies = new ArrayList<>();
         }

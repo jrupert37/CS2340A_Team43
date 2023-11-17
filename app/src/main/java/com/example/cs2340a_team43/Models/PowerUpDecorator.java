@@ -1,16 +1,18 @@
 package com.example.cs2340a_team43.Models;
 
-import com.example.cs2340a_team43.Interfaces.PowerUp;
+import com.example.cs2340a_team43.Interfaces.IPowerUp;
 
-public class PowerUpDecorator implements PowerUp {
-    public PowerUp powerUp;
-    String listPowerUps;
-    public PowerUpDecorator() {
-        listPowerUps = "";
+public class PowerUpDecorator implements IPowerUp {
+    protected IPowerUp powerUp;
+    private String description = "Power-Ups:";
+    protected int numPowerUps = 0;
+
+    @Override
+    public String listPowerUps() {
+        return description;
     }
-    public String listPowerUps(){
-        return this.listPowerUps;
-    }
-    public void addEffect(){
+
+    public int numPowerUps() {
+        return numPowerUps;
     }
 }
