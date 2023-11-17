@@ -18,5 +18,14 @@ public abstract class EnemySpawner {
         return enemy;
     }
 
-    abstract Enemy createEnemy(String difficulty, Context context);
+    public Enemy makeEnemy(String type, int x, int y) {
+        Enemy enemy;
+        enemy = createEnemy(type);
+        enemy.setInitialXY(x, y);
+        enemy.setMovementBehavior(new WalkMovement());
+        return enemy;
+    }
+
+    abstract Enemy createEnemy(String type, Context context);
+    abstract Enemy createEnemy(String type);
 } // EnemySpawner (abstract parent)

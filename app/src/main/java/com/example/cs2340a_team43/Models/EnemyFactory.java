@@ -30,6 +30,22 @@ public class EnemyFactory extends EnemySpawner {
         }
     }
 
+    @Override
+    protected Enemy createEnemy(String type) {
+        switch (type) {
+        case "cat":
+            return new EnemyCat();
+        case "grimreaper":
+            return new EnemyGrimReaper();
+        case "skeleton":
+            return new EnemySkeleton();
+        case "eyeball":
+            return new EnemyEyeball();
+        default:
+            return null;
+        }
+    }
+
     public ExecutableMovementPattern getMovementPattern(String type, EnemyViewModel evm) {
         switch (type) {
         case "cat":
