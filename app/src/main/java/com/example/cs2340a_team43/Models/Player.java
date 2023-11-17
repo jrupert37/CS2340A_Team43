@@ -2,6 +2,7 @@ package com.example.cs2340a_team43.Models;
 
 import androidx.core.util.Pair;
 import com.example.cs2340a_team43.Interfaces.MovementBehavior.MovementDirection;
+import com.example.cs2340a_team43.Interfaces.IPowerUp;
 
 /*
  * This class serves as the player "model" and holds all necessary information,
@@ -16,6 +17,9 @@ public class Player extends Character {
     private static Player player;
     private String playerName;
     private Pair<Integer, Integer> previousXY;
+    private IPowerUp powerUps;
+    private boolean scoreBoost;
+    private boolean wallWalker;
     // super.xyCoordinates (contained in Character parent class
 
     /* Private constructor to prevent other classes from instantiating a new player */
@@ -26,16 +30,14 @@ public class Player extends Character {
         this.hp = 0;
         this.bitmap = null;
         this.damageTaken = 0;
+        resetPowerUps();
     }
 
-    //    public Player(MovementBehavior run) {
-    //        // temp constructor, player attributes will be concretely initialized later
-    //        this.hp = 0;
-    //        xyCoordinates = new Pair<>(0, 0);
-    //        this.imageId = 0;
-    //        this.bitmap = null;
-    //        //this.movementBehavior = new RunMovement();
-    //    }
+    public void resetPowerUps() {
+        powerUps = new PowerUpDecorator();
+        scoreBoost = false;
+        wallWalker = false;
+    }
 
     /* Public static getter method, so every class can access the single player instance */
     public static Player getInstance() {
@@ -85,5 +87,29 @@ public class Player extends Character {
     public void gotHit() {
         super.setHP(getHP() - getDamageTaken());
         recoilXY();
+    }
+
+    public void setPowerUp(IPowerUp powerUp) {
+        this.powerUps = powerUp;
+    }
+
+    public IPowerUp getPowerUp() {
+        return this.powerUps;
+    }
+
+    public void setScoreBoost(boolean x) {
+        this.scoreBoost = x;
+    }
+
+    public void setWallWalker(boolean x) {
+        this.wallWalker = x;
+    }
+
+    public boolean canWalkThroughWalls() {
+        return this.wallWalker;
+    }
+
+    public String listPowerUps() {
+        return this.powerUps.listPowerUps();
     }
 } // Player
