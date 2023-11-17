@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.Models.Map.Floor;
 import com.example.cs2340a_team43.Models.Map.MapObject;
+import com.example.cs2340a_team43.Models.PowerUp;
 
-public class MapViewModel extends ViewModel { //implements Subject {
+public class MapViewModel extends ViewModel {
     private final Map map;
 
     public MapViewModel(Context context, int rows, int cols) {
@@ -17,12 +18,6 @@ public class MapViewModel extends ViewModel { //implements Subject {
     public MapViewModel(int rows, int cols) {
         this.map = new Map(rows, cols);
     }
-
-    //    public void notifyObservers() {
-    //        for (Observer o: observers) {
-    //            o.update();
-    //        }
-    //    }
 
     public Bitmap getMapFloorBitmap() {
         return this.map.getFloorBitmap();
@@ -83,5 +78,22 @@ public class MapViewModel extends ViewModel { //implements Subject {
 
     public void setMapLayout(MapObject[][] x) {
         this.map.setRoomLayout(x);
+    }
+
+    public PowerUp getThisFloorsPowerUp() {
+        return this.map.getThisFloorsPowerUp();
+    }
+
+    public void addPowerUp(PowerUp powerUp) {
+        this.map.setPowerUp(powerUp);
+    }
+
+    public boolean isAPowerUp(int x, int y) {
+        PowerUp pu = getThisFloorsPowerUp();
+        boolean isAPowerUp = !pu.isTaken() && pu.getX() == x && pu.getY() == y;
+        if (isAPowerUp) {
+            pu.setAsTaken();
+        }
+        return isAPowerUp;
     }
 } // MapViewModel

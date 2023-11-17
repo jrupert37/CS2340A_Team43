@@ -84,7 +84,7 @@ public abstract class Character {
         return this.hp;
     }
 
-    protected void setHP(int hp) {
+    public void setHP(int hp) {
         this.hp = hp;
     }
 

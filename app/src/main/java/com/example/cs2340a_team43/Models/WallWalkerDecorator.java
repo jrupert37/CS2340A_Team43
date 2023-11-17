@@ -1,13 +1,17 @@
 package com.example.cs2340a_team43.Models;
 
-import com.example.cs2340a_team43.Interfaces.PowerUp;
+import com.example.cs2340a_team43.Interfaces.IPowerUp;
 
-public class WallWalkerDecorator extends PowerUpDecorator{
-    WallWalkerDecorator(PowerUp powerUp) {
-        this.powerUp = powerUp;
+public class WallWalkerDecorator extends PowerUpDecorator {
+    public WallWalkerDecorator(IPowerUp powerUp) {
+        super.powerUp = powerUp;
+        super.numPowerUps = powerUp.numPowerUps() + 1;
     }
-    public String listPowerUps(){
-        return this.powerUp.listPowerUps() + "wallwalker";
+    public String listPowerUps() {
+        if (super.numPowerUps == 1) {
+            return super.listPowerUps() + " Wall Walker";
+        }
+        return super.powerUp.listPowerUps() + " + Wall Walker";
     }
 }
 

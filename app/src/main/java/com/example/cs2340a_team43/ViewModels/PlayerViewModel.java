@@ -4,31 +4,34 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import com.example.cs2340a_team43.Interfaces.CollisionObserver;
 import com.example.cs2340a_team43.Interfaces.MovementBehavior;
+import com.example.cs2340a_team43.Models.HealthDecorator;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Interfaces.Subject;
 import com.example.cs2340a_team43.Interfaces.ViewObserver;
+import com.example.cs2340a_team43.Models.ScoreBoostDecorator;
+import com.example.cs2340a_team43.Models.WallWalkerDecorator;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerViewModel extends CharacterViewModel implements Subject, CollisionObserver {
     private final Player player;
     private static PlayerViewModel playerViewModel;
-    private MapViewModel mapViewModel;
+    private MapViewModel mvm;
     private int initialX;
     private int initialY;
     private final List<CollisionObserver> collisionObservers;
     private final List<ViewObserver> viewObservers;
     private final boolean notified;
-    private int xBound;
-    private int yBound;
+    private int xLimit;
+    private int yLimit;
 
     private PlayerViewModel() {
         super(Player.getInstance());
         this.player = Player.getInstance();
         collisionObservers = new ArrayList<>();
         viewObservers = new ArrayList<>();
-        xBound = 0;
-        yBound = 0;
+        xLimit = 0;
+        yLimit = 0;
         notified = false;
     }
 
@@ -67,10 +70,6 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
         this.player.setInitialHP(difficulty);
     }
 
-    //    public void setPlayerHP(int hp) {
-    //        this.player.setHP(hp);
-    //    }
-
     public void setInitialPlayerXY(int x, int y) {
         initialX = x;
         initialY = y;
@@ -87,65 +86,56 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
         this.player.setSprite(imageId, context);
     }
 
-    public void setMap(MapViewModel mapViewModel) {
-        this.mapViewModel = mapViewModel;
+    public void setMap(MapViewModel mvm) {
+        this.mvm = mvm;
     }
 
     public void movePlayerLeft() {
-        if (willBeOutOfBounds(getPlayerX() - getPlayerSpeed(), getPlayerY())
-                || willCollideWithWall(getPlayerX() - getPlayerSpeed(), getPlayerY())) {
+        if (checkBoundsAndWalls(getPlayerX() - getPlayerSpeed(), getPlayerY())) {
             return;
         }
-        //        else if (willCollideWithEnemy(getPlayerX() - getPlayerSpeed(), getPlayerY())) {
-        //            notifyAllObservers();
-        //            return;
-        //        }
         // otherwise...
         this.player.moveLeft();
-        notifyWithPosition();
-        notifyViewObservers();
+        notifyAllObservers();
+        checkObtainedPowerUp();
     }
 
     public void movePlayerRight() {
-        if (willBeOutOfBounds(getPlayerX() + getPlayerSpeed(), getPlayerY())
-                || willCollideWithWall(getPlayerX() + getPlayerSpeed(), getPlayerY())) {
+        if (checkBoundsAndWalls(getPlayerX() + getPlayerSpeed(), getPlayerY())) {
             return;
         }
-        //        else if (willCollideWithEnemy(getPlayerX() + getPlayerSpeed(), getPlayerY())) {
-        //            notifyAllObservers();
-        //            return;
-        //        }
+        // otherwise...
         this.player.moveRight();
-        notifyWithPosition();
-        notifyViewObservers();
+        notifyAllObservers();
+        checkObtainedPowerUp();
     }
 
     public void movePlayerUp() {
-        if (willBeOutOfBounds(getPlayerX(), getPlayerY() - getPlayerSpeed())
-                || willCollideWithWall(getPlayerX(), getPlayerY() - getPlayerSpeed())) {
+        if (checkBoundsAndWalls(getPlayerX(), getPlayerY() - getPlayerSpeed())) {
             return;
         }
-        //        else if (willCollideWithEnemy(getPlayerX(), getPlayerY() - getPlayerSpeed())) {
-        //            notifyAllObservers();
-        //            return;
-        //        }
         // otherwise...
         this.player.moveUp();
-        notifyWithPosition();
-        notifyViewObservers();
+        notifyAllObservers();
+        checkObtainedPowerUp();
     }
 
     public void movePlayerDown() {
-        if (willBeOutOfBounds(getPlayerX(), getPlayerY() + getPlayerSpeed())
-                || willCollideWithWall(getPlayerX(), getPlayerY() + getPlayerSpeed())) {
+        if (checkBoundsAndWalls(getPlayerX(), getPlayerY() + getPlayerSpeed())) {
             return;
         }
-        //        else if (willCollideWithEnemy(getPlayerX(), getPlayerY() + getPlayerSpeed())) {
-        //            notifyAllObservers();
-        //            return;
-        //        }
         // otherwise...
         this.player.moveDown();
+        notifyAllObservers();
+        checkObtainedPowerUp();
+    }
+    
+    private boolean checkBoundsAndWalls(int x, int y) {
+        return (willBeOutOfBounds(x, y)
+                || (!player.canWalkThroughWalls() && willCollideWithWall(x, y)));
+    }
+    
+    private void notifyAllObservers() {
         notifyWithPosition();
         notifyViewObservers();
     }
@@ -200,12 +190,12 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
     }
 
     private boolean willCollideWithWall(int newX, int newY) {
-        return mapViewModel.isAWall(newX, newY);
+        return mvm.isAWall(newX, newY);
     }
 
 
     public boolean playerIsAtExit() {
-        return mapViewModel.xyIsAnExit(getPlayerX(), getPlayerY());
+        return mvm.xyIsAnExit(getPlayerX(), getPlayerY());
     }
 
     public int getPlayerHP() {
@@ -221,12 +211,36 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
     }
 
     public void setXYBounds(int x, int y) {
-        this.xBound = x;
-        this.yBound = y;
+        this.xLimit = x;
+        this.yLimit = y;
     }
 
     public boolean willBeOutOfBounds(int x, int y) {
-        return (x < 0 || x > xBound || y < 0 || y > yBound);
+        return (x < 0 || x > xLimit || y < 0 || y > yLimit);
+    }
+    
+    private void checkObtainedPowerUp() {
+        if (mvm.isAPowerUp(getPlayerX(), getPlayerY())) {
+            String type = mvm.getThisFloorsPowerUp().getType();
+            if (type.equals("score boost")) {
+                player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
+                player.setScoreBoost(true);
+            } else if (type.equals("wall walker")) {
+                player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
+                player.setWallWalker(true);
+            } else { // type.equals("health")
+                player.setPowerUp(new HealthDecorator(player.getPowerUp()));
+                player.setHP(player.getHP() + 10);
+            }
+        }
+    }
+
+    public String listPowerUps() {
+        return this.player.listPowerUps();
+    }
+
+    public void resetPowerUps() {
+        this.player.resetPowerUps();
     }
 } // PlayerViewModel
 
