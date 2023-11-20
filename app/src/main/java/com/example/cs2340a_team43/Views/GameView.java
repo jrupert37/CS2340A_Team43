@@ -113,5 +113,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
     public void setCurrentEnemies(List<EnemyViewModel> currentEnemies) {
         this.currentEnemies = currentEnemies;
+        draw();
     }
 } // GameView
