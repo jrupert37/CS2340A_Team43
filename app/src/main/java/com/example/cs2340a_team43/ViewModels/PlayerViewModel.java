@@ -129,6 +129,15 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
         notifyAllObservers();
         checkObtainedPowerUp();
     }
+
+    public void testMovePlayerDown() {
+        if (checkBoundsAndWalls(getPlayerX(), getPlayerY() + getPlayerSpeed())) {
+            return;
+        }
+        // otherwise...
+        this.player.moveDown();
+        notifyAllObservers();
+    }
     
     private boolean checkBoundsAndWalls(int x, int y) {
         return (willBeOutOfBounds(x, y)
