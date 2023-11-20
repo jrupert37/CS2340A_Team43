@@ -4,6 +4,7 @@ import com.example.cs2340a_team43.Models.EnemyFactory;
 import com.example.cs2340a_team43.Models.HealthDecorator;
 import com.example.cs2340a_team43.Models.HealthPowerUp;
 import com.example.cs2340a_team43.Models.Player;
+import com.example.cs2340a_team43.Models.WallWalkerPowerUp;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.Views.GameActivity;
@@ -49,4 +50,30 @@ public class Sprint5UnitTests {
         assertTrue(player.getX() == 5 && player.getY() == 5);
 
     }
+
+    @Test
+    public void powerupStopsPlayerOffscreen() {
+        Player player = Player.getInstance();
+        MapViewModel mvm = new MapViewModel(1, 1);
+        Map.MapObject[][] x = new Map.MapObject[3][3];
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (row == 0 || row == 3 || col == 0 || col == 3) {
+                    x[row][col] = Map.MapObject.EMPTY;
+                }
+            }
+        }
+        mvm.setMapLayout(x);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setMap(mvm);
+        pvm.attainWallWalker();
+        pvm.setInitialPlayerXY(1, 1);
+        pvm.setXYBounds(2,2);
+        for (int i = 0; i < 10; i++) {
+            pvm.testMovePlayerDown();
+        }
+        assertTrue(player.getY() == 2);
+    }
+
+
 }
