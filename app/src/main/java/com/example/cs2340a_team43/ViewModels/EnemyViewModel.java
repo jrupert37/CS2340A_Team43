@@ -3,12 +3,17 @@ package com.example.cs2340a_team43.ViewModels;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.cs2340a_team43.Interfaces.AttackObserver;
 import com.example.cs2340a_team43.Interfaces.CollisionObserver;
 import com.example.cs2340a_team43.Interfaces.ExecutableMovementPattern;
 import com.example.cs2340a_team43.Models.Enemy;
 import com.example.cs2340a_team43.Models.EnemyFactory;
 import com.example.cs2340a_team43.Interfaces.Subject;
 import com.example.cs2340a_team43.Interfaces.ViewObserver;
+import com.example.cs2340a_team43.Views.GameActivity;
+import com.example.cs2340a_team43.Views.GameView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +25,8 @@ import java.util.List;
  * models.
  * This class uses the Observer Design Pattern.
  */
-public class EnemyViewModel extends CharacterViewModel implements Subject, CollisionObserver {
+public class EnemyViewModel extends CharacterViewModel implements Subject, AttackObserver,
+        CollisionObserver {
     private final Enemy enemy;
     private final MapViewModel mapViewModel;
     private List<CollisionObserver> collisionObservers;
@@ -28,9 +34,9 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
     private ExecutableMovementPattern enemyMovementPattern;
 
     public EnemyViewModel(Context context, String type, MapViewModel mvm,
-                          int enemyX, int enemyY) {
+                          int initialX, int initialY) {
         EnemyFactory enemyFactory = new EnemyFactory();
-        Enemy enemy = enemyFactory.makeEnemy(context, type, enemyX, enemyY);
+        Enemy enemy = enemyFactory.makeEnemy(context, type, initialX, initialY);
         this.enemy = enemy;
         super.setCharacter(enemy);
         this.enemyMovementPattern = enemyFactory.getMovementPattern(type, this);
@@ -105,6 +111,15 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
     }
 
     @Override
+    public boolean updateWithAttack(int x, int y) {
+        boolean attacked = (getEnemyX() == x && getEnemyY() == y);
+        if (attacked) {
+            this.gotAttacked();
+        }
+        return attacked;
+    }
+
+    @Override
     public void notifyWithPosition() {
         for (CollisionObserver co : collisionObservers) {
             co.updateWithPosition(getEnemyX(), getEnemyY());
@@ -153,5 +168,14 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Colli
 
     public void cancelMovement() {
         this.enemyMovementPattern.stop();
+    }
+
+    private void gotAttacked() {
+        this.cancelMovement();
+        this.enemy.setAttacked();
+    }
+
+    public boolean isAttacked() {
+        return this.enemy.isAttacked();
     }
 } // EnemyViewModel
