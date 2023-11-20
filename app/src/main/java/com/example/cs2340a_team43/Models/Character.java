@@ -21,6 +21,7 @@ public abstract class Character {
         this.movementBehavior = new WalkMovement(); // set to WalkMovement by default
         this.xyCoordinates = new Pair<>(0, 0);      // set to (0,0) by default
         this.damageTaken = 0;
+        this.hp = 0;
     }
 
     public int getX() {
