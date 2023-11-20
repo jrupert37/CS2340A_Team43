@@ -17,6 +17,15 @@ public class EndScreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_end);
 
+        boolean playerIsAlive = getIntent().getBooleanExtra("isAlive", true);
+
+        int textColor = playerIsAlive ? 0xF825E138 : Color.RED;
+
+        TextView timeBonusTextView = findViewById(R.id.timeBonusTextView);
+        String timeBonus = "Time Score Bonus: " + getIntent().getIntExtra("timeBonus", 0);
+        timeBonusTextView.setTextColor(textColor);
+        timeBonusTextView.setText(timeBonus);
+
         Leaderboard leaderboard = Leaderboard.getInstance();
         TableLayout leaderTable = findViewById(R.id.leaderTableLayout);
         /*
@@ -49,11 +58,9 @@ public class EndScreenActivity extends AppCompatActivity {
         mostRecentEndTime.setText(leaderboard.getMostRecentAttempt().toString("end"));
 
         TextView winLoseTextView = findViewById(R.id.winLoseTextView);
-        boolean playerIsAlive = getIntent().getBooleanExtra("isAlive", true);
-        if (!playerIsAlive) {
-            winLoseTextView.setText(R.string.you_lose);
-            winLoseTextView.setTextColor(Color.RED);
-        }
+        String winLose = playerIsAlive ? "You Win!" : "You Lose!";
+        winLoseTextView.setText(winLose);
+        winLoseTextView.setTextColor(textColor);
 
         Button restartButton = findViewById(R.id.restartButton);
         restartButton.setOnClickListener(v -> {
