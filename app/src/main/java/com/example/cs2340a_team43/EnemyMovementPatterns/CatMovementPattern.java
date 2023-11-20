@@ -30,7 +30,7 @@ public class CatMovementPattern extends Timer implements ExecutableMovementPatte
     public CatMovementPattern(EnemyViewModel evm) {
         this.evm = evm;
         // generate a random moveTime to be used by the movement timer
-        moveTime = new Random().nextInt(501) + 500;
+        moveTime = new Random().nextInt(701) + 300;
     }
 
     @Override
