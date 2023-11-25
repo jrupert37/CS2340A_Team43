@@ -16,8 +16,4 @@ public abstract class CharacterViewModel {
     public void setCharacter(Character character) {
         this.character = character;
     }
-
-    protected void gotHit() {
-        this.character.gotHit();
-    }
 }
