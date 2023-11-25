@@ -16,6 +16,7 @@
             android:name="com.example.cs2340a_team43.Views.StartScreenActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.CS2340A_Team43">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,13 +25,20 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Views.HowToPlayActivity"
+            android:screenOrientation="landscape"
+            android:exported="false" />
+        <activity
             android:name=".Views.ConfigurationPageActivity"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".Views.GameActivity"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".Views.EndScreenActivity"
+            android:screenOrientation="landscape"
             android:exported="false" />
     </application>
 
