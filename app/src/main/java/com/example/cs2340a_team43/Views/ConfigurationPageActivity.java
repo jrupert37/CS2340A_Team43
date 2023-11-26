@@ -12,16 +12,14 @@ public class ConfigurationPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //set view to activity_configuration.xml
+        //set view to activity_configuration
         setContentView(R.layout.activity_configuration);
+        createNextButton();
+    }
 
-        //create instances for name input and next button
-        EditText nameEditText = findViewById(R.id.nameInputBox);
-        Button nextBtn = findViewById(R.id.nextButton);
-
-        //Create button listener for attributes
+    private void createNextButton() {
+        Button nextBtn = findViewById(R.id.startGameButton);
         nextBtn.setOnClickListener(v -> {
-            //find radio button group
             RadioGroup difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
             //default values
             String difficulty = "Easy";
@@ -41,6 +39,7 @@ public class ConfigurationPageActivity extends AppCompatActivity {
                 choice = 2;
             }
 
+            EditText nameEditText = findViewById(R.id.nameInputBox);
             //get text box for name
             String nameText = nameEditText.getText().toString().trim();
             //Do not allow white space or empty name, give error
