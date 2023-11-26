@@ -164,6 +164,15 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
         }
         notifyWithAttack(getPlayerX() + 1, getPlayerY());
     }
+
+    public void testMovePlayerDown() {
+        if (checkBoundsAndWalls(getPlayerX(), getPlayerY() + getPlayerSpeed())) {
+            return;
+        }
+        // otherwise...
+        this.player.moveDown();
+        notifyAllObservers();
+    }
     
     private boolean checkBoundsAndWalls(int x, int y) {
         return (willBeOutOfBounds(x, y)
@@ -280,7 +289,26 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
                 player.setPowerUp(new HealthDecorator(player.getPowerUp()));
                 player.setHP(player.getHP() + 5);
             }
-        }
+//                 attainScoreBoost();
+//             } else if (type.equals("wall walker")) {
+//                 attainWallWalker();
+//             } else { // type.equals("health")
+//                 attainHealth();
+// >>>>>>> main
+//             }
+//         }
+//     }
+//     public void attainScoreBoost(){
+//         player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
+//         player.setScoreBoost(true);
+//     }
+//     public void attainWallWalker(){
+//         player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
+//         player.setWallWalker(true);
+//     }
+//     public void attainHealth(){
+//         player.setPowerUp(new HealthDecorator(player.getPowerUp()));
+//         player.setHP(player.getHP() + 10);
     }
 
     private void checkIfObtainedKey() {
