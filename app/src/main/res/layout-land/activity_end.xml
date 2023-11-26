@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="127dp"
+        android:layout_height="18dp"
+        android:text="@string/leaderboard_text"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.14" />
+
+    <TextView
+        android:id="@+id/mostRecentTextView"
+        android:layout_width="127dp"
+        android:layout_height="18dp"
+        android:text="@string/most_recent_text"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65" />
+
+    <Button
+        android:id="@+id/restartButton"
+        android:layout_width="101dp"
+        android:layout_height="49dp"
+        android:text="@string/restart_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.927" />
+
+    <TableLayout
+        android:id="@+id/leaderTableLayout"
+        android:layout_width="568dp"
+        android:layout_height="149dp"
+        android:backgroundTint="#A6A6A6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.344">
+
+
+        <TableRow
+            android:id="@+id/leaderRow1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/r1textView1"
+                android:layout_width="117dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp"
+                android:text="@string/player_name"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/r1textView2"
+                android:layout_width="69dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp"
+                android:text="@string/score"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/r1textView3"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp"
+                android:text="@string/start_time"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/r1textView4"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp"
+                android:text="@string/end_time"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/leaderRow2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/r2textView1"
+                android:layout_width="117dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r2textView2"
+                android:layout_width="69dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r2textView3"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r2textView4"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/leaderRow3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/r3textView1"
+                android:layout_width="117dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r3textView2"
+                android:layout_width="69dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r3textView3"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r3textView4"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/leaderRow4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/r4textView1"
+                android:layout_width="117dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r4textView2"
+                android:layout_width="69dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r4textView3"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r4textView4"
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/leaderRow5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/r5textView1"
+                android:layout_width="117dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r5textView2"
+                android:layout_width="69dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r5textView3"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r5textView4"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/leaderRow6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/r6textView1"
+                android:layout_width="117dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r6textView2"
+                android:layout_width="69dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r6textView3"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/r6textView4"
+                android:layout_width="187dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/cell_shape"
+                android:padding="1dp" />
+
+        </TableRow>
+    </TableLayout>
+
+    <TableRow
+        android:id="@+id/mostRecentRow"
+        android:layout_width="562dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.747">
+
+        <TextView
+            android:id="@+id/mostRecentName"
+            android:layout_width="117dp"
+            android:layout_height="25dp"
+            android:background="@drawable/cell_shape"
+            android:padding="1dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/mostRecentScore"
+            android:layout_width="72dp"
+            android:layout_height="25dp"
+            android:background="@drawable/cell_shape"
+            android:padding="1dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/mostRecentStartTime"
+            android:layout_width="187dp"
+            android:layout_height="25dp"
+            android:background="@drawable/cell_shape"
+            android:padding="1dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/mostRecentEndTime"
+            android:layout_width="187dp"
+            android:layout_height="25dp"
+            android:background="@drawable/cell_shape"
+            android:padding="1dp"
+            android:textColor="#000000" />
+
+    </TableRow>
+
+    <TextView
+        android:id="@+id/winLoseTextView"
+        android:layout_width="117dp"
+        android:layout_height="34dp"
+        android:text="@string/you_win"
+        android:textAlignment="center"
+        android:textColor="#F825E138"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.93" />
+
+    <TextView
+        android:id="@+id/timeBonusTextView"
+        android:layout_width="182dp"
+        android:layout_height="17dp"
+        android:textAlignment="viewStart"
+        android:textColor="#F825E138"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.196"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.893" />
+
+    <TextView
+        android:id="@+id/baseScoreTextView"
+        android:layout_width="127dp"
+        android:layout_height="17dp"
+        android:textAlignment="viewStart"
+        android:textColor="#2196F3"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.845" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

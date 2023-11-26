@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/football_locker">
+
+    <Button
+        android:id="@+id/startGameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:text="@string/start_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.909" />
+
+    <TextView
+        android:id="@+id/namePrompt"
+        android:layout_width="164dp"
+        android:layout_height="37dp"
+        android:text="@string/enter_name"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/selectSpritePrompt"
+        app:layout_constraintHorizontal_bias="0.451"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.163" />
+
+    <EditText
+        android:id="@+id/nameInputBox"
+        android:layout_width="189dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="156dp"
+        android:autofillHints="Name"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.233"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.253"
+        tools:text="Name" />
+
+    <TextView
+        android:id="@+id/selectDifficultyPrompt"
+        android:layout_width="154dp"
+        android:layout_height="33dp"
+        android:text="@string/choose_difficulty"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/difficultyRadioGroup"
+        app:layout_constraintEnd_toStartOf="@+id/spriteRadioGroup"
+        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/difficultyRadioGroup"
+        android:layout_width="163dp"
+        android:layout_height="157dp"
+        android:checkedButton="@+id/easyButton"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.174"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87">
+
+        <RadioButton
+            android:id="@+id/easyButton"
+            android:layout_width="128dp"
+            android:layout_height="49dp"
+            android:text="@string/easy_difficulty" />
+
+        <RadioButton
+            android:id="@+id/mediumButton"
+            android:layout_width="153dp"
+            android:layout_height="49dp"
+            android:text="@string/medium_difficulty" />
+
+        <RadioButton
+            android:id="@+id/hardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:text="@string/hard_difficulty" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/selectSpritePrompt"
+        android:layout_width="140dp"
+        android:layout_height="26dp"
+        android:text="@string/select_sprite"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.649"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.128" />
+
+    <RadioGroup
+        android:id="@+id/spriteRadioGroup"
+        android:layout_width="126dp"
+        android:layout_height="291dp"
+        android:checkedButton="@+id/sprite0"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.789">
+
+        <RadioButton
+            android:id="@+id/sprite0"
+            android:layout_width="125dp"
+            android:layout_height="97dp"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/sprite1"
+            android:layout_width="127dp"
+            android:layout_height="87dp" />
+
+        <RadioButton
+            android:id="@+id/sprite2"
+            android:layout_width="match_parent"
+            android:layout_height="106dp" />
+
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/spriteImage0"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:src="@drawable/footballplayersprite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26999998" />
+
+    <ImageView
+        android:id="@+id/spriteImage1"
+        android:layout_width="78dp"
+        android:layout_height="70dp"
+        android:src="@drawable/nerdplayersprite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.648"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.56" />
+
+    <ImageView
+        android:id="@+id/spriteImage2"
+        android:layout_width="68dp"
+        android:layout_height="78dp"
+        android:src="@mipmap/gymbroplayersprite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.897" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gameLayout"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/scoreTextView"
+            android:layout_width="254dp"
+            android:layout_height="23dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/powerUpsTextView"
+            android:layout_width="383dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="252dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/timeElapsedTextView"
+            android:layout_width="136dp"
+            android:layout_height="23dp"
+            android:textAlignment="viewEnd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/keyImageView"
+            android:layout_width="22dp"
+            android:layout_height="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/timeElapsedTextView"
+            app:layout_constraintHorizontal_bias="0.68"
+            app:layout_constraintStart_toEndOf="@+id/powerUpsTextView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4"
+            app:srcCompat="@drawable/key" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <Button-->
+<!--        android:id="@+id/downButton"-->
+<!--        android:layout_width="22dp"-->
+<!--        android:layout_height="2dp"-->
+<!--        android:layout_marginEnd="72dp"-->
+<!--        android:background="#0A000000"-->
+<!--        android:text="▼"-->
+<!--        android:textAllCaps="false" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/upButton"-->
+<!--        android:layout_width="6dp"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:layout_marginEnd="72dp"-->
+<!--        android:background="#0A000000"-->
+<!--        android:text="▲" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/rightButton"-->
+<!--        android:layout_width="49dp"-->
+<!--        android:layout_height="3dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:background="#0A000000"-->
+<!--        android:text="▶" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/leftButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="6dp"-->
+<!--        android:layout_marginEnd="120dp"-->
+<!--        android:background="#0A000000"-->
+<!--        android:text="◀" />-->
+
+</LinearLayout>
