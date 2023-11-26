@@ -54,4 +54,4 @@ public class EyeballMovementPattern extends Timer implements ExecutableMovementP
             }
         }, 1000, 1250);
     }
-} // EyeballMovementPattern
+} // EyeballMovementPattern (ExecutableMovementPattern implementer)

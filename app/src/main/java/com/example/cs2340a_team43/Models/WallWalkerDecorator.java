@@ -6,6 +6,7 @@ public class WallWalkerDecorator extends PowerUpDecorator {
     public WallWalkerDecorator(IPowerUp powerUp) {
         super.powerUp = powerUp;
         super.numPowerUps = powerUp.numPowerUps() + 1;
+        super.currentType = "wall walker";
     }
     public String listPowerUps() {
         if (super.numPowerUps == 1) {
@@ -13,5 +14,5 @@ public class WallWalkerDecorator extends PowerUpDecorator {
         }
         return super.powerUp.listPowerUps() + " + Wall Walker";
     }
-}
+} // WallWalker (PowerUpDecorator child class)
 
