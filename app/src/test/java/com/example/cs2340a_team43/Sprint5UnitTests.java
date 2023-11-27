@@ -173,7 +173,7 @@ public class Sprint5UnitTests {
         assertTrue(firstList.equals(player.listPowerUps()));
     }
 
-
+    @Test
     public void playerUpAttackWorks() {
         MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
         Map.MapObject[][] mo = new Map.MapObject[18][40];
@@ -189,6 +189,21 @@ public class Sprint5UnitTests {
         assertTrue(evm.isAttacked());
     }
 
+    @Test
+    public void playerDownAttackWorks() {
+        MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
+        Map.MapObject[][] mo = new Map.MapObject[18][40];
+        mvm.setMapLayout(mo);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setMap(mvm);
+        pvm.setPlayerInitialHP("Easy");
+        pvm.setInitialPlayerXY(5, 5);
+        pvm.setXYBounds(39, 17);
+        EnemyViewModel evm = new EnemyViewModel("cat", mvm, 5, 6);
+        pvm.addAttackObserver(evm);
+        pvm.attackDown();
+        assertTrue(evm.isAttacked());
+    }
     @Test
     public void playerRightAttackWorks() {
         MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
