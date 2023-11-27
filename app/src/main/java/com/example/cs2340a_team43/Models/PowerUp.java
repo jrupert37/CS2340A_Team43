@@ -32,8 +32,16 @@ public abstract class PowerUp {
 
     public void setAsTaken() {
         this.isTaken = true;
-        this.sprite = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        clearSprite();
+    }
 
+    private void clearSprite() {
+        if (sprite != null) {
+            this.sprite = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        }
+    }
+
+    public void testSetAsTaken() {
     }
 
     public String getType() {
