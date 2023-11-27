@@ -22,12 +22,12 @@ public class Map {
         EXIT,
         EMPTY
     }
-    private final Bitmap floorBitmap;
-    private final PowerUp thisFloorsPowerUp;
-    private final Key thisFloorsKey;
+    private Bitmap floorBitmap;
+    private PowerUp thisFloorsPowerUp;
+    private Key thisFloorsKey;
     private MapObject[][] roomLayout;
-    private final int yBound;
-    private final int xBound;
+    private int yBound;
+    private int xBound;
 
 
     public Map(Context cont, int imgId, String blueprint, PowerUp pwrUp, Key key, XYPair bounds) {
@@ -67,6 +67,10 @@ public class Map {
 
     public int getYBound() {
         return yBound - 1;
+    }
+
+    public void setThisFloorsPowerUp(PowerUp powerUp) {
+        thisFloorsPowerUp = powerUp;
     }
 
     public PowerUp getThisFloorsPowerUp() {
