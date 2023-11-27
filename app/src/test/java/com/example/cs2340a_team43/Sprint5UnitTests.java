@@ -76,6 +76,7 @@ public class Sprint5UnitTests {
         }
         mvm.setMapLayout(x);
     }
+
     @Test
     public void scoreBoostPowerUpIncreasesAtkPoints() {
         MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
@@ -119,13 +120,21 @@ public class Sprint5UnitTests {
         pvm.attackRight();
         assertEquals(15, pvm.getScore());
     }
-    public void powerupIncreasesScore() {
-        Player player = Player.getInstance();
-        int scoreBefore = 10;
-        player.setScore(scoreBefore);
+
+    @Test
+    public void playerUpAttackWorks() {
+        MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
+        Map.MapObject[][] mo = new Map.MapObject[18][40];
+        mvm.setMapLayout(mo);
         PlayerViewModel pvm = PlayerViewModel.getInstance();
-        pvm.attainScoreBoost();
-        assertTrue(scoreBefore < player.getScore());
+        pvm.setMap(mvm);
+        pvm.setPlayerInitialHP("Easy");
+        pvm.setInitialPlayerXY(5, 5);
+        pvm.setXYBounds(39, 17);
+        EnemyViewModel evm = new EnemyViewModel("cat", mvm, 5, 4);
+        pvm.addAttackObserver(evm);
+        pvm.attackUp();
+        assertTrue(evm.isAttacked());
     }
 
     @Test
