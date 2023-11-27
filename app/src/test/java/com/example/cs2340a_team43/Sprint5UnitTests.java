@@ -75,8 +75,8 @@ public class Sprint5UnitTests {
             }
         }
         mvm.setMapLayout(x);
-
-  @Test
+    }
+    @Test
     public void scoreBoostPowerUpIncreasesAtkPoints() {
         MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
         Map.MapObject[][] mo = new Map.MapObject[18][40];
