@@ -5,6 +5,7 @@ import com.example.cs2340a_team43.Models.HealthDecorator;
 import com.example.cs2340a_team43.Models.HealthPowerUp;
 import com.example.cs2340a_team43.Models.Player;
 import com.example.cs2340a_team43.Models.WallWalkerPowerUp;
+import com.example.cs2340a_team43.Models.XYPair;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.Views.GameActivity;
@@ -14,11 +15,16 @@ import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 public class Sprint5UnitTests {
     @Test
     public void powerupGetsPlayerHealth(){
@@ -32,7 +38,11 @@ public class Sprint5UnitTests {
     @Test
     public void powerupLetsPlayerGoThroughWalls(){
         Player player = Player.getInstance();
-        MapViewModel mvm = new MapViewModel(18, 40);
+        List<Map> maps = new ArrayList<>(1);
+        XYPair bounds = new XYPair(18, 40);
+        maps.add(new Map(bounds));
+        MapViewModel mvm = new MapViewModel(maps);
+        //MapViewModel mvm = new MapViewModel(18, 40);
         Map.MapObject[][] x = new Map.MapObject[18][40];
         for (int row = 0; row < 18; row++) {
             for (int col = 0; col < 40; col++) {
@@ -48,13 +58,15 @@ public class Sprint5UnitTests {
         player.setInitialXY(5,4);
         player.moveDown();
         assertTrue(player.getX() == 5 && player.getY() == 5);
-
     }
 
     @Test
     public void powerupStopsPlayerOffscreen() {
         Player player = Player.getInstance();
-        MapViewModel mvm = new MapViewModel(1, 1);
+        List<Map> maps = new ArrayList<>(1);
+        XYPair bounds = new XYPair(2, 2);
+        maps.add(new Map(bounds));
+        MapViewModel mvm = new MapViewModel(maps);
         Map.MapObject[][] x = new Map.MapObject[3][3];
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {

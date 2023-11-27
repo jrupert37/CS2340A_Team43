@@ -38,6 +38,16 @@ public class Map {
         this.thisFloorsPowerUp = pwrUp;
         this.thisFloorsKey = key;
     }
+
+    public Map(XYPair bounds) {
+        this.yBound = bounds.y();
+        this.xBound = bounds.x();
+        this.floorBitmap = null;
+        this.thisFloorsKey = null;
+        this.thisFloorsPowerUp = null;
+        //this.currentFloor = Floor.FIRST_FLOOR;
+    }
+
     
     public Bitmap getFloorBitmap() {
         return floorBitmap;
