@@ -93,6 +93,6 @@ public class Sprint5UnitTests {
         player.setScore(scoreBefore);
         PlayerViewModel pvm = PlayerViewModel.getInstance();
         pvm.attainScoreBoost();
-        assertEquals(scoreBefore, player.getScore());
+        assertTrue(scoreBefore < player.getScore());
     }
 }
