@@ -87,5 +87,24 @@ public class Sprint5UnitTests {
         assertTrue(player.getY() == 2);
     }
 
+    @Test
+    public void powerupsGetListedWhenAttained() {
+        Player player = Player.getInstance();
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.attainWallWalker();
+        //System.out.println(player.listPowerUps());
+        String firstList = "Power-Ups: Wall Walker";
+        assertTrue(firstList.equals(player.listPowerUps()));
+        pvm.attainHealth();
+        firstList = firstList + " + Health";
+        assertTrue(firstList.equals(player.listPowerUps()));
+        pvm.attainScoreBoost();
+        firstList = firstList + " + Atk Score Boost";
+        assertTrue(firstList.equals(player.listPowerUps()));
+    }
+
+
+
+
 
 }
