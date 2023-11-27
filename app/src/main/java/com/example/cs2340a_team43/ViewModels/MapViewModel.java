@@ -18,6 +18,11 @@ public class MapViewModel extends ViewModel {
         this.map = maps.get(0);
     }
 
+    //TEST
+    //public MapViewModel(int rows, int cols) {
+    //    this.map = new Map(rows, cols);
+    //}
+
     public Bitmap getMapFloorBitmap() {
         return this.map.getFloorBitmap();
     }
