@@ -1,6 +1,5 @@
 package com.example.cs2340a_team43.Models;
 
-import androidx.core.util.Pair;
 import com.example.cs2340a_team43.Interfaces.MovementBehavior;
 
 /*
@@ -18,9 +17,9 @@ public class WalkMovement implements MovementBehavior {
      */
     private final int speed = 1;
 
-    public Pair<Integer, Integer> move(Pair<Integer, Integer> xy, MovementDirection direction) {
-        int x = xy.first;
-        int y = xy.second;
+    public void move(XYPair xy, MovementDirection direction) {
+        int x = xy.x();
+        int y = xy.y();
         switch (direction) {
         case LEFT:
             x -= speed;
@@ -37,7 +36,7 @@ public class WalkMovement implements MovementBehavior {
         default:
             break;
         }
-        return new Pair<>(x, y);
+        xy.setXY(x, y);
     }
 
     /* This method is useful for detecting wall collisions */

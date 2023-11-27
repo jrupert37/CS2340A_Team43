@@ -2,6 +2,8 @@ package com.example.cs2340a_team43.ViewModels;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import com.example.cs2340a_team43.Interfaces.AttackObserver;
+import com.example.cs2340a_team43.Interfaces.Attacker;
 import com.example.cs2340a_team43.Interfaces.CollisionObserver;
 import com.example.cs2340a_team43.Interfaces.MovementBehavior;
 import com.example.cs2340a_team43.Models.HealthDecorator;
@@ -10,10 +12,11 @@ import com.example.cs2340a_team43.Interfaces.Subject;
 import com.example.cs2340a_team43.Interfaces.ViewObserver;
 import com.example.cs2340a_team43.Models.ScoreBoostDecorator;
 import com.example.cs2340a_team43.Models.WallWalkerDecorator;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public class PlayerViewModel extends CharacterViewModel implements Subject, CollisionObserver {
+public class PlayerViewModel extends CharacterViewModel implements Subject,
+        Attacker, CollisionObserver {
     private final Player player;
     private static PlayerViewModel playerViewModel;
     private MapViewModel mvm;
@@ -21,6 +24,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
     private int initialY;
     private final List<CollisionObserver> collisionObservers;
     private final List<ViewObserver> viewObservers;
+    private final List<AttackObserver> attackObservers;
     private final boolean notified;
     private int xLimit;
     private int yLimit;
@@ -28,8 +32,9 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
     private PlayerViewModel() {
         super(Player.getInstance());
         this.player = Player.getInstance();
-        collisionObservers = new ArrayList<>();
-        viewObservers = new ArrayList<>();
+        collisionObservers = new CopyOnWriteArrayList<>();
+        viewObservers = new CopyOnWriteArrayList<>();
+        attackObservers = new CopyOnWriteArrayList<>();
         xLimit = 0;
         yLimit = 0;
         notified = false;
@@ -96,8 +101,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
         }
         // otherwise...
         this.player.moveLeft();
-        notifyAllObservers();
-        checkObtainedPowerUp();
+        checkAndNotify();
     }
 
     public void movePlayerRight() {
@@ -106,8 +110,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
         }
         // otherwise...
         this.player.moveRight();
-        notifyAllObservers();
-        checkObtainedPowerUp();
+        checkAndNotify();
     }
 
     public void movePlayerUp() {
@@ -116,8 +119,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
         }
         // otherwise...
         this.player.moveUp();
-        notifyAllObservers();
-        checkObtainedPowerUp();
+        checkAndNotify();
     }
 
     public void movePlayerDown() {
@@ -126,8 +128,50 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
         }
         // otherwise...
         this.player.moveDown();
-        notifyAllObservers();
-        checkObtainedPowerUp();
+        checkAndNotify();
+    }
+
+    private void checkAndNotify() {
+        checkIfObtainedPowerUp();
+        checkIfObtainedKey();
+        notifyMoved();
+    }
+
+    public void attackUp() {
+        if (willBeOutOfBounds(getPlayerX(), getPlayerY() - 1)) {
+            return;
+        }
+        notifyWithAttack(getPlayerX(), getPlayerY() - 1);
+    }
+
+    public void attackDown() {
+        if (willBeOutOfBounds(getPlayerX(), getPlayerY() + 1)) {
+            return;
+        }
+        notifyWithAttack(getPlayerX(), getPlayerY() + 1);
+    }
+
+    public void attackLeft() {
+        if (willBeOutOfBounds(getPlayerX() - 1, getPlayerY())) {
+            return;
+        }
+        notifyWithAttack(getPlayerX() - 1, getPlayerY());
+    }
+
+    public void attackRight() {
+        if (willBeOutOfBounds(getPlayerX() + 1, getPlayerY())) {
+            return;
+        }
+        notifyWithAttack(getPlayerX() + 1, getPlayerY());
+    }
+
+    public void testMovePlayerDown() {
+        if (checkBoundsAndWalls(getPlayerX(), getPlayerY() + getPlayerSpeed())) {
+            return;
+        }
+        // otherwise...
+        this.player.moveDown();
+        checkAndNotify();
     }
     
     private boolean checkBoundsAndWalls(int x, int y) {
@@ -135,9 +179,28 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
                 || (!player.canWalkThroughWalls() && willCollideWithWall(x, y)));
     }
     
-    private void notifyAllObservers() {
+    private void notifyMoved() {
         notifyWithPosition();
         notifyViewObservers();
+    }
+
+    @Override
+    public void addAttackObserver(AttackObserver ao) {
+        attackObservers.add(ao);
+    }
+
+    @Override
+    public void removeAttackObserver(AttackObserver ao) {
+        attackObservers.remove(ao);
+    }
+
+    @Override
+    public void notifyWithAttack(int x, int y) {
+        for (AttackObserver ao : attackObservers) {
+            if (ao.updateWithAttack(x, y)) {
+                player.setScore(player.getScore() + player.attackBonus());
+            }
+        }
     }
 
     @Override
@@ -185,10 +248,6 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
         this.viewObservers.remove(vo);
     }
 
-    public boolean isNotified() {
-        return notified;
-    }
-
     private boolean willCollideWithWall(int newX, int newY) {
         return mvm.isAWall(newX, newY);
     }
@@ -219,19 +278,43 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
         return (x < 0 || x > xLimit || y < 0 || y > yLimit);
     }
     
-    private void checkObtainedPowerUp() {
+    private void checkIfObtainedPowerUp() {
         if (mvm.isAPowerUp(getPlayerX(), getPlayerY())) {
             String type = mvm.getThisFloorsPowerUp().getType();
             if (type.equals("score boost")) {
                 player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
-                player.setScoreBoost(true);
             } else if (type.equals("wall walker")) {
                 player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
-                player.setWallWalker(true);
-            } else { // type.equals("health")
+            } else {
                 player.setPowerUp(new HealthDecorator(player.getPowerUp()));
-                player.setHP(player.getHP() + 10);
+                player.setHP(player.getHP() + 5);
             }
+        }        
+//                 attainScoreBoost();
+//             } else if (type.equals("wall walker")) {
+//                 attainWallWalker();
+//             } else { // type.equals("health")
+//                 attainHealth();
+// >>>>>>> main
+//             }
+//         }
+//     }
+//     public void attainScoreBoost(){
+//         player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
+//         player.setScoreBoost(true);
+//     }
+//     public void attainWallWalker(){
+//         player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
+//         player.setWallWalker(true);
+//     }
+//     public void attainHealth(){
+//         player.setPowerUp(new HealthDecorator(player.getPowerUp()));
+//         player.setHP(player.getHP() + 10);
+    }
+
+    private void checkIfObtainedKey() {
+        if (mvm.isAKey(getPlayerX(), getPlayerY())) {
+            player.doesHaveKey(true);
         }
     }
 
@@ -241,6 +324,42 @@ public class PlayerViewModel extends CharacterViewModel implements Subject, Coll
 
     public void resetPowerUps() {
         this.player.resetPowerUps();
+    }
+
+    public void resetScore() {
+        this.player.resetScore();
+    }
+
+    public void doesHaveKey(boolean hasKey) {
+        this.player.doesHaveKey(hasKey);
+    }
+
+    public int getScore() {
+        return this.player.getScore();
+    }
+
+    public void setScore(int newScore) {
+        this.player.setScore(newScore);
+    }
+
+    protected void gotHit() {
+        this.player.gotHit();
+    }
+
+    public String getDifficulty() {
+        return player.getDifficulty();
+    }
+
+    public boolean canWalkThroughWalls() {
+        return this.player.canWalkThroughWalls();
+    }
+
+    public boolean hasScoreBoost() {
+        return player.hasScoreBoost();
+    }
+
+    public boolean hasKey() {
+        return player.hasKey();
     }
 } // PlayerViewModel
 

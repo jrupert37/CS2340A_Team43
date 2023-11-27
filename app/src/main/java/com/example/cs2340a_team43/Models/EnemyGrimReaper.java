@@ -11,4 +11,4 @@ public class EnemyGrimReaper extends Enemy {
     public EnemyGrimReaper() {
 
     }
-} // EnemyGrimReaper
+} // EnemyGrimReaper (Enemy child class)

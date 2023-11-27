@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import com.example.cs2340a_team43.Interfaces.ViewObserver;
+import com.example.cs2340a_team43.Models.Key;
 import com.example.cs2340a_team43.Models.PowerUp;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
@@ -65,44 +66,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
             canvas = getHolder().lockCanvas();
             if (canvas != null) {
                 canvas.drawColor(Color.BLACK); // Clear the canvas with a black color
-                // Draw the player at the updated position
-                Bitmap floorBitmap = mapViewModel.getMapFloorBitmap();
-                canvas.drawBitmap(floorBitmap, null, floorBounds, null);
-
-                float xScale = (float) ((xLimit / 40) + 0.5);
-                float yScale = (float) ((yLimit / 20) - 0.5);
-
-                PowerUp powerUp = mapViewModel.getThisFloorsPowerUp();
-                float xPowerUpDraw = (powerUp.getX() * xScale);
-                float yPowerUpDraw = (powerUp.getY() * yScale);
-                RectF rect;
-                rect = new RectF(xPowerUpDraw, yPowerUpDraw, xPowerUpDraw + (xLimit / 40),
-                        yPowerUpDraw + (yLimit / 20));
-                Bitmap powerUpBitmap = powerUp.getSprite();
-                canvas.drawBitmap(powerUpBitmap, null, rect, null);
-
-                float xDraw = (playerViewModel.getPlayerX() * xScale);
-                float yDraw = (playerViewModel.getPlayerY() * yScale);
-                rect = new RectF(xDraw, yDraw, xDraw + (xLimit / 40), yDraw + (yLimit / 20));
-                Bitmap playerBitmap = playerViewModel.getPlayerSprite();
-                canvas.drawBitmap(playerBitmap, null, rect, null);
-
-                for (EnemyViewModel evm: currentEnemies) {
-                    float xEnemyDraw = (evm.getEnemyX() * xScale);
-                    float yEnemyDraw = (evm.getEnemyY() * yScale);
-                    rect = new RectF(xEnemyDraw, yEnemyDraw, xEnemyDraw + (xLimit / 40),
-                            yEnemyDraw + (yLimit / 20));
-                    Bitmap enemyBitmap = evm.getEnemySprite();
-                    canvas.drawBitmap(enemyBitmap, null, rect, null);
-                }
-
-                Paint paint = new Paint();
-                paint.setColor(Color.BLACK);
-                paint.setStyle(Paint.Style.FILL);
-                paint.setTextSize(35);
-                float nameX = xDraw + 10;
-                float nameY = yDraw - 15;
-                canvas.drawText(playerViewModel.getPlayerName(), nameX, nameY, paint);
+                drawMap(canvas);
+                drawPlayer(canvas);
+                writePlayerName(canvas);
+                drawEnemies(canvas);
             }
         } finally {
             if (canvas != null) {
@@ -111,7 +78,85 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         }
     }
 
+    private void drawMap(Canvas canvas) {
+        Bitmap floorBitmap = mapViewModel.getMapFloorBitmap();
+        canvas.drawBitmap(floorBitmap, null, floorBounds, null);
+
+        PowerUp powerUp = mapViewModel.getThisFloorsPowerUp();
+        float xPowerUpDraw = (powerUp.getX() * xScale());
+        float yPowerUpDraw = (powerUp.getY() * yScale());
+        RectF rect = new RectF(xPowerUpDraw, yPowerUpDraw, xPowerUpDraw + xDrawBound(),
+                yPowerUpDraw + yDrawBound());
+        Bitmap powerUpBitmap = powerUp.getSprite();
+        canvas.drawBitmap(powerUpBitmap, null, rect, null);
+
+        Key key = mapViewModel.getThisFloorsKey();
+        float xKeyDraw = (key.getX() * xScale());
+        float yKeyDraw = (key.getY() * yScale());
+        rect = new RectF(xKeyDraw, yKeyDraw, xKeyDraw + xDrawBound(), yKeyDraw + yDrawBound());
+        Bitmap keyBitmap = key.getSprite();
+        canvas.drawBitmap(keyBitmap, null, rect, null);
+    }
+
+    private void drawPlayer(Canvas canvas) {
+        float xDraw = (playerViewModel.getPlayerX() * xScale());
+        float yDraw = (playerViewModel.getPlayerY() * yScale());
+        RectF rect = new RectF(xDraw, yDraw, xDraw + xDrawBound(), yDraw + yDrawBound());
+        Bitmap playerBitmap = playerViewModel.getPlayerSprite();
+        Paint opacity = new Paint();
+        opacity.setAlpha((playerViewModel.canWalkThroughWalls() ? 150 : 255));
+        canvas.drawBitmap(playerBitmap, null, rect, opacity);
+        if (playerViewModel.hasScoreBoost()) {
+            Paint line = new Paint();
+            line.setColor(Color.RED);
+            line.setStyle(Paint.Style.STROKE);
+            line.setStrokeWidth(2);
+            canvas.drawRect(xDraw, yDraw + yDrawBound() - 2, xDraw + xDrawBound(),
+                    yDraw + yDrawBound(), line);
+        }
+    }
+
+    private void writePlayerName(Canvas canvas) {
+        float xDraw = (playerViewModel.getPlayerX() * xScale());
+        float yDraw = (playerViewModel.getPlayerY() * yScale());
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTextSize(35);
+        float nameX = xDraw + 10;
+        float nameY = yDraw - 15;
+        canvas.drawText(playerViewModel.getPlayerName(), nameX, nameY, paint);
+    }
+
+    private void drawEnemies(Canvas canvas) {
+        for (EnemyViewModel evm: currentEnemies) {
+            float xEnemyDraw = (evm.getEnemyX() * xScale());
+            float yEnemyDraw = (evm.getEnemyY() * yScale());
+            RectF rect = new RectF(xEnemyDraw, yEnemyDraw, xEnemyDraw + xDrawBound(),
+                    yEnemyDraw + yDrawBound());
+            Bitmap enemyBitmap = evm.getEnemySprite();
+            canvas.drawBitmap(enemyBitmap, null, rect, null);
+        }
+    }
+
+    private float xScale() {
+        return (float) (xDrawBound() + 0.5);
+    }
+
+    private float yScale() {
+        return (float) (yDrawBound() - 0.5);
+    }
+
+    private int xDrawBound() {
+        return xLimit / 40;
+    }
+
+    private int yDrawBound() {
+        return yLimit / 20;
+    }
+
     public void setCurrentEnemies(List<EnemyViewModel> currentEnemies) {
         this.currentEnemies = currentEnemies;
+        draw();
     }
 } // GameView

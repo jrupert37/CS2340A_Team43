@@ -60,4 +60,4 @@ public class EnemyFactory extends EnemySpawner {
             return null;
         }
     }
-} // EnemyFactory
+} // EnemyFactory (EnemySpawner child class)

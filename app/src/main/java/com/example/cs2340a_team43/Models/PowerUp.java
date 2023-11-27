@@ -7,15 +7,19 @@ import android.graphics.BitmapFactory;
 public abstract class PowerUp {
     private boolean isTaken;
     private Bitmap sprite;
-    private String type;
-    private final int x;
-    private final int y;
+    private final String type;
+    private final XYPair xy;
     public PowerUp(String type, Context context, int imageId, int x, int y) {
         this.type = type;
         this.isTaken = false;
         this.sprite = BitmapFactory.decodeResource(context.getResources(), imageId);
-        this.x = x;
-        this.y = y;
+        this.xy = new XYPair(x, y);
+    }
+
+    public PowerUp(String type, int x, int y) {
+        this.type = type;
+        this.isTaken = false;
+        this.xy = new XYPair(x, y);
     }
 
     public Bitmap getSprite() {
@@ -29,6 +33,7 @@ public abstract class PowerUp {
     public void setAsTaken() {
         this.isTaken = true;
         this.sprite = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+
     }
 
     public String getType() {
@@ -36,10 +41,10 @@ public abstract class PowerUp {
     }
 
     public int getX() {
-        return this.x;
+        return xy.x();
     }
 
     public int getY() {
-        return this.y;
+        return xy.y();
     }
-}
+} // PowerUp (abstract parent)

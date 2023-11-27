@@ -1,47 +1,29 @@
 package com.example.cs2340a_team43.ViewModels;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import androidx.lifecycle.ViewModel;
+
+import com.example.cs2340a_team43.Models.Key;
 import com.example.cs2340a_team43.Models.Map;
-import com.example.cs2340a_team43.Models.Map.Floor;
 import com.example.cs2340a_team43.Models.Map.MapObject;
 import com.example.cs2340a_team43.Models.PowerUp;
+import java.util.List;
 
 public class MapViewModel extends ViewModel {
-    private final Map map;
+    private Map map;
+    private final List<Map> maps;
 
-    public MapViewModel(Context context, int rows, int cols) {
-        this.map = new Map(context, rows, cols);
-    }
-
-    public MapViewModel(int rows, int cols) {
-        this.map = new Map(rows, cols);
+    public MapViewModel(List<Map> maps) {
+        this.maps = maps;
+        this.map = maps.get(0);
     }
 
     public Bitmap getMapFloorBitmap() {
         return this.map.getFloorBitmap();
     }
 
-    public void moveToNextFloor() {
-        Floor floor = this.map.getFloor();
-        Floor newFloor;
-        switch (floor) {
-        case FIRST_FLOOR:
-            newFloor = Floor.SECOND_FLOOR;
-            break;
-        case SECOND_FLOOR:
-            newFloor = Floor.THIRD_FLOOR;
-            break;
-        default:
-            newFloor = floor;
-            break;
-        }
-        this.map.setFloor(newFloor);
-    }
-
-    public Floor getMapFloor() {
-        return this.map.getFloor();
+    public void moveToFloor(int nextFloor) {
+        this.map = maps.get(nextFloor);
     }
 
     public MapObject[][] getRoomLayout() {
@@ -54,18 +36,6 @@ public class MapViewModel extends ViewModel {
 
     public boolean xyIsAnExit(int x, int y) {
         return getRoomLayout()[y][x] == MapObject.EXIT;
-    }
-
-    public boolean isFirstFloor() {
-        return getMapFloor() == Floor.FIRST_FLOOR;
-    }
-
-    public boolean isSecondFloor() {
-        return getMapFloor() == Floor.SECOND_FLOOR;
-    }
-
-    public boolean isThirdFloor() {
-        return getMapFloor() == Floor.THIRD_FLOOR;
     }
 
     public int getXBound() {
@@ -84,8 +54,8 @@ public class MapViewModel extends ViewModel {
         return this.map.getThisFloorsPowerUp();
     }
 
-    public void addPowerUp(PowerUp powerUp) {
-        this.map.setPowerUp(powerUp);
+    public Key getThisFloorsKey() {
+        return map.getThisFloorsKey();
     }
 
     public boolean isAPowerUp(int x, int y) {
@@ -95,5 +65,14 @@ public class MapViewModel extends ViewModel {
             pu.setAsTaken();
         }
         return isAPowerUp;
+    }
+
+    public boolean isAKey(int x, int y) {
+        Key key = getThisFloorsKey();
+        boolean isAKey = !key.isTaken() && key.getX() == x && key.getY() == y;
+        if (isAKey) {
+            key.setAsTaken();
+        }
+        return isAKey;
     }
 } // MapViewModel

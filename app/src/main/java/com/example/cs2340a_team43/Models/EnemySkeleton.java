@@ -11,4 +11,4 @@ public class EnemySkeleton extends Enemy {
     public EnemySkeleton() {
 
     }
-} // EnemySkeleton
+} // EnemySkeleton (Enemy child class)
