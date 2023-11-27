@@ -160,7 +160,9 @@ public class EnemyViewModel extends CharacterViewModel implements Subject, Attac
     }
 
     public void cancelMovement() {
-        this.enemyMovementPattern.stop();
+        if (enemyMovementPattern != null) {
+            this.enemyMovementPattern.stop();
+        }
     }
 
     private void gotAttacked() {
