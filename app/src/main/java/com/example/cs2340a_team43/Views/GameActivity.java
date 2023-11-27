@@ -194,12 +194,8 @@ public class GameActivity extends AppCompatActivity {
                 if (!pvm.isAlive()) {
                     isRunning = false;
                 }
-                if (pvm.playerIsAtExit() && pvm.hasKey()) {
-                    if (currentFloor == 2) {
-                        isRunning = false;
-                    } else {
-                        moveToNextFloor();
-                    }
+                if (pvm.playerIsAtExit()){
+                    attemptToExit();
                 }
                 checkEnemiesStatus();
                 displayInfo();
@@ -208,7 +204,15 @@ public class GameActivity extends AppCompatActivity {
         });
         gameThread.start();
     }
-
+    public void attemptToExit(){
+        if (pvm.hasKey()) {
+            if (currentFloor == 2) {
+                isRunning = false;
+            } else {
+                moveToNextFloor();
+            }
+        }
+    }
     private void checkEnemiesStatus() {
         List<EnemyViewModel> currentEnemies = allFloorEnemies.get(currentFloor);
         for (EnemyViewModel evm : currentEnemies) {
