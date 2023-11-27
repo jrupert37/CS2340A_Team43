@@ -279,8 +279,10 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
     }
     
     private void checkIfObtainedPowerUp() {
+        System.out.println(mvm.isAPowerUp(getPlayerX(), getPlayerY()));
         if (mvm.isAPowerUp(getPlayerX(), getPlayerY())) {
             String type = mvm.getThisFloorsPowerUp().getType();
+            System.out.println("HERE " + type);
             if (type.equals("score boost")) {
                 player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
             } else if (type.equals("wall walker")) {
@@ -289,6 +291,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
                 player.setPowerUp(new HealthDecorator(player.getPowerUp()));
                 player.setHP(player.getHP() + 5);
             }
+            mvm.powerUpIsTaken();
 //                 attainScoreBoost();
 //             } else if (type.equals("wall walker")) {
 //                 attainWallWalker();

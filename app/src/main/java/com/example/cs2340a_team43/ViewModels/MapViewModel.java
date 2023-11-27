@@ -70,11 +70,11 @@ public class MapViewModel extends ViewModel {
 
     public boolean isAPowerUp(int x, int y) {
         PowerUp pu = getThisFloorsPowerUp();
-        boolean isAPowerUp = !pu.isTaken() && pu.getX() == x && pu.getY() == y;
-        if (isAPowerUp) {
-            pu.setAsTaken();
-        }
-        return isAPowerUp;
+        return !pu.isTaken() && pu.getX() == x && pu.getY() == y;
+    }
+
+    public void powerUpIsTaken() {
+        getThisFloorsPowerUp().setAsTaken();
     }
 
     public boolean isAKey(int x, int y) {
