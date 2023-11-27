@@ -171,7 +171,11 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
         }
         // otherwise...
         this.player.moveDown();
+<<<<<<< HEAD
+        notifyMoved();
+=======
         checkAndNotify();
+>>>>>>> d51419da5a17f494f3dbc8366bbe476f2d7c3a0f
     }
     
     private boolean checkBoundsAndWalls(int x, int y) {
@@ -289,7 +293,12 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
                 player.setPowerUp(new HealthDecorator(player.getPowerUp()));
                 player.setHP(player.getHP() + 5);
             }
+<<<<<<< HEAD
+        }
+    }
+=======
         }        
+>>>>>>> d51419da5a17f494f3dbc8366bbe476f2d7c3a0f
 //                 attainScoreBoost();
 //             } else if (type.equals("wall walker")) {
 //                 attainWallWalker();
@@ -298,19 +307,19 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
 // >>>>>>> main
 //             }
 //         }
-//     }
-//     public void attainScoreBoost(){
-//         player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
-//         player.setScoreBoost(true);
-//     }
-//     public void attainWallWalker(){
-//         player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
-//         player.setWallWalker(true);
-//     }
-//     public void attainHealth(){
-//         player.setPowerUp(new HealthDecorator(player.getPowerUp()));
-//         player.setHP(player.getHP() + 10);
-    }
+
+        public void attainScoreBoost(){
+            player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
+            //player.setScoreBoost(true);
+        }
+        public void attainWallWalker(){
+            player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
+            //player.setWallWalker(true);
+        }
+        public void attainHealth() {
+            player.setPowerUp(new HealthDecorator(player.getPowerUp()));
+            player.setHP(player.getHP() + 10);
+        }
 
     private void checkIfObtainedKey() {
         if (mvm.isAKey(getPlayerX(), getPlayerY())) {
