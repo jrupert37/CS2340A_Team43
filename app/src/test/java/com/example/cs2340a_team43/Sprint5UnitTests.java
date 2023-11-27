@@ -84,6 +84,13 @@ public class Sprint5UnitTests {
         mvm.setMapLayout(mo);
         PlayerViewModel pvm = PlayerViewModel.getInstance();
         pvm.setMap(mvm);
+        pvm.attainWallWalker();
+        pvm.setInitialPlayerXY(1, 1);
+        pvm.setXYBounds(2,2);
+        for (int i = 0; i < 10; i++) {
+            pvm.testMovePlayerDown();
+        }
+        assertTrue(player.getY() == 2);
         pvm.setPlayerInitialHP("Easy");
         pvm.setInitialPlayerXY(5, 5);
         pvm.resetPowerUps();
@@ -128,5 +135,31 @@ public class Sprint5UnitTests {
         pvm.addAttackObserver(evm);
         pvm.attackUp();
         assertTrue(evm.isAttacked());
+    }
+
+    @Test
+    public void testKey(){
+        Player player = Player.getInstance();
+        List<Map> maps = new ArrayList<>(1);
+        XYPair bounds = new XYPair(18, 40);
+        maps.add(new Map(bounds));
+        MapViewModel mvm = new MapViewModel(maps);
+        //MapViewModel mvm = new MapViewModel(18, 40);
+        Map.MapObject[][] x = new Map.MapObject[18][40];
+        for (int row = 0; row < 18; row++) {
+            for (int col = 0; col < 40; col++) {
+                if (row == 0 || row == 17 || col == 0 || col == 39) {
+                    x[row][col] = Map.MapObject.WALL;
+                }
+            }
+        }
+        x[5][5] = Map.MapObject.EXIT;
+        mvm.setMapLayout(x);
+        player.setInitialXY(5,5);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setMap(mvm);
+        assertFalse(pvm.playerCanLeave());
+        pvm.doesHaveKey(true);
+        assertTrue(pvm.playerCanLeave());
     }
 }

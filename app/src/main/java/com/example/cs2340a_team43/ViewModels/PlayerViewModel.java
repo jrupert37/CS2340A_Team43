@@ -255,6 +255,9 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
     public boolean playerIsAtExit() {
         return mvm.xyIsAnExit(getPlayerX(), getPlayerY());
     }
+    public boolean playerCanLeave(){
+        return(playerIsAtExit() && player.hasKey());
+    }
 
     public int getPlayerHP() {
         return this.player.getHP();
@@ -290,27 +293,19 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
             }
         }
     }
-//                 attainScoreBoost();
-//             } else if (type.equals("wall walker")) {
-//                 attainWallWalker();
-//             } else { // type.equals("health")
-//                 attainHealth();
-// >>>>>>> main
-//             }
-//         }
 
-        public void attainScoreBoost(){
-            player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
-            //player.setScoreBoost(true);
-        }
-        public void attainWallWalker(){
-            player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
-            //player.setWallWalker(true);
-        }
-        public void attainHealth() {
-            player.setPowerUp(new HealthDecorator(player.getPowerUp()));
-            player.setHP(player.getHP() + 10);
-        }
+    public void attainScoreBoost(){
+        player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
+        //player.setScoreBoost(true);
+    }
+    public void attainWallWalker(){
+        player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
+        //player.setWallWalker(true);
+    }
+    public void attainHealth() {
+        player.setPowerUp(new HealthDecorator(player.getPowerUp()));
+        player.setHP(player.getHP() + 10);
+    }
 
     private void checkIfObtainedKey() {
         if (mvm.isAKey(getPlayerX(), getPlayerY())) {
