@@ -171,7 +171,6 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
         }
         // otherwise...
         this.player.moveDown();
-
     }
     
     private boolean checkBoundsAndWalls(int x, int y) {

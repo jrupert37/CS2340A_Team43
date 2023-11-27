@@ -7,21 +7,22 @@ import com.example.cs2340a_team43.Models.Key;
 import com.example.cs2340a_team43.Models.Map;
 import com.example.cs2340a_team43.Models.Map.MapObject;
 import com.example.cs2340a_team43.Models.PowerUp;
+import com.example.cs2340a_team43.Models.XYPair;
+
 import java.util.List;
 
 public class MapViewModel extends ViewModel {
     private Map map;
-    private final List<Map> maps;
+    private List<Map> maps;
 
     public MapViewModel(List<Map> maps) {
         this.maps = maps;
         this.map = maps.get(0);
     }
 
-    //TEST
-    //public MapViewModel(int rows, int cols) {
-    //    this.map = new Map(rows, cols);
-    //}
+    public MapViewModel(XYPair bounds) {
+        this.map = new Map(bounds);
+    }
 
     public Bitmap getMapFloorBitmap() {
         return this.map.getFloorBitmap();
@@ -63,6 +64,10 @@ public class MapViewModel extends ViewModel {
         return map.getThisFloorsKey();
     }
 
+    public void setPowerUp(PowerUp powerUp) {
+        map.setThisFloorsPowerUp(powerUp);
+    }
+
     public boolean isAPowerUp(int x, int y) {
         PowerUp pu = getThisFloorsPowerUp();
         boolean isAPowerUp = !pu.isTaken() && pu.getX() == x && pu.getY() == y;
@@ -74,7 +79,7 @@ public class MapViewModel extends ViewModel {
 
     public boolean isAKey(int x, int y) {
         Key key = getThisFloorsKey();
-        boolean isAKey = !key.isTaken() && key.getX() == x && key.getY() == y;
+        boolean isAKey = key != null && !key.isTaken() && key.getX() == x && key.getY() == y;
         if (isAKey) {
             key.setAsTaken();
         }
