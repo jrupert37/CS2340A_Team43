@@ -204,7 +204,7 @@ public class GameActivity extends AppCompatActivity {
         });
         gameThread.start();
     }
-    public void attemptToExit(){
+    private void attemptToExit(){
         if (pvm.hasKey()) {
             if (currentFloor == 2) {
                 isRunning = false;

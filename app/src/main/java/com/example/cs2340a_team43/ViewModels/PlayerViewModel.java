@@ -255,6 +255,9 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
     public boolean playerIsAtExit() {
         return mvm.xyIsAnExit(getPlayerX(), getPlayerY());
     }
+    public boolean playerCanLeave(){
+        return(playerIsAtExit() && player.hasKey());
+    }
 
     public int getPlayerHP() {
         return this.player.getHP();
