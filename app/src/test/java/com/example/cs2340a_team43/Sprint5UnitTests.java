@@ -75,6 +75,15 @@ public class Sprint5UnitTests {
             }
         }
         mvm.setMapLayout(x);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setMap(mvm);
+        pvm.attainWallWalker();
+        pvm.setInitialPlayerXY(1, 1);
+        pvm.setXYBounds(2,2);
+        for (int i = 0; i < 10; i++) {
+            pvm.testMovePlayerDown();
+        }
+        assertTrue(player.getY() == 2);
     }
 
     @Test
@@ -122,6 +131,22 @@ public class Sprint5UnitTests {
     }
 
     @Test
+    public void powerupsGetListedWhenAttained() {
+        Player player = Player.getInstance();
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.attainWallWalker();
+        //System.out.println(player.listPowerUps());
+        String firstList = "Power-Ups: Wall Walker";
+        assertTrue(firstList.equals(player.listPowerUps()));
+        pvm.attainHealth();
+        firstList = firstList + " + Health";
+        assertTrue(firstList.equals(player.listPowerUps()));
+        pvm.attainScoreBoost();
+        firstList = firstList + " + Atk Score Boost";
+        assertTrue(firstList.equals(player.listPowerUps()));
+    }
+
+
     public void playerUpAttackWorks() {
         MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
         Map.MapObject[][] mo = new Map.MapObject[18][40];
