@@ -87,5 +87,12 @@ public class Sprint5UnitTests {
         assertTrue(player.getY() == 2);
     }
 
-
+    public void powerupIncreasesScore() {
+        Player player = Player.getInstance();
+        int scoreBefore = 10;
+        player.setScore(scoreBefore);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.attainScoreBoost();
+        assertTrue(scoreBefore < player.getScore());
+    }
 }
