@@ -90,7 +90,7 @@ public class Sprint5UnitTests {
         for (int i = 0; i < 10; i++) {
             pvm.testMovePlayerDown();
         }
-        assertTrue(player.getY() == 2);
+        assertTrue(pvm.getPlayerY() == 2);
         pvm.setPlayerInitialHP("Easy");
         pvm.setInitialPlayerXY(5, 5);
         pvm.resetPowerUps();
@@ -134,6 +134,22 @@ public class Sprint5UnitTests {
         EnemyViewModel evm = new EnemyViewModel("cat", mvm, 5, 4);
         pvm.addAttackObserver(evm);
         pvm.attackUp();
+        assertTrue(evm.isAttacked());
+    }
+
+    @Test
+    public void playerRightAttackWorks() {
+        MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
+        Map.MapObject[][] mo = new Map.MapObject[18][40];
+        mvm.setMapLayout(mo);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setMap(mvm);
+        pvm.setPlayerInitialHP("Easy");
+        pvm.setInitialPlayerXY(5, 5);
+        pvm.setXYBounds(39, 17);
+        EnemyViewModel evm = new EnemyViewModel("cat", mvm, 6, 5);
+        pvm.addAttackObserver(evm);
+        pvm.attackRight();
         assertTrue(evm.isAttacked());
     }
 
