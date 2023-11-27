@@ -11,4 +11,4 @@ public class EnemyCat extends Enemy {
     public EnemyCat() {
 
     }
-} // EnemyCat
+} // EnemyCat (Enemy child class)

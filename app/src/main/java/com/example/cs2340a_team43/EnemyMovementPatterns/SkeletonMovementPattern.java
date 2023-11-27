@@ -59,4 +59,4 @@ public class SkeletonMovementPattern extends Timer implements ExecutableMovement
             }
         }, 500, 500);
     }
-} // SkeletonMovementPattern
+} // SkeletonMovementPattern (ExecutableMovementPattern implementer)

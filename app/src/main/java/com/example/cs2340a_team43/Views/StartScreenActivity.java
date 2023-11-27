@@ -12,9 +12,12 @@ public class StartScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setting correct XML page to view
         setContentView(R.layout.activity_start_screen);
+        createButtons();
+    }
 
+    private void createButtons() {
         //Init button instances from XML
-        Button startBtn = findViewById(R.id.startButton);
+        Button startBtn = findViewById(R.id.nextButton);
         Button quitBtn = findViewById(R.id.quitButton);
 
         //Exit app with exit button
@@ -26,8 +29,8 @@ public class StartScreenActivity extends AppCompatActivity {
 
         // Set button listener to move on to configuration page when start button clicked
         startBtn.setOnClickListener(v -> {
-            Intent game = new Intent(StartScreenActivity.this, ConfigurationPageActivity.class);
-            startActivity(game);
+            Intent intent = new Intent(StartScreenActivity.this, HowToPlayActivity.class);
+            startActivity(intent);
             finish();
         });
     }

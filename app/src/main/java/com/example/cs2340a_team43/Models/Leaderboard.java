@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class Leaderboard {
     private static Leaderboard leaderboard; // the unique instance of the leaderboard
     private ArrayList<LeaderboardNode> leaderList; // to store each game attempt
-    private int size;
     private LeaderboardNode mostRecentAttempt;
+    private int size;
 
     /* Private constructor to prevent other classes from instantiating a new leaderboard */
     private Leaderboard() {
@@ -34,7 +34,7 @@ public class Leaderboard {
     /* Public static getter method, so every class can access the single leaderboard instance */
     public static Leaderboard getInstance() {
         if (leaderboard == null) {
-            leaderboard = new Leaderboard(); // If there isn't a leaderboard yet, create one!
+            leaderboard = new Leaderboard(); // if there isn't a leaderboard yet, create one!
         }
         return leaderboard;
     }

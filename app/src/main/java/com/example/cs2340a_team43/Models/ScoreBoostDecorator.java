@@ -6,12 +6,13 @@ public class ScoreBoostDecorator extends PowerUpDecorator {
     public ScoreBoostDecorator(IPowerUp powerUp) {
         super.powerUp = powerUp;
         super.numPowerUps = powerUp.numPowerUps() + 1;
+        super.currentType = "score boost";
     }
 
     public String listPowerUps() {
         if (super.numPowerUps == 1) {
-            return super.listPowerUps() + " Score Boost";
+            return super.listPowerUps() + " Atk Score Boost";
         }
-        return super.powerUp.listPowerUps() + " + Score Boost";
+        return super.powerUp.listPowerUps() + " + Atk Score Boost";
     }
-}
+} // ScoreBoostDecorator (PowerUpDecorator child class)

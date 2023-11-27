@@ -55,4 +55,4 @@ public class GrimreaperMovementPattern extends Timer implements ExecutableMoveme
             }
         }, 500, 500);
     }
-} // GrimreaperMovementPattern
+} // GrimreaperMovementPattern (ExecutableMovementPattern implementer)

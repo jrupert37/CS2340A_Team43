@@ -19,7 +19,6 @@ import java.util.TimerTask;
 * handle wall collisions.
 */
 public class CatMovementPattern extends Timer implements ExecutableMovementPattern {
-
     private final EnemyViewModel evm;
     private int nextDirection = 0;
     private final String[] directions = new String[] {
@@ -30,7 +29,7 @@ public class CatMovementPattern extends Timer implements ExecutableMovementPatte
     public CatMovementPattern(EnemyViewModel evm) {
         this.evm = evm;
         // generate a random moveTime to be used by the movement timer
-        moveTime = new Random().nextInt(501) + 500;
+        moveTime = new Random().nextInt(301) + 200;
     }
 
     @Override
@@ -67,4 +66,4 @@ public class CatMovementPattern extends Timer implements ExecutableMovementPatte
             }
         }, moveTime, moveTime);
     }
-} // CatMovementPattern
+} // CatMovementPattern (ExecutableMovementPattern implementer)

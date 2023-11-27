@@ -3,59 +3,115 @@ package com.example.cs2340a_team43.Views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.cs2340a_team43.Models.HealthPowerUp;
+import com.example.cs2340a_team43.Models.Key;
 import com.example.cs2340a_team43.Models.Leaderboard;
+import com.example.cs2340a_team43.Models.Map;
+import com.example.cs2340a_team43.Models.PowerUp;
 import com.example.cs2340a_team43.Models.ScoreBoostPowerUp;
 import com.example.cs2340a_team43.Models.WalkMovement;
 import com.example.cs2340a_team43.Models.WallWalkerPowerUp;
+import com.example.cs2340a_team43.Models.XYPair;
 import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
 import com.example.cs2340a_team43.R;
+import com.example.cs2340a_team43.R.drawable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameActivity extends AppCompatActivity {
-
-    private String difficulty;
-    private String playerName;
-    private volatile TextView scoreTextView;
-    private TextView powerUpsTextView;
-    private int score;
-    private Timer scoreTimer;
+    private Timer gameTimer;
+    private int gameTime = 0;
     private Leaderboard leaderboard;
     private Calendar startTime;
     private Calendar endTime;
-    private PlayerViewModel playerViewModel;
+    private PlayerViewModel pvm;
     private MapViewModel mvm;
-    private final List<EnemyViewModel> firstFloorEnemies = new ArrayList<>();
-    private final List<EnemyViewModel> secondFloorEnemies = new ArrayList<>();
-    private final List<EnemyViewModel> thirdFloorEnemies = new ArrayList<>();
-    private List<EnemyViewModel> currentEnemies;
+    private final List<List<EnemyViewModel>> allFloorEnemies = new CopyOnWriteArrayList<>();
+    private int currentFloor;
     private GameView gameView;
     private boolean isRunning;
+    private int screenHeight;
+    private int screenWidth;
+    private TextView scoreTextView;
+    private TextView powerUpsTextView;
+    private ImageView keyImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        System.out.println("WELCOME");
-        int screenWidth = getResources().getDisplayMetrics().widthPixels;
-        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+        screenWidth = getResources().getDisplayMetrics().widthPixels;
+        screenHeight = getResources().getDisplayMetrics().heightPixels;
 
         leaderboard = Leaderboard.getInstance();
+
+        scoreTextView = findViewById(R.id.scoreTextView);
+        powerUpsTextView = findViewById(R.id.powerUpsTextView);
+        keyImageView = findViewById(R.id.keyImageView);
+
+        initializeMap();
+        initializeEnemies();
+        initializePlayer();
+        initializeGameView();
+        setAllObservers();
+
+        isRunning = false;
         startTime = Calendar.getInstance(TimeZone.getTimeZone("America/New_York"));
+        runTimeElapsedTimer();
+        runGameLoop();
+    }
 
-        difficulty = getIntent().getStringExtra("difficulty");
-        playerName = getIntent().getStringExtra("nameText");
+    private void initializeMap() {
+        this.currentFloor = 0;
+        XYPair bounds = new XYPair(40, 18);
+        PowerUp flr0PwrUp = new ScoreBoostPowerUp(this, 38, 1);
+        PowerUp flr1PwrUp = new WallWalkerPowerUp(this, 27, 6);
+        PowerUp flr2PwrUp = new HealthPowerUp(this, 36, 3);
+        Key flr0Key = new Key(this, 37, 15);
+        Key flr1Key = new Key(this, 3, 12);
+        Key flr2Key = new Key(this, 4, 11);
+        List<Map> maps = new ArrayList<>(3);
+        maps.add(new Map(this, drawable.floor0, "flr_0_blueprint.txt", flr0PwrUp, flr0Key, bounds));
+        maps.add(new Map(this, drawable.floor1, "flr_1_blueprint.txt", flr1PwrUp, flr1Key, bounds));
+        maps.add(new Map(this, drawable.floor2, "flr_2_blueprint.txt", flr2PwrUp, flr2Key, bounds));
+        this.mvm = new MapViewModel(maps);
+    }
 
+    private void initializeEnemies() {
+        List<EnemyViewModel> zeroFloorEnemies = new CopyOnWriteArrayList<>();
+        List<EnemyViewModel> firstFloorEnemies = new CopyOnWriteArrayList<>();
+        List<EnemyViewModel> secondFloorEnemies = new CopyOnWriteArrayList<>();
+
+        zeroFloorEnemies.add(new EnemyViewModel(this, "eyeball", mvm, 20, 8));
+        zeroFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 4, 12));
+        zeroFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 36, 14));
+        firstFloorEnemies.add(new EnemyViewModel(this, "skeleton", mvm, 19, 8));
+        firstFloorEnemies.add(new EnemyViewModel(this, "eyeball", mvm, 34, 5));
+        firstFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 2, 11));
+        secondFloorEnemies.add(new EnemyViewModel(this, "grimreaper", mvm, 23, 10));
+        secondFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 35, 2));
+        secondFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 3, 10));
+
+        allFloorEnemies.add(zeroFloorEnemies);
+        allFloorEnemies.add(firstFloorEnemies);
+        allFloorEnemies.add(secondFloorEnemies);
+    }
+
+    private void initializePlayer() {
+        String difficulty = getIntent().getStringExtra("difficulty");
+        String playerName = getIntent().getStringExtra("nameText");
         int imageId = R.drawable.footballplayersprite;
         int spriteChoice = getIntent().getIntExtra("sprite", 0);
         if (spriteChoice == 1) {
@@ -63,190 +119,194 @@ public class GameActivity extends AppCompatActivity {
         } else if (spriteChoice == 2) {
             imageId = R.mipmap.gymbroplayersprite;
         }
-
-        mvm = new MapViewModel(this, 18, 40);
-
-        playerViewModel = PlayerViewModel.getInstance();
-        playerViewModel.setPlayerName(playerName);
-        playerViewModel.setPlayerInitialHP(difficulty);
-        playerViewModel.setInitialPlayerXY(2, 2);
-        playerViewModel.setSprite(imageId, this);
-        playerViewModel.setMap(mvm);
-        playerViewModel.setPlayerMovementBehavior(new WalkMovement());
-        playerViewModel.setXYBounds(mvm.getXBound(), mvm.getYBound());
-        playerViewModel.resetPowerUps();
-
-        firstFloorEnemies.add(new EnemyViewModel(this, "eyeball", mvm, 20, 8));
-        firstFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 4, 12));
-
-        secondFloorEnemies.add(new EnemyViewModel(this, "skeleton", mvm, 19, 8));
-        secondFloorEnemies.add(new EnemyViewModel(this, "eyeball", mvm, 34, 5));
-
-        thirdFloorEnemies.add(new EnemyViewModel(this, "grimreaper", mvm, 23, 10));
-        thirdFloorEnemies.add(new EnemyViewModel(this, "cat", mvm, 35, 2));
-
-        currentEnemies = firstFloorEnemies;
-        gameView = new GameView(this, playerViewModel, mvm, screenWidth, screenHeight,
-                                currentEnemies);
-        mvm.addPowerUp(new ScoreBoostPowerUp(this, 38, 1));
-        playerViewModel.addViewObserver(gameView);
-        setEnemyObservers();
-
-
-
-        //        Button upButton = findViewById(R.id.upButton);
-        //        upButton.setOnClickListener(v -> {
-        //            playerViewModel.movePlayerUp();
-        //        });
-        //
-        //        Button downButton = findViewById(R.id.downButton);
-        //        downButton.setOnClickListener(v -> {
-        //            playerViewModel.movePlayerDown();
-        //        });
-        //
-        //        Button rightButton = findViewById(R.id.rightButton);
-        //        rightButton.setOnClickListener(v -> {
-        //            playerViewModel.movePlayerRight();
-        //        });
-        //
-        //        Button leftButton = findViewById(R.id.leftButton);
-        //        leftButton.setOnClickListener(v -> {
-        //            playerViewModel.movePlayerLeft();
-        //        });
-
-        LinearLayout linearLayout = findViewById(R.id.gameLayout);
-        linearLayout.addView(gameView);
-
-        int initialScore = 60;
-        score = initialScore; // set score to initial value
-        scoreTextView = findViewById(R.id.scoreTextView);
-        int hp = playerViewModel.getPlayerHP();
-        String text = "Score: " + initialScore + "    Difficulty: " + difficulty + "    HP: " + hp;
-        scoreTextView.setText(text);
-        scoreTimer = new Timer();
-        scoreTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(() -> {
-                    if (score > 0) {
-                        score--;
-                    } else {
-                        scoreTimer.cancel();
-                    }
-                    String text = "Score: " + score + "    Difficulty: "
-                            + difficulty + "    HP: " + playerViewModel.getPlayerHP();
-                    scoreTextView.setText(text);
-                });
-            }
-        }, 1000, 1000); // delay 1sec, then execute run() every 1sec til score is 0
-
-        isRunning = false;
-        startGameLoop();
+        pvm = PlayerViewModel.getInstance();
+        pvm.setPlayerName(playerName);
+        pvm.setPlayerInitialHP(difficulty);
+        pvm.setInitialPlayerXY(2, 2);
+        pvm.setSprite(imageId, this);
+        pvm.setMap(mvm);
+        pvm.setPlayerMovementBehavior(new WalkMovement());
+        pvm.setXYBounds(mvm.getXBound(), mvm.getYBound());
+        pvm.resetPowerUps();
+        pvm.resetScore();
+        pvm.doesHaveKey(false);
     }
 
-    private void startGameLoop() {
-        this.isRunning = true;
-        Intent game = new Intent(GameActivity.this, EndScreenActivity.class);
-        game.addCategory(Intent.CATEGORY_HOME);
-        //if (!playerViewModel.isAlive()) {
-        // TEMPORARY!! ^ Use above instead
-        powerUpsTextView = findViewById(R.id.powerUpsTextView);
+    private void initializeGameView() {
+        gameView = new GameView(this, pvm, mvm, screenWidth, screenHeight,
+                allFloorEnemies.get(currentFloor));
+        LinearLayout linearLayout = findViewById(R.id.gameLayout);
+        linearLayout.addView(gameView);
+        pvm.addViewObserver(gameView);
+    }
+
+    private void setAllObservers() {
+        List<EnemyViewModel> currentEnemies = allFloorEnemies.get(currentFloor);
+        for (EnemyViewModel evm : currentEnemies) {
+            addObservers(evm);
+        }
+    }
+
+    private void addObservers(EnemyViewModel evm) {
+        evm.addViewObserver(gameView);
+        evm.addCollisionObserver(pvm);
+        pvm.addCollisionObserver(evm);
+        pvm.addAttackObserver(evm);
+    }
+    private void removeAllObservers() {
+        List<EnemyViewModel> currentEnemies = allFloorEnemies.get(currentFloor);
+        for (EnemyViewModel evm : currentEnemies) {
+            removeObservers(evm);
+        }
+    }
+
+    private void removeObservers(EnemyViewModel evm) {
+        evm.removeViewObserver(gameView);
+        evm.removeCollisionObserver(pvm);
+        pvm.removeCollisionObserver(evm);
+        pvm.removeAttackObserver(evm);
+    }
+
+    private void runTimeElapsedTimer() {
+        TextView timeElapsedTextView = findViewById(R.id.timeElapsedTextView);
+        gameTimer = new Timer();
+        String timePlayed = "Time Played: " + gameTime + " s";
+        timeElapsedTextView.setText(timePlayed);
+        gameTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                gameTime++;
+                String timePlayed = "Time Played: " + gameTime + " s ";
+                timeElapsedTextView.setText(timePlayed);
+            }
+        }, 1000, 1000); // delay 1sec, then execute run() every 1sec
+    }
+
+    private int getTimeBonus() {
+        return (pvm.isAlive() ? Math.max(0, 75 - gameTime) : 0);
+    }
+
+    private void runGameLoop() {
+        isRunning = true;
         Thread gameThread = new Thread(() -> {
             runCurrentEnemies();
             while (isRunning) {
-                if (!playerViewModel.isAlive()) {
+                if (!pvm.isAlive()) {
                     isRunning = false;
                 }
-                if (playerViewModel.playerIsAtExit()) {
-                    if (mvm.isThirdFloor()) {
+                if (pvm.playerIsAtExit() && pvm.hasKey()) {
+                    if (currentFloor == 2) {
                         isRunning = false;
                     } else {
-                        terminateCurrentEnemies();
                         moveToNextFloor();
-                        runCurrentEnemies();
                     }
                 }
-                //checkEnemiesStatus(); -> If any enemy has been killed, needs to be removed,
-                //                         remove enemy from observers, remove game view from it
-                //                         redraw game screen, remove that enemy from currentEnemi
-                //                         reset gameViews current enemies
-                String text = "Score: " + score + "    Difficulty: "
-                            + difficulty + "    HP: " + playerViewModel.getPlayerHP();
-                runOnUiThread(() -> {
-                    scoreTextView.setText(text);
-                    powerUpsTextView.setText(playerViewModel.listPowerUps());
-                });
+                checkEnemiesStatus();
+                displayInfo();
             }
-            terminateCurrentEnemies();
-            scoreTimer.cancel();
-            endTime = Calendar.getInstance(TimeZone.getTimeZone("America/New_York"));
-            leaderboard.addAttempt(playerName, score, startTime, endTime);
-            game.putExtra("isAlive", playerViewModel.isAlive());
-            startActivity(game);
-            finish();
+            gameOver();
         });
         gameThread.start();
     }
-    public void runCurrentEnemies() {
+
+    private void checkEnemiesStatus() {
+        List<EnemyViewModel> currentEnemies = allFloorEnemies.get(currentFloor);
+        for (EnemyViewModel evm : currentEnemies) {
+            if (evm.isAttacked()) {
+                removeObservers(evm);
+                currentEnemies.remove(evm);
+                gameView.setCurrentEnemies(currentEnemies);
+            }
+        }
+    }
+
+    private void displayInfo() {
+        String text = "Difficulty: " + pvm.getDifficulty()
+                + "   Score: " + pvm.getScore()
+                + "   HP: " + pvm.getPlayerHP();
+        runOnUiThread(() -> {
+            scoreTextView.setText(text);
+            powerUpsTextView.setText(pvm.listPowerUps());
+            if (pvm.hasKey()) {
+                keyImageView.setVisibility(View.VISIBLE);
+            } else {
+                keyImageView.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    private void runCurrentEnemies() {
+        List<EnemyViewModel> currentEnemies = allFloorEnemies.get(currentFloor);
         for (EnemyViewModel evm : currentEnemies) {
             evm.runMovementPattern();
         }
     }
 
-    public void terminateCurrentEnemies() {
+    private void terminateCurrentEnemies() {
+        List<EnemyViewModel> currentEnemies = allFloorEnemies.get(currentFloor);
         for (EnemyViewModel evm : currentEnemies) {
             evm.cancelMovement();
         }
     }
 
-    public void moveToNextFloor() {
-        removeEnemyObservers();
-        //this.currentEnemies = new ArrayList<>(); // TEMPORARY, add logic to set next floor enemies
-        if (mvm.isFirstFloor()) {
-            this.currentEnemies = secondFloorEnemies;
-            mvm.addPowerUp(new WallWalkerPowerUp(this, 27, 6));
-        } else if (mvm.isSecondFloor()) {
-            this.currentEnemies = thirdFloorEnemies;
-            mvm.addPowerUp(new HealthPowerUp(this, 36, 3));
-        } else {
-            this.currentEnemies = new ArrayList<>();
-        }
-        setEnemyObservers();
-        gameView.setCurrentEnemies(currentEnemies);
-        this.mvm.moveToNextFloor();
-        this.playerViewModel.resetPlayerXY();
+    private void moveToNextFloor() {
+        terminateCurrentEnemies();
+        removeAllObservers();
+        currentFloor++;
+        setAllObservers();
+        gameView.setCurrentEnemies(allFloorEnemies.get(currentFloor));
+        mvm.moveToFloor(currentFloor);
+        pvm.resetPlayerXY();
+        pvm.doesHaveKey(false);
+        runCurrentEnemies();
     }
 
-    public void removeEnemyObservers() {
-        for (EnemyViewModel evm : currentEnemies) {
-            evm.removeViewObserver(gameView);
-            evm.removeCollisionObserver(playerViewModel);
-            playerViewModel.removeCollisionObserver(evm);
-        }
-    }
+    private void gameOver() {
+        terminateCurrentEnemies();
 
-    public void setEnemyObservers() {
-        for (EnemyViewModel evm : currentEnemies) {
-            evm.addViewObserver(gameView);
-            evm.addCollisionObserver(playerViewModel);
-            playerViewModel.addCollisionObserver(evm);
-        }
+        endTime = Calendar.getInstance(TimeZone.getTimeZone("America/New_York"));
+        gameTimer.cancel();
+
+        int baseScore = pvm.getScore();
+        int timeBonus = getTimeBonus();
+        pvm.setScore(pvm.getScore() + timeBonus);
+        leaderboard.addAttempt(pvm.getPlayerName(), pvm.getScore(), startTime, endTime);
+
+        Intent end = new Intent(GameActivity.this, EndScreenActivity.class);
+        end.addCategory(Intent.CATEGORY_HOME);
+        end.putExtra("isAlive", pvm.isAlive());
+        end.putExtra("baseScore", baseScore);
+        end.putExtra("timeBonus", timeBonus);
+        startActivity(end);
+        finish();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
         case KeyEvent.KEYCODE_DPAD_LEFT:
-            playerViewModel.movePlayerLeft();
+            pvm.movePlayerLeft();
             break;
         case KeyEvent.KEYCODE_DPAD_RIGHT:
-            playerViewModel.movePlayerRight();
+            pvm.movePlayerRight();
             break;
         case KeyEvent.KEYCODE_DPAD_UP:
-            playerViewModel.movePlayerUp();
+            pvm.movePlayerUp();
             break;
         case KeyEvent.KEYCODE_DPAD_DOWN:
-            playerViewModel.movePlayerDown();
+            pvm.movePlayerDown();
+            break;
+        case KeyEvent.KEYCODE_W:
+            pvm.attackUp();
+            break;
+        case KeyEvent.KEYCODE_A:
+            pvm.attackLeft();
+            break;
+        case KeyEvent.KEYCODE_S:
+            pvm.attackDown();
+            break;
+        case KeyEvent.KEYCODE_D:
+            pvm.attackRight();
             break;
         default:
             break;
