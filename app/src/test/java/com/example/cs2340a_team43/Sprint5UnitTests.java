@@ -58,7 +58,36 @@ public class Sprint5UnitTests {
         player.moveDown();
         assertTrue(player.getX() == 5 && player.getY() == 5);
     }
-
+    @Test
+    public void testPowerupDoesNotAllowPlayerToGoThroughEnemy() {
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setInitialPlayerXY(1, 1);
+        pvm.setXYBounds(40, 18);
+        assertEquals(1, pvm.getPlayerX());
+        assertEquals(1, pvm.getPlayerY());
+        pvm.setPlayerInitialHP("Easy");
+        List<Map> maps = new ArrayList<>(1);
+        XYPair bounds = new XYPair(18, 40);
+        maps.add(new Map(bounds));
+        MapViewModel mvm = new MapViewModel(maps);
+        //MapViewModel mvm = new MapViewModel(18, 40);
+        Map.MapObject[][] x = new Map.MapObject[18][40];
+        for (int row = 0; row < 18; row++) {
+            for (int col = 0; col < 40; col++) {
+                if (row == 0 || row == 17 || col == 0 || col == 39) {
+                    x[row][col] = Map.MapObject.WALL;
+                }
+            }
+        }
+        mvm.setMapLayout(x);
+        pvm.setMap(mvm);
+        EnemyViewModel evm = new EnemyViewModel("eyeball", mvm, 1, 2);
+        pvm.addCollisionObserver(evm);
+        pvm.attainWallWalker();
+        pvm.movePlayerDown();
+        assertEquals(1, pvm.getPlayerX());
+        assertEquals(1, pvm.getPlayerY());
+    }
     @Test
     public void powerupStopsPlayerOffscreen() {
         Player player = Player.getInstance();
@@ -75,8 +104,16 @@ public class Sprint5UnitTests {
             }
         }
         mvm.setMapLayout(x);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setMap(mvm);
+        pvm.attainWallWalker();
+        pvm.setInitialPlayerXY(1, 1);
+        pvm.setXYBounds(2,2);
+        for (int i = 0; i < 10; i++) {
+            pvm.testMovePlayerDown();
+        }
+        assertTrue(player.getY() == 2);
     }
-
     @Test
     public void scoreBoostPowerUpIncreasesAtkPoints() {
         MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
@@ -90,7 +127,7 @@ public class Sprint5UnitTests {
         for (int i = 0; i < 10; i++) {
             pvm.testMovePlayerDown();
         }
-        assertTrue(player.getY() == 2);
+        assertTrue(pvm.getPlayerY() == 2);
         pvm.setPlayerInitialHP("Easy");
         pvm.setInitialPlayerXY(5, 5);
         pvm.resetPowerUps();
@@ -120,8 +157,23 @@ public class Sprint5UnitTests {
         pvm.attackRight();
         assertEquals(15, pvm.getScore());
     }
-
     @Test
+    public void powerupsGetListedWhenAttained() {
+        Player player = Player.getInstance();
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.attainWallWalker();
+        //System.out.println(player.listPowerUps());
+        String firstList = "Power-Ups: Wall Walker";
+        assertTrue(firstList.equals(player.listPowerUps()));
+        pvm.attainHealth();
+        firstList = firstList + " + Health";
+        assertTrue(firstList.equals(player.listPowerUps()));
+        pvm.attainScoreBoost();
+        firstList = firstList + " + Atk Score Boost";
+        assertTrue(firstList.equals(player.listPowerUps()));
+    }
+
+
     public void playerUpAttackWorks() {
         MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
         Map.MapObject[][] mo = new Map.MapObject[18][40];
@@ -134,6 +186,37 @@ public class Sprint5UnitTests {
         EnemyViewModel evm = new EnemyViewModel("cat", mvm, 5, 4);
         pvm.addAttackObserver(evm);
         pvm.attackUp();
+        assertTrue(evm.isAttacked());
+    }
+
+    @Test
+    public void playerRightAttackWorks() {
+        MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
+        Map.MapObject[][] mo = new Map.MapObject[18][40];
+        mvm.setMapLayout(mo);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setMap(mvm);
+        pvm.setPlayerInitialHP("Easy");
+        pvm.setInitialPlayerXY(5, 5);
+        pvm.setXYBounds(39, 17);
+        EnemyViewModel evm = new EnemyViewModel("cat", mvm, 6, 5);
+        pvm.addAttackObserver(evm);
+        pvm.attackRight();
+        assertTrue(evm.isAttacked());
+    }
+    @Test
+    public void playerLeftAttackWorks() {
+        MapViewModel mvm = new MapViewModel(new XYPair(40, 18));
+        Map.MapObject[][] mo = new Map.MapObject[18][40];
+        mvm.setMapLayout(mo);
+        PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.setMap(mvm);
+        pvm.setPlayerInitialHP("Easy");
+        pvm.setInitialPlayerXY(5, 5);
+        pvm.setXYBounds(39, 17);
+        EnemyViewModel evm = new EnemyViewModel("cat", mvm, 4, 5);
+        pvm.addAttackObserver(evm);
+        pvm.attackLeft();
         assertTrue(evm.isAttacked());
     }
 
