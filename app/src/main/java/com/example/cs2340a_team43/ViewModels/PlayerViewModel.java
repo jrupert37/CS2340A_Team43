@@ -171,6 +171,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
         }
         // otherwise...
         this.player.moveDown();
+        notifyMoved();
     }
     
     private boolean checkBoundsAndWalls(int x, int y) {
@@ -291,8 +292,10 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
                 player.setPowerUp(new HealthDecorator(player.getPowerUp()));
                 player.setHP(player.getHP() + 5);
             }
+
         }
     }
+
 
     public void attainScoreBoost(){
         player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
