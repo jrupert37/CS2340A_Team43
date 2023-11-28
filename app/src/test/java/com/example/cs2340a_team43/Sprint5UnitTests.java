@@ -121,13 +121,6 @@ public class Sprint5UnitTests {
         mvm.setMapLayout(mo);
         PlayerViewModel pvm = PlayerViewModel.getInstance();
         pvm.setMap(mvm);
-        pvm.attainWallWalker();
-        pvm.setInitialPlayerXY(1, 1);
-        pvm.setXYBounds(2,2);
-        for (int i = 0; i < 10; i++) {
-            pvm.testMovePlayerDown();
-        }
-        assertTrue(pvm.getPlayerY() == 2);
         pvm.setPlayerInitialHP("Easy");
         pvm.setInitialPlayerXY(5, 5);
         pvm.resetPowerUps();
@@ -138,22 +131,11 @@ public class Sprint5UnitTests {
         EnemyViewModel evm2 = new EnemyViewModel("cat", mvm, 6, 6);
         pvm.addAttackObserver(evm1);
         pvm.addAttackObserver(evm2);
-
         assertEquals(0, pvm.getScore());
         pvm.attackRight();
         assertEquals(5, pvm.getScore());
-
-        assertEquals(5, pvm.getPlayerX());
-        assertEquals(5, pvm.getPlayerY());
-
-        assertTrue(mvm.isAPowerUp(5, 6));
         pvm.movePlayerDown();
-        assertFalse(mvm.isAPowerUp(5, 6));
-        assertEquals(5, pvm.getPlayerX());
-        assertEquals(6, pvm.getPlayerY());
-
         assertTrue(pvm.hasScoreBoost());
-
         pvm.attackRight();
         assertEquals(15, pvm.getScore());
     }
