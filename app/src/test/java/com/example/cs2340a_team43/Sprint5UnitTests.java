@@ -125,6 +125,7 @@ public class Sprint5UnitTests {
         pvm.setInitialPlayerXY(5, 5);
         pvm.resetPowerUps();
         pvm.setXYBounds(39, 17);
+        pvm.resetScore();
         PowerUp scoreBoost = new ScoreBoostPowerUp(5,6);
         mvm.setPowerUp(scoreBoost);
         EnemyViewModel evm1 = new EnemyViewModel("cat", mvm, 6, 5);
@@ -143,6 +144,7 @@ public class Sprint5UnitTests {
     public void powerupsGetListedWhenAttained() {
         Player player = Player.getInstance();
         PlayerViewModel pvm = PlayerViewModel.getInstance();
+        pvm.resetPowerUps();
         pvm.attainWallWalker();
         //System.out.println(player.listPowerUps());
         String firstList = "Power-Ups: Wall Walker";

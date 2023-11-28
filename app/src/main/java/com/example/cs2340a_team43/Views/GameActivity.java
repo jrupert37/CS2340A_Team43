@@ -194,7 +194,7 @@ public class GameActivity extends AppCompatActivity {
                 if (!pvm.isAlive()) {
                     isRunning = false;
                 }
-                if (pvm.playerIsAtExit()){
+                if (pvm.playerIsAtExit()) {
                     attemptToExit();
                 }
                 checkEnemiesStatus();
@@ -204,7 +204,7 @@ public class GameActivity extends AppCompatActivity {
         });
         gameThread.start();
     }
-    private void attemptToExit(){
+    private void attemptToExit() {
         if (pvm.hasKey()) {
             if (currentFloor == 2) {
                 isRunning = false;

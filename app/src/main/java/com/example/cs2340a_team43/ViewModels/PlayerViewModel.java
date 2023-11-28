@@ -256,8 +256,8 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
     public boolean playerIsAtExit() {
         return mvm.xyIsAnExit(getPlayerX(), getPlayerY());
     }
-    public boolean playerCanLeave(){
-        return(playerIsAtExit() && player.hasKey());
+    public boolean playerCanLeave() {
+        return (playerIsAtExit() && player.hasKey());
     }
 
     public int getPlayerHP() {
@@ -297,11 +297,11 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
     }
 
 
-    public void attainScoreBoost(){
+    public void attainScoreBoost() {
         player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
         //player.setScoreBoost(true);
     }
-    public void attainWallWalker(){
+    public void attainWallWalker() {
         player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
         //player.setWallWalker(true);
     }
