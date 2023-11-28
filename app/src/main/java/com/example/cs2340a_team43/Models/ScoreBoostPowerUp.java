@@ -10,6 +10,6 @@ public class ScoreBoostPowerUp extends PowerUp {
     }
 
     public ScoreBoostPowerUp(int x, int y) {
-        super("scoore boost", x, y);
+        super("score boost", x, y);
     }
 } // ScoreBoostPowerUp (PowerUp child class)

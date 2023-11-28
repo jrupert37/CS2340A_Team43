@@ -173,12 +173,12 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
         this.player.moveDown();
         notifyMoved();
     }
-    
+
     private boolean checkBoundsAndWalls(int x, int y) {
         return (willBeOutOfBounds(x, y)
                 || (!player.canWalkThroughWalls() && willCollideWithWall(x, y)));
     }
-    
+
     private void notifyMoved() {
         notifyWithPosition();
         notifyViewObservers();
@@ -280,7 +280,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
     public boolean willBeOutOfBounds(int x, int y) {
         return (x < 0 || x > xLimit || y < 0 || y > yLimit);
     }
-    
+
     private void checkIfObtainedPowerUp() {
         if (mvm.isAPowerUp(getPlayerX(), getPlayerY())) {
             String type = mvm.getThisFloorsPowerUp().getType();
@@ -292,7 +292,7 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
                 player.setPowerUp(new HealthDecorator(player.getPowerUp()));
                 player.setHP(player.getHP() + 5);
             }
-
+            mvm.powerUpIsTaken();
         }
     }
 
@@ -360,4 +360,3 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
         return player.hasKey();
     }
 } // PlayerViewModel
-
