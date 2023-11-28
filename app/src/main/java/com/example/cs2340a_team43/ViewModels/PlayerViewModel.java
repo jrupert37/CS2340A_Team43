@@ -171,14 +171,14 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
         }
         // otherwise...
         this.player.moveDown();
-        checkAndNotify();
+        notifyMoved();
     }
-    
+
     private boolean checkBoundsAndWalls(int x, int y) {
         return (willBeOutOfBounds(x, y)
                 || (!player.canWalkThroughWalls() && willCollideWithWall(x, y)));
     }
-    
+
     private void notifyMoved() {
         notifyWithPosition();
         notifyViewObservers();
@@ -256,6 +256,9 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
     public boolean playerIsAtExit() {
         return mvm.xyIsAnExit(getPlayerX(), getPlayerY());
     }
+    public boolean playerCanLeave(){
+        return(playerIsAtExit() && player.hasKey());
+    }
 
     public int getPlayerHP() {
         return this.player.getHP();
@@ -277,12 +280,10 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
     public boolean willBeOutOfBounds(int x, int y) {
         return (x < 0 || x > xLimit || y < 0 || y > yLimit);
     }
-    
+
     private void checkIfObtainedPowerUp() {
-        System.out.println(mvm.isAPowerUp(getPlayerX(), getPlayerY()));
         if (mvm.isAPowerUp(getPlayerX(), getPlayerY())) {
             String type = mvm.getThisFloorsPowerUp().getType();
-            System.out.println("HERE " + type);
             if (type.equals("score boost")) {
                 player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
             } else if (type.equals("wall walker")) {
@@ -292,27 +293,21 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
                 player.setHP(player.getHP() + 5);
             }
             mvm.powerUpIsTaken();
-//                 attainScoreBoost();
-//             } else if (type.equals("wall walker")) {
-//                 attainWallWalker();
-//             } else { // type.equals("health")
-//                 attainHealth();
-// >>>>>>> main
-//             }
-//         }
-//     }
-//     public void attainScoreBoost(){
-//         player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
-//         player.setScoreBoost(true);
-//     }
-//     public void attainWallWalker(){
-//         player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
-//         player.setWallWalker(true);
-//     }
-//     public void attainHealth(){
-//         player.setPowerUp(new HealthDecorator(player.getPowerUp()));
-//         player.setHP(player.getHP() + 10);
         }
+    }
+
+
+    public void attainScoreBoost(){
+        player.setPowerUp(new ScoreBoostDecorator(player.getPowerUp()));
+        //player.setScoreBoost(true);
+    }
+    public void attainWallWalker(){
+        player.setPowerUp(new WallWalkerDecorator(player.getPowerUp()));
+        //player.setWallWalker(true);
+    }
+    public void attainHealth() {
+        player.setPowerUp(new HealthDecorator(player.getPowerUp()));
+        player.setHP(player.getHP() + 10);
     }
 
     private void checkIfObtainedKey() {
@@ -365,4 +360,3 @@ public class PlayerViewModel extends CharacterViewModel implements Subject,
         return player.hasKey();
     }
 } // PlayerViewModel
-
