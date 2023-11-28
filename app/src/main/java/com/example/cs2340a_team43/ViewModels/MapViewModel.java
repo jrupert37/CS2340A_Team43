@@ -70,6 +70,9 @@ public class MapViewModel extends ViewModel {
 
     public boolean isAPowerUp(int x, int y) {
         PowerUp pu = getThisFloorsPowerUp();
+        if (pu == null) {
+            return false;
+        }
         return !pu.isTaken() && pu.getX() == x && pu.getY() == y;
     }
 
