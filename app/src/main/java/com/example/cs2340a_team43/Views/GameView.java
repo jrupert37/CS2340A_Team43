@@ -16,7 +16,7 @@ import com.example.cs2340a_team43.ViewModels.EnemyViewModel;
 import com.example.cs2340a_team43.ViewModels.MapViewModel;
 import com.example.cs2340a_team43.ViewModels.PlayerViewModel;
 import java.util.List;
-
+// * This class is responsible for drawing and redrawing the game screen. * //
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, ViewObserver {
     private final PlayerViewModel playerViewModel;
     private final MapViewModel mapViewModel;
